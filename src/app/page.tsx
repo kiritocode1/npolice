@@ -1,9 +1,18 @@
-import Image from "next/image";
+import Navbar from "@/components/navbar";
+import PageAccessibilityChanger from "@/components/Page-Accessibility-Changer";
 
-export default function Home() {
-  return (
-    <div className="">
-hello there
-    </div>
-  );
-}
+const page = () => {
+	return (
+		<div>
+			<Navbar />
+			<main
+				id="main-content"
+				className="pt-32"
+			>
+				<PageAccessibilityChanger />
+			</main>
+		</div>
+	);
+};
+
+export default page;
