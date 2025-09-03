@@ -8,56 +8,58 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import NationalEmblem from "./National-Emblem";
 import { DropdownMenu } from "./ui/dropdown-menu";
+import { useLanguage } from "@/contexts/language-context";
+import LanguageSwitch from "./language-switch";
 
-const menuItems = [
+const getMenuItems = (t: (key: string) => string) => [
 	{
-		name: "Home",
+		name: t("nav.home"),
 		href: "/",
 		options: [
-			{ label: "Dashboard", href: "/", Icon: <Shield className="h-4 w-4" /> },
-			{ label: "Latest News", href: "/news", Icon: <FileText className="h-4 w-4" /> },
-			{ label: "Announcements", href: "/announcements", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.home.dashboard"), href: "/", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.home.news"), href: "/news", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.home.announcements"), href: "/announcements", Icon: <AlertTriangle className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: "About",
+		name: t("nav.about"),
 		href: "/about",
 		options: [
-			{ label: "About Us", href: "/about", Icon: <Info className="h-4 w-4" /> },
-			{ label: "Our Mission", href: "/mission", Icon: <Shield className="h-4 w-4" /> },
-			{ label: "Leadership", href: "/leadership", Icon: <Users className="h-4 w-4" /> },
-			{ label: "History", href: "/history", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.about.us"), href: "/about", Icon: <Info className="h-4 w-4" /> },
+			{ label: t("nav.about.mission"), href: "/mission", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.about.leadership"), href: "/leadership", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.about.history"), href: "/history", Icon: <FileText className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: "Services",
+		name: t("nav.services"),
 		href: "/services",
 		options: [
-			{ label: "Police Verification", href: "/verification", Icon: <UserCheck className="h-4 w-4" /> },
-			{ label: "FIR Registration", href: "/fir", Icon: <FileText className="h-4 w-4" /> },
-			{ label: "Traffic Services", href: "/traffic", Icon: <MapPin className="h-4 w-4" /> },
-			{ label: "Women Safety", href: "/women-safety", Icon: <Shield className="h-4 w-4" /> },
-			{ label: "Community Policing", href: "/community", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.services.verification"), href: "/verification", Icon: <UserCheck className="h-4 w-4" /> },
+			{ label: t("nav.services.fir"), href: "/fir", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.services.traffic"), href: "/traffic", Icon: <MapPin className="h-4 w-4" /> },
+			{ label: t("nav.services.women"), href: "/women-safety", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.services.community"), href: "/community", Icon: <Users className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: "Contact",
+		name: t("nav.contact"),
 		href: "/contact",
 		options: [
-			{ label: "Contact Us", href: "/contact", Icon: <Phone className="h-4 w-4" /> },
-			{ label: "Police Stations", href: "/stations", Icon: <Building className="h-4 w-4" /> },
-			{ label: "Emergency Contacts", href: "/emergency-contacts", Icon: <AlertTriangle className="h-4 w-4" /> },
-			{ label: "Feedback", href: "/feedback", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.contact.us"), href: "/contact", Icon: <Phone className="h-4 w-4" /> },
+			{ label: t("nav.contact.stations"), href: "/stations", Icon: <Building className="h-4 w-4" /> },
+			{ label: t("nav.contact.emergency"), href: "/emergency-contacts", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.contact.feedback"), href: "/feedback", Icon: <FileText className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: "Emergency",
+		name: t("nav.emergency"),
 		href: "/emergency",
 		options: [
-			{ label: "Call 112", href: "tel:112", Icon: <Phone className="h-4 w-4" /> },
-			{ label: "Women Helpline", href: "tel:1091", Icon: <Shield className="h-4 w-4" /> },
-			{ label: "Child Helpline", href: "tel:1098", Icon: <Users className="h-4 w-4" /> },
-			{ label: "Report Crime", href: "/report-crime", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.emergency.call"), href: "tel:112", Icon: <Phone className="h-4 w-4" /> },
+			{ label: t("nav.emergency.women"), href: "tel:1091", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.emergency.child"), href: "tel:1098", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.emergency.report"), href: "/report-crime", Icon: <AlertTriangle className="h-4 w-4" /> },
 		],
 	},
 ];
@@ -119,37 +121,41 @@ function ThemeToggle({ className }: ThemeToggleProps) {
 }
 
 const AccessibilityMenu = () => {
+	const { t } = useLanguage();
+
 	return (
 		<div className="flex items-center gap-2 justify-end p-2 z-10 bg-background/95 backdrop-blur-sm">
 			<Link
 				href="#main-content"
 				className="hover:underline text-sm"
 			>
-				Skip to main content
+				{t("accessibility.skip")}
 			</Link>
 			<span className="text-muted-foreground">|</span>
 			<Link
 				href="/screen-reader-access"
 				className="hover:underline text-sm"
 			>
-				Screen Reader Access
+				{t("accessibility.screen")}
 			</Link>
 			<Link
 				href="/sitemap.xml"
 				className="hover:underline text-sm"
 			>
-				Sitemap
+				{t("accessibility.sitemap")}
 			</Link>
 			<span className="text-muted-foreground">|</span>
+			<LanguageSwitch />
 			<div className="flex -space-x-px">
 				<Button
 					variant="outline"
 					className="rounded-r-none focus:z-10"
 					onClick={() => {
 						const currentSize = parseFloat(getComputedStyle(document.body).fontSize) || 16;
-						document.body.style.fontSize = `${Math.min(currentSize + 2, 24)}px`;
+						const newSize = Math.min(currentSize + 2, 24);
+						document.body.style.fontSize = `${newSize}px`;
 					}}
-					aria-label="Increase font size"
+					aria-label={t("accessibility.font.increase")}
 				>
 					+A
 				</Button>
@@ -159,7 +165,7 @@ const AccessibilityMenu = () => {
 					onClick={() => {
 						document.body.style.fontSize = "16px";
 					}}
-					aria-label="Reset font size"
+					aria-label={t("accessibility.font.reset")}
 				>
 					A
 				</Button>
@@ -168,9 +174,10 @@ const AccessibilityMenu = () => {
 					className="rounded-l-none focus:z-10"
 					onClick={() => {
 						const currentSize = parseFloat(getComputedStyle(document.body).fontSize) || 16;
-						document.body.style.fontSize = `${Math.max(currentSize - 2, 12)}px`;
+						const newSize = Math.max(currentSize - 2, 12);
+						document.body.style.fontSize = `${newSize}px`;
 					}}
-					aria-label="Decrease font size"
+					aria-label={t("accessibility.font.decrease")}
 				>
 					-A
 				</Button>
@@ -183,6 +190,7 @@ const AccessibilityMenu = () => {
 const Navbar = () => {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
+	const { t } = useLanguage();
 
 	React.useEffect(() => {
 		const handleScroll = () => {
@@ -191,6 +199,8 @@ const Navbar = () => {
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+	const menuItems = getMenuItems(t);
 
 	return (
 		<header>
@@ -204,21 +214,21 @@ const Navbar = () => {
 						<div className="flex w-full justify-between lg:w-auto">
 							<Link
 								href="/"
-								aria-label="Chatrapati Shambhaji Nagar Police Department - Home"
+								aria-label={t("dept.home")}
 								className="flex gap-3 items-center group"
 							>
 								<div className="transition-transform duration-200 group-hover:scale-105">
 									<NationalEmblem className="w-12 h-12" />
 								</div>
 								<div className="hidden sm:block">
-									<p className="font-bold text-lg lg:text-xl tracking-tight">Chatrapati Shambhaji Nagar</p>
-									<p className="text-sm text-muted-foreground">Police Department</p>
+									<p className="font-bold text-lg lg:text-xl tracking-tight">{t("dept.name")}</p>
+									<p className="text-sm text-muted-foreground">{t("dept.type")}</p>
 								</div>
 							</Link>
 
 							<button
 								onClick={() => setMenuState(!menuState)}
-								aria-label={menuState ? "Close Menu" : "Open Menu"}
+								aria-label={menuState ? t("accessibility.menu.close") : t("accessibility.menu.open")}
 								aria-expanded={menuState}
 								className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
 							>
@@ -307,7 +317,7 @@ const Navbar = () => {
 									className={cn(isScrolled && "lg:hidden")}
 								>
 									<Link href="tel:112">
-										<span>Call 112</span>
+										<span>{t("nav.emergency.call")}</span>
 									</Link>
 								</Button>
 								<Button
@@ -316,7 +326,7 @@ const Navbar = () => {
 									className={cn(isScrolled && "lg:hidden")}
 								>
 									<Link href="/contact">
-										<span>Contact Us</span>
+										<span>{t("btn.contact")}</span>
 									</Link>
 								</Button>
 								<Button
@@ -325,7 +335,7 @@ const Navbar = () => {
 									className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
 								>
 									<Link href="tel:112">
-										<span>Emergency</span>
+										<span>{t("btn.emergency")}</span>
 									</Link>
 								</Button>
 							</div>

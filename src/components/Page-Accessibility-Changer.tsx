@@ -3,9 +3,10 @@
 import * as React from "react";
 import { Button } from "./ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
-import { LucideSettings, Moon, Type, RotateCcw, Plus, Minus, AlignJustify, Volume2, MousePointer, Pause, ImageOff, Link, Waves, Palette, FlipHorizontal } from "lucide-react";
+import { LucideSettings, Moon, Type, RotateCcw, Plus, Minus, AlignJustify, Volume2, MousePointer, Pause, ImageOff, Link, Waves, Palette, FlipHorizontal, VolumeX } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
+import { useScreenReader } from "@/hooks/use-screen-reader";
 
 const drawerVariants = {
 	hidden: {
@@ -13,7 +14,7 @@ const drawerVariants = {
 		opacity: 0,
 		rotateY: 5,
 		transition: {
-			type: "spring",
+			type: "spring" as const,
 			stiffness: 300,
 			damping: 30,
 		},
@@ -23,7 +24,7 @@ const drawerVariants = {
 		opacity: 1,
 		rotateY: 0,
 		transition: {
-			type: "spring",
+			type: "spring" as const,
 			stiffness: 300,
 			damping: 30,
 			mass: 0.8,
@@ -38,7 +39,7 @@ const itemVariants = {
 		x: 20,
 		opacity: 0,
 		transition: {
-			type: "spring",
+			type: "spring" as const,
 			stiffness: 300,
 			damping: 30,
 		},
@@ -47,7 +48,7 @@ const itemVariants = {
 		x: 0,
 		opacity: 1,
 		transition: {
-			type: "spring",
+			type: "spring" as const,
 			stiffness: 300,
 			damping: 30,
 			mass: 0.8,
@@ -57,8 +58,9 @@ const itemVariants = {
 
 const PageAccessibilityChanger = () => {
 	const { theme, setTheme } = useTheme();
-	const [fontSize, setFontSize] = React.useState("1rem");
+
 	const [isOpen, setIsOpen] = React.useState(false);
+	const { isEnabled: screenReaderEnabled, toggleScreenReader } = useScreenReader();
 
 	// Accessibility state management
 	const [textSpacing, setTextSpacing] = React.useState(false);
@@ -73,7 +75,6 @@ const PageAccessibilityChanger = () => {
 	const [hideImages, setHideImages] = React.useState(false);
 
 	const handleFontSizeChange = (size: string) => {
-		setFontSize(size);
 		document.body.style.fontSize = size;
 	};
 
@@ -113,10 +114,18 @@ const PageAccessibilityChanger = () => {
 		setDyslexiaFont(!dyslexiaFont);
 		if (!dyslexiaFont) {
 			applyGlobalCSS("--dyslexia-font", "OpenDyslexic, Comic Sans MS, sans-serif");
-			document.body.style.fontFamily = "var(--dyslexia-font)";
+			const style = document.createElement("style");
+			style.id = "dyslexia-font";
+			style.textContent = `
+				body, body *:not([data-accessibility-panel]):not([data-accessibility-panel] *) { 
+					font-family: var(--dyslexia-font) !important; 
+				}
+			`;
+			document.head.appendChild(style);
 		} else {
 			removeGlobalCSS("--dyslexia-font");
-			document.body.style.fontFamily = "";
+			const existingStyle = document.getElementById("dyslexia-font");
+			if (existingStyle) existingStyle.remove();
 		}
 	};
 
@@ -141,7 +150,14 @@ const PageAccessibilityChanger = () => {
 			applyGlobalCSS("--saturation", "0.3");
 			const style = document.createElement("style");
 			style.id = "saturation-filter";
-			style.textContent = "body > *:not([data-accessibility-panel]) { filter: saturate(var(--saturation)) !important; }";
+			style.textContent = `
+				body > *:not([data-accessibility-panel]):not([data-accessibility-panel] *) { 
+					filter: saturate(var(--saturation)) !important; 
+				}
+				[data-accessibility-panel], [data-accessibility-panel] * {
+					filter: none !important;
+				}
+			`;
 			document.head.appendChild(style);
 		} else {
 			removeGlobalCSS("--saturation");
@@ -156,7 +172,14 @@ const PageAccessibilityChanger = () => {
 			applyGlobalCSS("--invert", "1");
 			const style = document.createElement("style");
 			style.id = "invert-filter";
-			style.textContent = "body > *:not([data-accessibility-panel]) { filter: invert(var(--invert)) !important; }";
+			style.textContent = `
+				body > *:not([data-accessibility-panel]):not([data-accessibility-panel] *) { 
+					filter: invert(var(--invert)) !important; 
+				}
+				[data-accessibility-panel], [data-accessibility-panel] * {
+					filter: none !important;
+				}
+			`;
 			document.head.appendChild(style);
 		} else {
 			removeGlobalCSS("--invert");
@@ -244,6 +267,7 @@ const PageAccessibilityChanger = () => {
 		setLargeCursor(false);
 		setPauseAnimations(false);
 		setHideImages(false);
+		toggleScreenReader(); // Reset screen reader if enabled
 
 		// Clear all custom styles
 		document.body.style.fontSize = "";
@@ -257,7 +281,7 @@ const PageAccessibilityChanger = () => {
 		document.body.style.removeProperty("transition-duration");
 
 		// Remove custom style elements
-		["link-highlight", "pause-animations", "hide-images", "saturation-filter", "invert-filter"].forEach((id) => {
+		["link-highlight", "pause-animations", "hide-images", "saturation-filter", "invert-filter", "dyslexia-font"].forEach((id) => {
 			const element = document.getElementById(id);
 			if (element) element.remove();
 		});
@@ -295,6 +319,7 @@ const PageAccessibilityChanger = () => {
 		{ icon: FlipHorizontal, label: "Invert Colors", action: handleInvertColors, active: invertColors },
 		{ icon: Link, label: "Highlight Links", action: handleHighlightLinks, active: highlightLinks },
 		{ icon: Volume2, label: "Text To Speech", action: handleTextToSpeech },
+		{ icon: screenReaderEnabled ? VolumeX : Volume2, label: "Screen Reader", action: toggleScreenReader, active: screenReaderEnabled },
 		{ icon: MousePointer, label: "Cursor", action: handleLargeCursor, active: largeCursor },
 		{ icon: Pause, label: "Pause Animation", action: handlePauseAnimations, active: pauseAnimations },
 		{ icon: ImageOff, label: "Hide Images", action: handleHideImages, active: hideImages },
@@ -317,13 +342,13 @@ const PageAccessibilityChanger = () => {
 				</DrawerTrigger>
 				<DrawerContent className="h-full w-1/2 ml-auto p-6 rounded-l-2xl shadow-xl">
 					<motion.div
-						variants={drawerVariants as any}
+						variants={drawerVariants}
 						initial="hidden"
 						animate="visible"
 						className="h-full flex flex-col"
 					>
 						{/* Header */}
-						<motion.div variants={itemVariants as any}>
+						<motion.div variants={itemVariants}>
 							<DrawerHeader className="px-0 pb-4">
 								<div className="flex items-center justify-between">
 									<DrawerTitle className="text-xl font-semibold text-purple-600">Accessibility options</DrawerTitle>
@@ -351,13 +376,13 @@ const PageAccessibilityChanger = () => {
 
 						{/* Grid of accessibility options */}
 						<motion.div
-							variants={itemVariants as any}
+							variants={itemVariants}
 							className="flex-1 grid grid-cols-3 gap-4"
 						>
 							{accessibilityOptions.map((option, index) => (
 								<motion.div
 									key={index}
-									variants={itemVariants as any}
+									variants={itemVariants}
 									transition={{ delay: index * 0.05 }}
 								>
 									<Button
@@ -378,7 +403,7 @@ const PageAccessibilityChanger = () => {
 
 						{/* Footer */}
 						<motion.div
-							variants={itemVariants as any}
+							variants={itemVariants}
 							className="mt-6 flex items-center justify-between"
 						>
 							<Button
