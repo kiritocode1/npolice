@@ -1,17 +1,21 @@
-import Navbar from "@/components/navbar";
-import PageAccessibilityChanger from "@/components/Page-Accessibility-Changer";
+import CustomsPortalBox from "@/components/portal-box";
 
 const page = () => {
 	return (
-		<div>
-			<Navbar />
-			<main
-				id="main-content"
-				className="pt-32"
-			>
-				<PageAccessibilityChanger />
-			</main>
-		</div>
+		<main
+			id="main-content"
+			className="min-w-full min-h-[96vh] flex items-end justify-center "
+			style={{
+				backgroundImage: "url('/sunrise.svg')",
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+				backgroundRepeat: "no-repeat",
+			}}
+		>
+			<div className="w-full   flex items-end justify-center">
+				<CustomsPortalBox/>
+			</div>
+		</main>
 	);
 };
 
