@@ -62,7 +62,7 @@ export default function CustomsPortalBox() {
 				{/* Cards row */}
 				<div className="grid grid-cols-1 gap-4 px-6 pb-8 md:grid-cols-2 md:px-10 lg:grid-cols-4">
 					{/* Card 1: Latest News & Updates */}
-					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm h-80">
+					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm h-80 col-span-1 ">
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45"
@@ -85,7 +85,7 @@ export default function CustomsPortalBox() {
 							<ArrowIcon />
 						</span>
 						<div className="flex h-28 w-full items-center justify-center ">
-							<div className="flex h-24 w-24 items-center justify-center rounded-full border border-neutral-200 bg-white "></div>
+							<div className="flex h-24 w-24 items-center justify-center rounded-full border border-neutral-200 bg-white col-span-1"></div>
 						</div>
 						<div className="mt-3">
 							<h3 className="text-base font-semibold text-neutral-900">Chatrapati Shambhaji Nagar Police Department</h3>
@@ -97,11 +97,12 @@ export default function CustomsPortalBox() {
 					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm">
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45"
+                            className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 col-span-1
+                            "
 						>
 							<ArrowIcon />
 						</span>
-						<div className="flex h-28 w-full items-center justify-center rounded-2xl bg-neutral-50"></div>
+						<div className="flex h-28 w-full items-center justify-center rounded-2xl bg-neutral-50 col-span-1"></div>
 						<div className="mt-3">
 							<h3 className="text-base font-semibold text-neutral-900">About Us</h3>
 							<p className="mt-1 text-sm leading-6 text-neutral-600">Learn about our mission, services, and commitment to secure and efficient police services.</p>
@@ -112,14 +113,11 @@ export default function CustomsPortalBox() {
 					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm">
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45"
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 col-span-1"
 						>
 							<ArrowIcon />
 						</span>
-						<div className="flex h-28 w-full items-center justify-center rounded-2xl bg-neutral-50">
-							<span className="text-center text-sm font-medium text-neutral-600">Police Services</span>
-						</div>
-						<div className="mt-3">
+						<div className="mt-40">
 							<h3 className="text-base font-semibold text-neutral-900">Police Services</h3>
 							<p className="mt-1 text-sm leading-6 text-neutral-600">Police services for the citizens of Chatrapati Shambhaji Nagar.</p>
 						</div>

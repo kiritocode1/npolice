@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Button } from "./ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
-import { LucideSettings, Moon, Type, RotateCcw, Plus, Minus, AlignJustify, Volume2, MousePointer, Pause, ImageOff, Link, Waves, Palette, FlipHorizontal, VolumeX } from "lucide-react";
+import { Moon, Type, RotateCcw, Plus, Minus, AlignJustify, Volume2, MousePointer, Pause, ImageOff, Link, Waves, Palette, FlipHorizontal, VolumeX, PersonStanding } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { useScreenReader } from "@/hooks/use-screen-reader";
@@ -336,9 +336,19 @@ const PageAccessibilityChanger = () => {
 				onOpenChange={setIsOpen}
 			>
 				<DrawerTrigger asChild>
-					<Button className="rounded-full w-16 h-16 bg-purple-600 hover:bg-purple-700 shadow-lg">
-						<LucideSettings className="w-8 h-8" />
-					</Button>
+					<div className="group">
+						<Button
+							aria-label="Accessibility options"
+							className="flex items-center justify-center gap-3 rounded-full w-16 group-hover:w-64 h-16 bg-purple-600 hover:bg-purple-700 shadow-lg transition-all duration-300 overflow-hidden pr-4 pl-0 group-hover:pl-6"
+						>
+							<PersonStanding className="w-32 h-32 scale-150 shrink-0 dark:text-white" />
+							<div className="overflow-hidden max-w-0 group-hover:max-w-[160px] transition-all duration-300">
+								<span className="block text-white text-base font-medium whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+									Accessibility options
+								</span>
+							</div>
+						</Button>
+					</div>
 				</DrawerTrigger>
 				<DrawerContent className="h-full w-1/2 ml-auto p-6 rounded-l-2xl shadow-xl">
 					<motion.div
