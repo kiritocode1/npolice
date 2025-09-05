@@ -71,6 +71,27 @@ const translations = {
 		"dept.name": "Chatrapati Shambhaji Nagar",
 		"dept.type": "Police Department",
 		"dept.home": "Chatrapati Shambhaji Nagar Police Department - Home",
+
+		// Portal
+		"portal.welcome": "Welcome to Chatrapati Shambhaji Nagar Police Department",
+		"portal.title": "One-Stop Portal For Police Services",
+		"portal.description": "The Chatrapati Shambhaji Nagar Police Department is your go-to source for police services—simplifying access to various police services for citizens.",
+		"portal.viewDetails": "View Details",
+
+		// Portal Cards
+		"portal.cards.news.title": "Latest News & Updates",
+		"portal.cards.news.description": "Stay updated with the latest police regulations and announcements.",
+		"portal.cards.portal.title": "Portal Access",
+		"portal.cards.portal.description": "Gateway to police services",
+		"portal.cards.about.title": "About Us",
+		"portal.cards.about.description": "Our mission and services",
+		"portal.cards.services.title": "Police Services",
+		"portal.cards.services.description": "Comprehensive police services for citizens of Chatrapati Shambhaji Nagar.",
+
+		// Portal Emblem
+		"portal.emblem.national": "National",
+		"portal.emblem.emblem": "Emblem",
+		"portal.emblem.city": "Chatrapati\nShambhaji Nagar",
 	},
 	mr: {
 		// Navigation
@@ -129,6 +150,27 @@ const translations = {
 		"dept.name": "छत्रपती संभाजीनगर",
 		"dept.type": "पोलिस विभाग",
 		"dept.home": "छत्रपती संभाजीनगर पोलिस विभाग - मुख्यपृष्ठ",
+
+		// Portal
+		"portal.welcome": "छत्रपती संभाजीनगर पोलिस विभागात आपले स्वागत आहे",
+		"portal.title": "पोलिस सेवांसाठी वन-स्टॉप पोर्टल",
+		"portal.description": "छत्रपती संभाजीनगर पोलिस विभाग हे नागरिकांसाठी विविध पोलिस सेवांचा प्रवेश सुलभ करणारा आपला विश्वसनीय स्रोत आहे.",
+		"portal.viewDetails": "तपशील पहा",
+
+		// Portal Cards
+		"portal.cards.news.title": "ताज्या बातम्या आणि अपडेट्स",
+		"portal.cards.news.description": "नवीनतम पोलिस नियम आणि घोषणांची माहिती मिळवा.",
+		"portal.cards.portal.title": "पोर्टल प्रवेश",
+		"portal.cards.portal.description": "पोलिस सेवांचे प्रवेशद्वार",
+		"portal.cards.about.title": "आमच्याबद्दल",
+		"portal.cards.about.description": "आमचे ध्येय आणि सेवा",
+		"portal.cards.services.title": "पोलिस सेवा",
+		"portal.cards.services.description": "छत्रपती संभाजीनगरच्या नागरिकांसाठी सर्वसमावेशक पोलिस सेवा.",
+
+		// Portal Emblem
+		"portal.emblem.national": "राष्ट्रीय",
+		"portal.emblem.emblem": "चिन्ह",
+		"portal.emblem.city": "छत्रपती\nसंभाजीनगर",
 	},
 };
 
