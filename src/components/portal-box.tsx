@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { InteractiveHoverButton } from "./Shiny-button";
+import { motion } from "framer-motion";
 
 function ArrowIcon() {
 	return (
@@ -59,10 +62,16 @@ export default function CustomsPortalBox() {
 					</div>
 				</div>
 
-				{/* Cards row */}
-				<div className="grid grid-cols-1 gap-4 px-6 pb-8 md:grid-cols-2 md:px-10 lg:grid-cols-4">
-					{/* Card 1: Latest News & Updates */}
-					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm h-80 col-span-1 ">
+				{/* Cards row - Sunrise Layout */}
+				<div className="flex items-end justify-center gap-4 px-6 pb-8 md:px-10 h-96">
+					{/* Card 1: Latest News & Updates - Tallest (leftmost) */}
+					<motion.div
+						className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm w-48 h-80 flex flex-col justify-between"
+						initial={{ opacity: 0, y: 50 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, delay: 0.1 }}
+						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+					>
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45"
@@ -70,58 +79,98 @@ export default function CustomsPortalBox() {
 							<ArrowIcon />
 						</span>
 
-						<div className="mt-20">
+						<div className="mt-16">
 							<h3 className="text-base font-semibold text-neutral-900">Latest News & Updates</h3>
-							<p className="mt-1 text-sm leading-6 text-neutral-600">Stay updated with the latest customs regulations, trade policies, and important announcements.</p>
+							<p className="mt-2 text-sm leading-6 text-neutral-600">Stay updated with the latest police regulations and announcements.</p>
 						</div>
-					</div>
+					</motion.div>
 
-					{/* Card 2: Crest / Portal */}
-					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm ">
+					{/* Card 2: Portal - Medium height */}
+					<motion.div
+						className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm w-44 h-64 flex flex-col justify-between"
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, delay: 0.2 }}
+						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+					>
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45"
 						>
 							<ArrowIcon />
 						</span>
-						<div className="flex h-28 w-full items-center justify-center ">
-							<div className="flex h-24 w-24 items-center justify-center rounded-full border border-neutral-200 bg-white col-span-1"></div>
+						<div className="flex-1 flex items-center justify-center">
+							<div className="flex h-16 w-16 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50"></div>
 						</div>
-						<div className="mt-3">
-							<h3 className="text-base font-semibold text-neutral-900">Chatrapati Shambhaji Nagar Police Department</h3>
-							<p className="mt-1 text-sm leading-6 text-neutral-600">Central gateway for declarations, duties, and policy references.</p>
+						<div>
+							<h3 className="text-sm font-semibold text-neutral-900">Portal Access</h3>
+							<p className="mt-1 text-xs leading-5 text-neutral-600">Gateway to police services</p>
 						</div>
-					</div>
+					</motion.div>
 
-					{/* Card 3: About Us */}
-					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm">
+					{/* National Emblem - Center, shortest */}
+					<motion.div
+						className="flex flex-col items-center justify-center w-40 h-48"
+						initial={{ opacity: 0, scale: 0.8 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ duration: 0.6, delay: 0.3 }}
+					>
+						<div className="w-20 h-20 rounded-full border-4 border-amber-400 bg-amber-50 flex items-center justify-center mb-3">
+							<div className="text-center">
+								<span className="text-amber-700 font-bold text-xs">National</span>
+								<br />
+								<span className="text-amber-700 font-bold text-xs">Emblem</span>
+							</div>
+						</div>
+						<h3 className="text-amber-800 font-semibold text-sm text-center leading-tight">
+							Chatrapati
+							<br />
+							Shambhaji Nagar
+						</h3>
+					</motion.div>
+
+					{/* Card 3: About Us - Medium height */}
+					<motion.div
+						className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm w-44 h-64 flex flex-col justify-between"
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, delay: 0.4 }}
+						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+					>
 						<span
 							aria-hidden="true"
-                            className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 col-span-1
-                            "
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45"
 						>
 							<ArrowIcon />
 						</span>
-						<div className="flex h-28 w-full items-center justify-center rounded-2xl bg-neutral-50 col-span-1"></div>
-						<div className="mt-3">
-							<h3 className="text-base font-semibold text-neutral-900">About Us</h3>
-							<p className="mt-1 text-sm leading-6 text-neutral-600">Learn about our mission, services, and commitment to secure and efficient police services.</p>
+						<div className="flex-1 flex items-center justify-center">
+							<div className="w-full h-16 rounded-2xl bg-neutral-50"></div>
 						</div>
-					</div>
+						<div>
+							<h3 className="text-sm font-semibold text-neutral-900">About Us</h3>
+							<p className="mt-1 text-xs leading-5 text-neutral-600">Our mission and services</p>
+						</div>
+					</motion.div>
 
-					{/* Card 4: Airport Customs & Traveler Info */}
-					<div className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm">
+					{/* Card 4: Police Services - Tallest (rightmost) */}
+					<motion.div
+						className="relative rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm w-48 h-80 flex flex-col justify-between"
+						initial={{ opacity: 0, y: 50 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, delay: 0.5 }}
+						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+					>
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 col-span-1"
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45"
 						>
 							<ArrowIcon />
 						</span>
-						<div className="mt-40">
+						<div className="mt-16">
 							<h3 className="text-base font-semibold text-neutral-900">Police Services</h3>
-							<p className="mt-1 text-sm leading-6 text-neutral-600">Police services for the citizens of Chatrapati Shambhaji Nagar.</p>
+							<p className="mt-2 text-sm leading-6 text-neutral-600">Comprehensive police services for citizens of Chatrapati Shambhaji Nagar.</p>
 						</div>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 		</section>

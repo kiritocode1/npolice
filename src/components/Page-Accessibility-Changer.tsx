@@ -414,7 +414,7 @@ const PageAccessibilityChanger = () => {
 						{/* Footer */}
 						<motion.div
 							variants={itemVariants}
-							className="mt-6 flex items-center justify-between"
+							className="mt-6 flex flex-col items-center justify-between"
 						>
 							<Button
 								variant="outline"
@@ -424,7 +424,7 @@ const PageAccessibilityChanger = () => {
 								<RotateCcw className="w-4 h-4" />
 								Reset All Settings
 							</Button>
-							<span className="text-sm text-gray-500">Created by UX4G</span>
+							<span className="text-xs text-gray-500">Created by Chatrapati Shambhaji Nagar Police Department</span>
 						</motion.div>
 					</motion.div>
 				</DrawerContent>
