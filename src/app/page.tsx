@@ -4,7 +4,7 @@ import CustomsPortalBox from "@/components/portal-box";
 import PeopleRow from "@/components/people-row";
 import { useLanguage } from "@/contexts/language-context";
 
-const page = () => {
+const Page = () => {
 	const { t } = useLanguage();
 
 	return (
@@ -98,4 +98,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;
