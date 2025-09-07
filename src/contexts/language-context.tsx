@@ -92,6 +92,10 @@ const translations = {
 		"portal.emblem.national": "National",
 		"portal.emblem.emblem": "Emblem",
 		"portal.emblem.city": "Chatrapati\nShambhaji Nagar",
+
+		// Leadership Team
+		"leadership.title": "Leadership Team",
+		"leadership.subtitle": "Meet our dedicated  leadership",
 	},
 	mr: {
 		// Navigation
@@ -171,6 +175,10 @@ const translations = {
 		"portal.emblem.national": "राष्ट्रीय",
 		"portal.emblem.emblem": "चिन्ह",
 		"portal.emblem.city": "छत्रपती\nसंभाजीनगर",
+
+		// Leadership Team
+		"leadership.title": "नेतृत्व संघ",
+		"leadership.subtitle": "आमच्या समर्पित  नेतृत्वाशी भेटा",
 	},
 };
 
