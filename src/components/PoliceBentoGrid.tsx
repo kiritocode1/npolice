@@ -1,10 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, CheckCircle2, Clock, FileText, Shield, Users, Globe, Download, AlertTriangle, Phone, Star, Camera, Search, ThumbsUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, FileText, Shield, Users, Globe, Download, AlertTriangle, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useMotionValue, useTransform, type Variants } from "motion/react";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 interface BentoItem {
@@ -138,7 +138,7 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 	);
 };
 
-const ServicesFeature = ({ services }: { services: Array<{ name: string; icon: any; href: string }> }) => {
+const ServicesFeature = ({ services }: { services: Array<{ name: string; icon: React.ComponentType<{ className?: string }>; href: string }> }) => {
 	return (
 		<div className="mt-2 grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-1.5">
 			{services.slice(0, 6).map((service, index) => (
@@ -291,17 +291,17 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 						<p className="text-sm text-neutral-600 dark:text-neutral-400 tracking-tight">{item.description}</p>
 
 						{/* Feature specific content */}
-						{item.feature === "news" && item.content && <NewsFeature news={item.content} />}
+						{item.feature === "news" && item.content && <NewsFeature news={item.content as unknown as Array<{ title: string; date: string; content: string }>} />}
 
-						{item.feature === "message" && item.content && <MessageFeature message={item.content} />}
+						{item.feature === "message" && item.content && <MessageFeature message={item.content as unknown as { text: string; author: string; position: string; image: string }} />}
 
-						{item.feature === "carousel" && item.content && <CarouselFeature images={item.content} />}
+						{item.feature === "carousel" && item.content && <CarouselFeature images={item.content as unknown as string[]} />}
 
-						{item.feature === "services" && item.content && <ServicesFeature services={item.content} />}
+						{item.feature === "services" && item.content && <ServicesFeature services={item.content as unknown as Array<{ name: string; icon: React.ComponentType; href: string }>} />}
 
-						{item.feature === "info" && item.content && <InfoFeature info={item.content} />}
+						{item.feature === "info" && item.content && <InfoFeature info={item.content as unknown as Array<{ name: string; icon: React.ComponentType; href: string }>} />}
 
-						{item.feature === "updates" && item.content && <UpdatesFeature updates={item.content} />}
+						{item.feature === "updates" && item.content && <UpdatesFeature updates={item.content as unknown as Array<{ name: string; icon: React.ComponentType; href: string }>} />}
 					</div>
 				</div>
 			</div>
