@@ -104,7 +104,7 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 
 	return (
 		<div className="mt-2 relative">
-			<div className="relative h-24 rounded-lg overflow-hidden">
+			<div className="relative h-24 md:h-24 rounded-lg overflow-hidden">
 				<Image
 					src={images[currentIndex]}
 					alt={`Event ${currentIndex + 1}`}
@@ -114,13 +114,13 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 				/>
 				<button
 					onClick={prevSlide}
-					className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors"
+					className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-8 md:h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors touch-manipulation"
 				>
 					<ChevronLeft className="w-4 h-4" />
 				</button>
 				<button
 					onClick={nextSlide}
-					className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors"
+					className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-8 md:h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors touch-manipulation"
 				>
 					<ChevronRight className="w-4 h-4" />
 				</button>
@@ -130,7 +130,7 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 					<button
 						key={index}
 						onClick={() => setCurrentIndex(index)}
-						className={cn("w-2 h-2 rounded-full transition-colors", index === currentIndex ? "bg-orange-500" : "bg-neutral-300 dark:bg-neutral-600")}
+						className={cn("w-2 h-2 md:w-2 md:h-2 rounded-full transition-colors touch-manipulation", index === currentIndex ? "bg-orange-500" : "bg-neutral-300 dark:bg-neutral-600")}
 					/>
 				))}
 			</div>
@@ -140,21 +140,21 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 
 const ServicesFeature = ({ services }: { services: Array<{ name: string; icon: any; href: string }> }) => {
 	return (
-		<div className="mt-2 grid grid-cols-2 gap-1.5">
+		<div className="mt-2 grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-1.5">
 			{services.slice(0, 6).map((service, index) => (
 				<motion.div
 					key={`service-${index}`}
 					initial={{ opacity: 0, scale: 0.9 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ delay: 0.1 * index }}
-					className="p-2 bg-white/50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white/70 dark:hover:bg-neutral-700/50 transition-colors"
+					className="p-3 md:p-2 bg-white/50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white/70 dark:hover:bg-neutral-700/50 transition-colors touch-manipulation"
 				>
 					<Link
 						href={service.href}
-						className="flex items-center gap-1.5"
+						className="flex items-center gap-2 md:gap-1.5 min-h-[44px] md:min-h-0"
 					>
-						<service.icon className="w-3 h-3 text-orange-500 flex-shrink-0" />
-						<span className="text-xs font-medium text-neutral-700 dark:text-neutral-300 truncate">{service.name}</span>
+						<service.icon className="w-4 h-4 md:w-3 md:h-3 text-orange-500 flex-shrink-0" />
+						<span className="text-sm md:text-xs font-medium text-neutral-700 dark:text-neutral-300 truncate">{service.name}</span>
 					</Link>
 				</motion.div>
 			))}
@@ -164,19 +164,19 @@ const ServicesFeature = ({ services }: { services: Array<{ name: string; icon: a
 
 const InfoFeature = ({ info }: { info: Array<{ name: string; icon: any; href: string }> }) => {
 	return (
-		<div className="mt-2 space-y-1.5">
+		<div className="mt-2 space-y-2 md:space-y-1.5">
 			{info.slice(0, 6).map((item, index) => (
 				<motion.div
 					key={`info-${index}`}
 					initial={{ opacity: 0, x: -10 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ delay: 0.1 * index }}
-					className="flex items-center gap-2 p-1.5 hover:bg-white/50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors"
+					className="flex items-center gap-3 md:gap-2 p-2 md:p-1.5 hover:bg-white/50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors touch-manipulation min-h-[44px] md:min-h-0"
 				>
-					<item.icon className="w-3 h-3 text-orange-500 flex-shrink-0" />
+					<item.icon className="w-4 h-4 md:w-3 md:h-3 text-orange-500 flex-shrink-0" />
 					<Link
 						href={item.href}
-						className="text-xs text-neutral-700 dark:text-neutral-300 hover:text-orange-500 transition-colors truncate"
+						className="text-sm md:text-xs text-neutral-700 dark:text-neutral-300 hover:text-orange-500 transition-colors truncate"
 					>
 						{item.name}
 					</Link>
