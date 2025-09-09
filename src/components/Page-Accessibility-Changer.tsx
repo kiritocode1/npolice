@@ -318,7 +318,7 @@ const PageAccessibilityChanger = () => {
 		{ icon: Moon, label: "Light-Dark", action: () => setTheme(theme === "light" ? "dark" : "light") },
 		{ icon: FlipHorizontal, label: "Invert Colors", action: handleInvertColors, active: invertColors },
 		{ icon: Link, label: "Highlight Links", action: handleHighlightLinks, active: highlightLinks },
-		{ icon: Volume2, label: "Text To Speech", action: handleTextToSpeech },
+
 		{ icon: screenReaderEnabled ? VolumeX : Volume2, label: "Screen Reader", action: toggleScreenReader, active: screenReaderEnabled },
 		{ icon: MousePointer, label: "Cursor", action: handleLargeCursor, active: largeCursor },
 		{ icon: Pause, label: "Pause Animation", action: handlePauseAnimations, active: pauseAnimations },
@@ -339,11 +339,11 @@ const PageAccessibilityChanger = () => {
 					<div className="group">
 						<Button
 							aria-label="Accessibility options"
-							className="flex items-center justify-center gap-3 rounded-full w-16 group-hover:w-64 h-16 bg-purple-600 hover:bg-purple-700 shadow-lg transition-all duration-300 overflow-hidden pr-4 pl-0 group-hover:pl-6"
+							className="flex items-center justify-center gap-3 rounded-full w-16 group-hover:w-64 h-16  bg-slate-200 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 shadow-lg transition-all duration-300 overflow-hidden pr-4 pl-0 group-hover:pl-6"
 						>
-							<PersonStanding className="w-32 h-32 scale-150 shrink-0 dark:text-white" />
+							<PersonStanding className="w-64 h-64 scale-[2.5] shrink-0 dark:text-white text-black hover:translate-x-0  translate-x-1 transition-all duration-300 group-hover:translate-x-0 " />
 							<div className="overflow-hidden max-w-0 group-hover:max-w-[160px] transition-all duration-300">
-								<span className="block text-white text-base font-medium whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+								<span className="block text-black text-base font-medium whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
 									Accessibility options
 								</span>
 							</div>
@@ -361,12 +361,12 @@ const PageAccessibilityChanger = () => {
 						<motion.div variants={itemVariants}>
 							<DrawerHeader className="px-0 pb-4">
 								<div className="flex items-center justify-between">
-									<DrawerTitle className="text-xl font-semibold text-purple-600">Accessibility options</DrawerTitle>
+									<DrawerTitle className="text-xl font-semibold text-black">Accessibility options</DrawerTitle>
 									<div className="flex items-center gap-2">
 										<Button
 											variant="outline"
 											size="sm"
-											className="text-purple-600 border-purple-200 hover:bg-purple-50"
+											className="text-black border-gray-200 hover:bg-gray-50"
 										>
 											Ctrl+F2
 										</Button>
