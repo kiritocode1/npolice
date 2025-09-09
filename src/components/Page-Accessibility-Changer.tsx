@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { Moon, Type, RotateCcw, Plus, Minus, AlignJustify, Volume2, MousePointer, Pause, ImageOff, Link, Waves, Palette, FlipHorizontal, VolumeX, PersonStanding } from "lucide-react";
 import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useScreenReader } from "@/hooks/use-screen-reader";
 
 const drawerVariants = {

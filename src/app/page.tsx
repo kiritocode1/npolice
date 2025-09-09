@@ -4,6 +4,37 @@ import CustomsPortalBox from "@/components/portal-box";
 import PeopleRow from "@/components/people-row";
 import { useLanguage } from "@/contexts/language-context";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
+import ExpandableCards, { Card } from "@/components/ui/custom/Scrollable-gallery";
+
+const cityCards: Card[] = [
+	{
+		id: 1,
+		title: "Historic Forts",
+		image: "/gallery/1.png",
+		content:
+			"Explore the magnificent historic forts that stand as testaments to CSM&apos;s rich cultural heritage and architectural brilliance. These ancient structures tell stories of valor, culture, and the glorious past of Maharashtra.",
+	},
+	{
+		id: 2,
+		title: "Modern Cityscape",
+		image: "/gallery/2.png",
+		content:
+			"Discover the vibrant modern cityscape of CSM, showcasing contemporary architecture and urban development. Experience the perfect blend of tradition and modernity in this rapidly growing city.",
+	},
+	{
+		id: 3,
+		title: "Cultural Landmarks",
+		image: "/gallery/3.png",
+		content: "Visit iconic cultural landmarks that define the identity and spirit of Chhatrapati Sambhajinagar city. These monuments preserve the rich Maratha heritage and cultural significance.",
+	},
+	{
+		id: 4,
+		title: "Natural Beauty",
+		image: "/gallery/4.png",
+		content:
+			"Experience the natural beauty and scenic landscapes that surround the historic city of CSM. From rolling hills to serene lakes, nature&apos;s bounty complements the city&apos;s urban charm.",
+	},
+];
 
 const Page = () => {
 	const { t } = useLanguage();
@@ -100,6 +131,14 @@ const Page = () => {
 
 			<div>
 				<PictureScrollSection />
+			</div>
+
+			<div className="w-full py-12 bg-muted/30 dark:bg-muted/10">
+				<div className="text-center mb-8">
+					<h2 className="text-3xl font-bold text-foreground mb-2">City Tour</h2>
+					<p className="text-muted-foreground">Discover the beauty and heritage of Chhatrapati Sambhajinagar</p>
+				</div>
+				<ExpandableCards cards={cityCards} />
 			</div>
 		</main>
 	);
