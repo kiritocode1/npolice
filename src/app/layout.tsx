@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/contexts/language-context";
 import PageAccessibilityChanger from "@/components/Page-Accessibility-Changer";
 import Navbar from "@/components/navbar";
+import PoliceFooter from "@/components/PoliceFooter";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -36,7 +37,7 @@ export default function RootLayout({
 					<LanguageProvider>
 						<Navbar />
 						{children}
-
+						<PoliceFooter />
 						<PageAccessibilityChanger />
 					</LanguageProvider>
 				</ThemeProvider>
