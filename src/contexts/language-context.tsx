@@ -96,6 +96,11 @@ const translations = {
 		// Leadership Team
 		"leadership.title": "Leadership Team",
 		"leadership.subtitle": "Meet our dedicated  leadership",
+
+		// Picture Scroll Section
+		"picture.title": "Chatrapati Shambhaji Nagar",
+		"picture.subtitle": "A city of heritage, culture, and modern development",
+		"picture.description": "Welcome to the heart of Maharashtra, where tradition meets progress and every citizen is valued.",
 	},
 	mr: {
 		// Navigation
@@ -179,6 +184,11 @@ const translations = {
 		// Leadership Team
 		"leadership.title": "नेतृत्व संघ",
 		"leadership.subtitle": "आमच्या समर्पित  नेतृत्वाशी भेटा",
+
+		// Picture Scroll Section
+		"picture.title": "छत्रपती संभाजीनगर",
+		"picture.subtitle": "वारसा, संस्कृती आणि आधुनिक विकासाचे शहर",
+		"picture.description": "महाराष्ट्राच्या हृदयस्थानी आपले स्वागत आहे, जिथे परंपरा आणि प्रगती एकत्र येतात आणि प्रत्येक नागरिकाला महत्त्व दिले जाते.",
 	},
 };
 

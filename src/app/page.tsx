@@ -3,6 +3,7 @@
 import CustomsPortalBox from "@/components/portal-box";
 import PeopleRow from "@/components/people-row";
 import { useLanguage } from "@/contexts/language-context";
+import PictureScrollSection from "@/components/Picture-Scroll-Section";
 
 const Page = () => {
 	const { t } = useLanguage();
@@ -23,10 +24,7 @@ const Page = () => {
 				</div>
 			</div>
 
-			<div
-				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
-				id="main-content"
-			>
+			<div className="w-full py-12 bg-muted/30 dark:bg-muted/10">
 				{/* Leadership Team */}
 				<div className="text-center mb-8">
 					<h2 className="text-3xl font-bold text-foreground mb-2">{t("leadership.title")}</h2>
@@ -85,14 +83,23 @@ const Page = () => {
 						},
 						{
 							id: "7",
-							name: "Rashmi Shukla",
-							nameMarathi: "रश्मी शुक्ला",
+							name: "Smt. Rashmi Shukla",
+							nameMarathi: "श्रीमती. रश्मी शुक्ला",
 							position: "Director General of Police",
 							positionMarathi: "पोलिस महासंचालक",
 							image: "/people/7.png",
 						},
 					]}
 				/>
+			</div>
+
+			<div
+				className="w-full min-h-[96vh] grid place-content-center "
+				id="main-content"
+			></div>
+
+			<div>
+				<PictureScrollSection />
 			</div>
 		</main>
 	);

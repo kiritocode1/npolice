@@ -68,12 +68,17 @@ export default function CustomsPortalBox() {
 				<div className="flex items-end justify-center gap-8 px-4 pb-8 md:px-6 h-[500px] w-full max-w-full">
 					{/* Card 1: Latest News & Updates - Tallest (leftmost) */}
 					<motion.div
-						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-96 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700"
+						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-96 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer"
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.1 }}
 						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
 					>
+						{/* Background image on hover */}
+						<div
+							className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-cover bg-center"
+							style={{ backgroundImage: "url('/file.svg')" }}
+						/>
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
@@ -89,12 +94,17 @@ export default function CustomsPortalBox() {
 
 					{/* Card 2: Portal - Medium height */}
 					<motion.div
-						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-80 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700"
+						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-80 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer"
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
 						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
 					>
+						{/* Background image on hover */}
+						<div
+							className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-cover bg-center"
+							style={{ backgroundImage: "url('/globe.svg')" }}
+						/>
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
@@ -115,18 +125,28 @@ export default function CustomsPortalBox() {
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 0.6, delay: 0.3 }}
 					>
-						<Image src="/emblem.png" alt="Indian National Emblem" width={100} height={100} />
+						<Image
+							src="/emblem.png"
+							alt="Indian National Emblem"
+							width={100}
+							height={100}
+						/>
 						<h3 className="text-amber-800 font-semibold text-base text-center leading-tight dark:text-amber-400">{t("portal.emblem.city")}</h3>
 					</motion.div>
 
 					{/* Card 3: About Us - Medium height */}
 					<motion.div
-						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-80 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700"
+						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-80 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer"
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.4 }}
 						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
 					>
+						{/* Background image on hover */}
+						<div
+							className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-cover bg-center"
+							style={{ backgroundImage: "url('/window.svg')" }}
+						/>
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
@@ -142,12 +162,17 @@ export default function CustomsPortalBox() {
 
 					{/* Card 4: Police Services - Tallest (rightmost) */}
 					<motion.div
-						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-96 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700"
+						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-96 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer"
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.5 }}
 						whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
 					>
+						{/* Background image on hover */}
+						<div
+							className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-300 bg-cover bg-center"
+							style={{ backgroundImage: "url('/emblem.png')" }}
+						/>
 						<span
 							aria-hidden="true"
 							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
