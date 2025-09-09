@@ -1,0 +1,489 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import { ArrowUpRight, CheckCircle2, Clock, FileText, Shield, Users, Globe, Download, AlertTriangle, Phone, Star, Camera, Search, ThumbsUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, useMotionValue, useTransform, type Variants } from "motion/react";
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+
+interface BentoItem {
+	id: string;
+	title: string;
+	description: string;
+	href?: string;
+	feature?: "news" | "message" | "carousel" | "services" | "info" | "updates";
+	size?: "sm" | "md" | "lg";
+	className?: string;
+	content?: any;
+}
+
+const fadeInUp: Variants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.5,
+			ease: "easeOut",
+		},
+	},
+};
+
+const staggerContainer: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.15,
+			delayChildren: 0.3,
+		},
+	},
+};
+
+const NewsFeature = ({ news }: { news: Array<{ title: string; date: string; content: string }> }) => {
+	return (
+		<div className="mt-2 space-y-2">
+			{news.slice(0, 2).map((item, index) => (
+				<motion.div
+					key={`news-${index}`}
+					initial={{ opacity: 0, x: -10 }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ delay: 0.1 * index }}
+					className="p-2 bg-white/50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200/50 dark:border-neutral-700/50"
+				>
+					<div className="flex items-center gap-2 mb-1">
+						<div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+						<span className="text-xs text-neutral-600 dark:text-neutral-400">{item.date}</span>
+					</div>
+					<h4 className="text-xs font-medium text-neutral-900 dark:text-neutral-100 mb-1 line-clamp-2">{item.title}</h4>
+					<p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2">{item.content}</p>
+				</motion.div>
+			))}
+		</div>
+	);
+};
+
+const MessageFeature = ({ message }: { message: { text: string; author: string; position: string; image: string } }) => {
+	return (
+		<div className="mt-3 relative">
+			<div className="flex items-start gap-4">
+				<div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+					<Image
+						src={message.image}
+						alt={message.author}
+						width={64}
+						height={64}
+						className="object-cover"
+					/>
+				</div>
+				<div className="flex-1 relative">
+					<div className="text-6xl text-orange-500/20 absolute -top-2 -left-2">&ldquo;</div>
+					<p className="text-sm text-neutral-700 dark:text-neutral-300 italic mb-4 relative z-10">{message.text}</p>
+					<div className="text-6xl text-orange-500/20 absolute -bottom-2 -right-2">&rdquo;</div>
+				</div>
+			</div>
+			<div className="mt-4 text-right">
+				<div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{message.author}</div>
+				<div className="text-xs text-neutral-600 dark:text-neutral-400">{message.position}</div>
+			</div>
+		</div>
+	);
+};
+
+const CarouselFeature = ({ images }: { images: string[] }) => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const nextSlide = () => {
+		setCurrentIndex((prev) => (prev + 1) % images.length);
+	};
+
+	const prevSlide = () => {
+		setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+	};
+
+	return (
+		<div className="mt-2 relative">
+			<div className="relative h-24 rounded-lg overflow-hidden">
+				<Image
+					src={images[currentIndex]}
+					alt={`Event ${currentIndex + 1}`}
+					width={400}
+					height={96}
+					className="object-cover w-full h-full"
+				/>
+				<button
+					onClick={prevSlide}
+					className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors"
+				>
+					<ChevronLeft className="w-4 h-4" />
+				</button>
+				<button
+					onClick={nextSlide}
+					className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors"
+				>
+					<ChevronRight className="w-4 h-4" />
+				</button>
+			</div>
+			<div className="flex justify-center mt-2 gap-1">
+				{images.map((_, index) => (
+					<button
+						key={index}
+						onClick={() => setCurrentIndex(index)}
+						className={cn("w-2 h-2 rounded-full transition-colors", index === currentIndex ? "bg-orange-500" : "bg-neutral-300 dark:bg-neutral-600")}
+					/>
+				))}
+			</div>
+		</div>
+	);
+};
+
+const ServicesFeature = ({ services }: { services: Array<{ name: string; icon: any; href: string }> }) => {
+	return (
+		<div className="mt-2 grid grid-cols-2 gap-1.5">
+			{services.slice(0, 6).map((service, index) => (
+				<motion.div
+					key={`service-${index}`}
+					initial={{ opacity: 0, scale: 0.9 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ delay: 0.1 * index }}
+					className="p-2 bg-white/50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white/70 dark:hover:bg-neutral-700/50 transition-colors"
+				>
+					<Link
+						href={service.href}
+						className="flex items-center gap-1.5"
+					>
+						<service.icon className="w-3 h-3 text-orange-500 flex-shrink-0" />
+						<span className="text-xs font-medium text-neutral-700 dark:text-neutral-300 truncate">{service.name}</span>
+					</Link>
+				</motion.div>
+			))}
+		</div>
+	);
+};
+
+const InfoFeature = ({ info }: { info: Array<{ name: string; icon: any; href: string }> }) => {
+	return (
+		<div className="mt-2 space-y-1.5">
+			{info.slice(0, 6).map((item, index) => (
+				<motion.div
+					key={`info-${index}`}
+					initial={{ opacity: 0, x: -10 }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ delay: 0.1 * index }}
+					className="flex items-center gap-2 p-1.5 hover:bg-white/50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors"
+				>
+					<item.icon className="w-3 h-3 text-orange-500 flex-shrink-0" />
+					<Link
+						href={item.href}
+						className="text-xs text-neutral-700 dark:text-neutral-300 hover:text-orange-500 transition-colors truncate"
+					>
+						{item.name}
+					</Link>
+				</motion.div>
+			))}
+		</div>
+	);
+};
+
+const UpdatesFeature = ({ updates }: { updates: Array<{ name: string; icon: any; href: string }> }) => {
+	return (
+		<div className="mt-3 space-y-2">
+			{updates.map((update, index) => (
+				<motion.div
+					key={`update-${index}`}
+					initial={{ opacity: 0, x: -10 }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ delay: 0.1 * index }}
+					className="flex items-center gap-3 p-2 hover:bg-white/50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors"
+				>
+					<update.icon className="w-4 h-4 text-orange-500 flex-shrink-0" />
+					<Link
+						href={update.href}
+						className="text-sm text-neutral-700 dark:text-neutral-300 hover:text-orange-500 transition-colors"
+					>
+						{update.name}
+					</Link>
+				</motion.div>
+			))}
+		</div>
+	);
+};
+
+const BentoCard = ({ item }: { item: BentoItem }) => {
+	const [isHovered, setIsHovered] = useState(false);
+	const x = useMotionValue(0);
+	const y = useMotionValue(0);
+	const rotateX = useTransform(y, [-100, 100], [2, -2]);
+	const rotateY = useTransform(x, [-100, 100], [-2, 2]);
+
+	function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+		const rect = event.currentTarget.getBoundingClientRect();
+		const width = rect.width;
+		const height = rect.height;
+		const mouseX = event.clientX - rect.left;
+		const mouseY = event.clientY - rect.top;
+		const xPct = mouseX / width - 0.5;
+		const yPct = mouseY / height - 0.5;
+		x.set(xPct * 100);
+		y.set(yPct * 100);
+	}
+
+	function handleMouseLeave() {
+		x.set(0);
+		y.set(0);
+		setIsHovered(false);
+	}
+
+	return (
+		<motion.div
+			variants={fadeInUp}
+			whileHover={{ y: -5 }}
+			transition={{ type: "spring", stiffness: 300, damping: 20 }}
+			className="h-full"
+			onHoverStart={() => setIsHovered(true)}
+			onHoverEnd={handleMouseLeave}
+			onMouseMove={handleMouseMove}
+			style={{
+				rotateX,
+				rotateY,
+				transformStyle: "preserve-3d",
+			}}
+		>
+			<div
+				className={cn(
+					"group relative flex flex-col gap-4 h-full rounded-xl p-5",
+					"bg-gradient-to-b from-neutral-50/60 via-neutral-50/40 to-neutral-50/30",
+					"dark:from-neutral-900/60 dark:via-neutral-900/40 dark:to-neutral-900/30",
+					"border border-neutral-200/60 dark:border-neutral-800/60",
+					"before:absolute before:inset-0 before:rounded-xl",
+					"before:bg-gradient-to-b before:from-white/10 before:via-white/20 before:to-transparent",
+					"dark:before:from-black/10 dark:before:via-black/20 dark:before:to-transparent",
+					"before:opacity-100 before:transition-opacity before:duration-500",
+					"after:absolute after:inset-0 after:rounded-xl after:bg-neutral-50/70 dark:after:bg-neutral-900/70 after:z-[-1]",
+					"backdrop-blur-[4px]",
+					"shadow-[0_4px_20px_rgb(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.2)]",
+					"hover:border-neutral-300/50 dark:hover:border-neutral-700/50",
+					"hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)]",
+					"hover:backdrop-blur-[6px]",
+					"hover:bg-gradient-to-b hover:from-neutral-50/60 hover:via-neutral-50/30 hover:to-neutral-50/20",
+					"dark:hover:from-neutral-800/60 dark:hover:via-neutral-800/30 dark:hover:to-neutral-800/20",
+					"transition-all duration-500 ease-out",
+					item.className,
+				)}
+				tabIndex={0}
+				aria-label={`${item.title} - ${item.description}`}
+			>
+				<div
+					className="relative z-10 flex flex-col gap-3 h-full"
+					style={{ transform: "translateZ(20px)" }}
+				>
+					<div className="space-y-2 flex-1 flex flex-col">
+						<div className="flex items-center justify-between">
+							<h3 className="text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors duration-300">
+								{item.title}
+							</h3>
+							<div className="text-neutral-400 dark:text-neutral-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+								<ArrowUpRight className="h-5 w-5" />
+							</div>
+						</div>
+
+						<p className="text-sm text-neutral-600 dark:text-neutral-400 tracking-tight">{item.description}</p>
+
+						{/* Feature specific content */}
+						{item.feature === "news" && item.content && <NewsFeature news={item.content} />}
+
+						{item.feature === "message" && item.content && <MessageFeature message={item.content} />}
+
+						{item.feature === "carousel" && item.content && <CarouselFeature images={item.content} />}
+
+						{item.feature === "services" && item.content && <ServicesFeature services={item.content} />}
+
+						{item.feature === "info" && item.content && <InfoFeature info={item.content} />}
+
+						{item.feature === "updates" && item.content && <UpdatesFeature updates={item.content} />}
+					</div>
+				</div>
+			</div>
+		</motion.div>
+	);
+};
+
+export default function PoliceBentoGrid() {
+	const bentoItems: BentoItem[] = [
+		{
+			id: "latest-updates",
+			title: "Latest Updates",
+			description: "Stay informed with the latest news and updates from Chhatrapati Sambhajinagar Rural Police",
+			feature: "news",
+			size: "md",
+			className: "col-span-1 row-span-1",
+			content: [
+				{
+					title: "सराईत घरफोड्या जेरबंद",
+					date: "Dec 15, 2024",
+					content: "04 घरफोडीचे गुन्हे उघड.... स्थानिक गुन्हे शाखा, छत्रपती संभाजीनगर ग्रामीण यांची कारवाई.",
+				},
+				{
+					title: "Traffic Safety Campaign",
+					date: "Dec 14, 2024",
+					content: "New traffic safety measures implemented across major highways in the district.",
+				},
+				{
+					title: "Community Outreach Program",
+					date: "Dec 13, 2024",
+					content: "Police department launches new community engagement initiatives for better public relations.",
+				},
+			],
+		},
+		{
+			id: "sp-message",
+			title: "DGP's Message",
+			description: "A message from our Superintendent of Police",
+			feature: "message",
+			size: "lg",
+			className: "col-span-2 row-span-1",
+			content: {
+				text: "The purpose of this website is to provide the platform to the citizens to voice their grievances & offer suggestions. I hope that this interactive relationship between Police & Public will help us in preventing crime & winning trust of People.",
+				author: "Smt. Rashmi Shukla (DGP)",
+				position: "Director General of Police, Chhatrapati Sambhajinagar Rural Police",
+				image: "/people/7.png",
+			},
+		},
+		{
+			id: "recent-events",
+			title: "Recent Events",
+			description: "Latest events and activities from our department",
+			feature: "carousel",
+			size: "md",
+			className: "col-span-1 row-span-1",
+			content: ["/gallery/1.png", "/gallery/2.png", "/gallery/3.png", "/gallery/4.png"],
+		},
+		{
+			id: "online-services",
+			title: "Online Services and Forms",
+			description: "Access various police services and forms online",
+			feature: "services",
+			size: "md",
+			className: "col-span-1 row-span-1",
+			content: [
+				{ name: "E-Challan Payment", icon: FileText, href: "#" },
+				{ name: "Cyber Crime Portal", icon: Globe, href: "#" },
+				{ name: "Missing Persons", icon: Users, href: "#" },
+				{ name: "Download Forms", icon: Download, href: "#" },
+				{ name: "Unidentified Bodies", icon: AlertTriangle, href: "#" },
+				{ name: "Published FIRs", icon: CheckCircle2, href: "#" },
+				{ name: "Police Clearance", icon: Shield, href: "#" },
+				{ name: "Arrested Accused", icon: Users, href: "#" },
+				{ name: "Citizen Portal", icon: Globe, href: "#" },
+			],
+		},
+		{
+			id: "popular-info",
+			title: "Popular Information",
+			description: "Essential information and resources for citizens",
+			feature: "info",
+			size: "md",
+			className: "col-span-1 row-span-1",
+			content: [
+				{ name: "Safety Tips", icon: CheckCircle2, href: "#" },
+				{ name: "Cyber Alert Wall", icon: Shield, href: "#" },
+				{ name: "FAQs", icon: FileText, href: "#" },
+				{ name: "Important Contacts", icon: Phone, href: "#" },
+				{ name: "Tenders", icon: FileText, href: "#" },
+				{ name: "Police Recruitment", icon: Users, href: "#" },
+				{ name: "Useful Websites", icon: Globe, href: "#" },
+				{ name: "MH Police Units", icon: Globe, href: "#" },
+			],
+		},
+	];
+
+	return (
+		<section className="relative py-4 bg-white dark:bg-black overflow-hidden">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+				{/* Mobile Layout */}
+				<motion.div
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
+					variants={staggerContainer}
+					className="grid grid-cols-1 gap-3 md:hidden"
+				>
+					{/* DGP Message - Mobile First */}
+					<motion.div variants={fadeInUp}>
+						<BentoCard item={bentoItems[1]} />
+					</motion.div>
+
+					{/* Latest Updates - Mobile Second */}
+					<motion.div variants={fadeInUp}>
+						<BentoCard item={bentoItems[0]} />
+					</motion.div>
+
+					{/* Recent Events - Mobile Third */}
+					<motion.div variants={fadeInUp}>
+						<BentoCard item={bentoItems[2]} />
+					</motion.div>
+
+					{/* Services Grid - Mobile */}
+					<motion.div variants={fadeInUp}>
+						<BentoCard item={bentoItems[3]} />
+					</motion.div>
+
+					{/* Popular Info - Mobile Last */}
+					<motion.div variants={fadeInUp}>
+						<BentoCard item={bentoItems[4]} />
+					</motion.div>
+				</motion.div>
+
+				{/* Desktop Layout */}
+				<motion.div
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
+					variants={staggerContainer}
+					className="hidden md:grid grid-cols-12 gap-3 h-[calc(100vh-8rem)]"
+				>
+					{/* Latest Updates - Top Left */}
+					<motion.div
+						variants={fadeInUp}
+						className="col-span-3 row-span-2"
+					>
+						<BentoCard item={bentoItems[0]} />
+					</motion.div>
+
+					{/* DGP Message - Top Right */}
+					<motion.div
+						variants={fadeInUp}
+						className="col-span-9 row-span-2"
+					>
+						<BentoCard item={bentoItems[1]} />
+					</motion.div>
+
+					{/* Recent Events - Bottom Left */}
+					<motion.div
+						variants={fadeInUp}
+						className="col-span-4"
+					>
+						<BentoCard item={bentoItems[2]} />
+					</motion.div>
+
+					{/* Online Services - Bottom Center */}
+					<motion.div
+						variants={fadeInUp}
+						className="col-span-4"
+					>
+						<BentoCard item={bentoItems[3]} />
+					</motion.div>
+
+					{/* Popular Info - Bottom Right */}
+					<motion.div
+						variants={fadeInUp}
+						className="col-span-4"
+					>
+						<BentoCard item={bentoItems[4]} />
+					</motion.div>
+				</motion.div>
+			</div>
+		</section>
+	);
+}

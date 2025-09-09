@@ -5,6 +5,7 @@ import PeopleRow from "@/components/people-row";
 import { useLanguage } from "@/contexts/language-context";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
 import ExpandableCards, { Card } from "@/components/ui/custom/Scrollable-gallery";
+import PoliceBentoGrid from "@/components/PoliceBentoGrid";
 
 const cityCards: Card[] = [
 	{
@@ -125,9 +126,11 @@ const Page = () => {
 			</div>
 
 			<div
-				className="w-full min-h-[96vh] grid place-content-center "
+				className="w-full min-h-full mb-40 "
 				id="main-content"
-			></div>
+			>
+				<PoliceBentoGrid />
+			</div>
 
 			<div>
 				<PictureScrollSection />
