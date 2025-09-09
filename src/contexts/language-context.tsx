@@ -192,7 +192,11 @@ const translations = {
 	},
 };
 
-export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+interface LanguageProviderProps {
+	children: any;
+}
+
+export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 	const [language, setLanguage] = useState<Language>("mr"); // Default to Marathi
 
 	useEffect(() => {

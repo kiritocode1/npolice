@@ -1,10 +1,8 @@
 "use client";
 
-import { FC, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Globe, Shield, Users, FileText, AlertTriangle, Clock, Heart } from "lucide-react";
-
-interface FooterProps {}
 
 const navigation = {
 	categories: [
@@ -73,7 +71,7 @@ const navigation = {
 
 const Underline = `hover:-translate-y-1 border border-dotted rounded-xl p-2.5 transition-transform`;
 
-const PoliceFooter: FC<FooterProps> = ({}) => {
+const PoliceFooter = () => {
 	const [visitCount, setVisitCount] = useState(0);
 
 	useEffect(() => {

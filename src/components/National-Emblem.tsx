@@ -1,11 +1,12 @@
 import Image from "next/image";
+import { ReactElement } from "react";
 
 type NationalEmblemProps = {
 	className?: string;
 	alt?: string;
 };
 
-const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva Jayate" }: NationalEmblemProps) => {
+const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva Jayate" }: NationalEmblemProps): ReactElement => {
 	return (
 		<div className={className}>
 			<Image
