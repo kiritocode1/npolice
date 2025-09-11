@@ -349,7 +349,7 @@ export default function PoliceBentoGrid() {
 				text: t("bento.dgp.message"),
 				author: t("bento.dgp.author"),
 				position: t("bento.dgp.position"),
-				image: "/people/7.png",
+				image: "/people/7.webp",
 			},
 		},
 		{
@@ -359,7 +359,7 @@ export default function PoliceBentoGrid() {
 			feature: "carousel",
 			size: "md",
 			className: "col-span-1 row-span-1",
-			content: ["/gallery/1.png", "/gallery/2.png", "/gallery/3.png", "/gallery/4.png"],
+			content: ["/gallery/1.webp", "/gallery/2.webp", "/gallery/3.webp", "/gallery/4.webp"],
 		},
 		{
 			id: "online-services",

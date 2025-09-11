@@ -73,7 +73,7 @@ export default function CustomsPortalBoxMobile() {
 						transition={{ duration: 0.6, delay: 0.1 }}
 					>
 						<Image
-							src="/emblem.png"
+							src="/emblem.webp"
 							alt="Indian National Emblem"
 							width={80}
 							height={80}
@@ -166,7 +166,7 @@ export default function CustomsPortalBoxMobile() {
 					>
 						<div
 							className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-300 bg-cover bg-center"
-							style={{ backgroundImage: "url('/emblem.png')" }}
+							style={{ backgroundImage: "url('/emblem.webp')" }}
 						/>
 						<span
 							aria-hidden="true"

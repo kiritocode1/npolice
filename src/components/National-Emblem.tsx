@@ -10,7 +10,7 @@ const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva J
 	return (
 		<div className={className}>
 			<Image
-				src="/national-emblem/light.png"
+				src="/national-emblem/light.webp"
 				alt={alt}
 				width={160}
 				height={256}
@@ -18,7 +18,7 @@ const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva J
 				priority
 			/>
 			<Image
-				src="/national-emblem/dark.png"
+				src="/national-emblem/dark.webp"
 				alt={alt}
 				width={160}
 				height={256}

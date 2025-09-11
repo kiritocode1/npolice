@@ -12,25 +12,25 @@ const getCityCards = (t: (key: string) => string): Card[] => [
 	{
 		id: 1,
 		title: t("city.tour.forts.title"),
-		image: "/gallery/1.png",
+		image: "/gallery/1.webp",
 		content: t("city.tour.forts.content"),
 	},
 	{
 		id: 2,
 		title: t("city.tour.cityscape.title"),
-		image: "/gallery/2.png",
+		image: "/gallery/2.webp",
 		content: t("city.tour.cityscape.content"),
 	},
 	{
 		id: 3,
 		title: t("city.tour.landmarks.title"),
-		image: "/gallery/3.png",
+		image: "/gallery/3.webp",
 		content: t("city.tour.landmarks.content"),
 	},
 	{
 		id: 4,
 		title: t("city.tour.nature.title"),
-		image: "/gallery/4.png",
+		image: "/gallery/4.webp",
 		content: t("city.tour.nature.content"),
 	},
 ];
@@ -69,7 +69,7 @@ const Page = () => {
 							nameMarathi: "श्री. देवेंद्र फडणवीस",
 							position: "Hon'ble Chief Minister",
 							positionMarathi: "माननीय मुख्यमंत्री",
-							image: "/people/1.png",
+							image: "/people/1.webp",
 						},
 						{
 							id: "2",
@@ -77,7 +77,7 @@ const Page = () => {
 							nameMarathi: "श्री. एकनाथ शिंदे",
 							position: "Hon'ble Deputy Chief Minister",
 							positionMarathi: "माननीय उपमुख्यमंत्री",
-							image: "/people/2.png",
+							image: "/people/2.webp",
 						},
 						{
 							id: "3",
@@ -85,7 +85,7 @@ const Page = () => {
 							nameMarathi: "श्री अजित पवार",
 							position: "Hon'ble Deputy Chief Minister",
 							positionMarathi: "माननीय उपमुख्यमंत्री",
-							image: "/people/3.png",
+							image: "/people/3.webp",
 						},
 						{
 							id: "4",
@@ -93,7 +93,7 @@ const Page = () => {
 							nameMarathi: "डॉ. पंकज भोयर",
 							position: "Hon'ble Minister of State, Home(Rural)",
 							positionMarathi: "माननीय राज्यमंत्री, गृह(ग्रामीण)",
-							image: "/people/4.png",
+							image: "/people/4.webp",
 						},
 						{
 							id: "5",
@@ -101,7 +101,7 @@ const Page = () => {
 							nameMarathi: "श्री. योगेश कदम",
 							position: "Hon'ble Minister of State, Home(Urban)",
 							positionMarathi: "माननीय राज्यमंत्री, गृह(शहरी)",
-							image: "/people/5.png",
+							image: "/people/5.webp",
 						},
 						{
 							id: "6",
@@ -109,7 +109,7 @@ const Page = () => {
 							nameMarathi: "श्री. इकबाल सिंह चहल",
 							position: "Additional Chief Secretary (Home)",
 							positionMarathi: "अतिरिक्त मुख्य सचिव (गृह)",
-							image: "/people/6.png",
+							image: "/people/6.webp",
 						},
 						{
 							id: "7",
@@ -117,7 +117,7 @@ const Page = () => {
 							nameMarathi: "श्रीमती. रश्मी शुक्ला",
 							position: "Director General of Police",
 							positionMarathi: "पोलिस महासंचालक",
-							image: "/people/7.png",
+							image: "/people/7.webp",
 						},
 					]}
 				/>

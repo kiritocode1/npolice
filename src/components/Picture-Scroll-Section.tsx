@@ -33,7 +33,7 @@ export default function Section() {
 					className="relative w-full h-full"
 				>
 					<Image
-						src="/csm-snapshots/1.png"
+						src="/csm-snapshots/1.webp"
 						fill
 						alt="Chatrapati Shambhaji Nagar cityscape"
 						style={{ objectFit: "cover" }}
