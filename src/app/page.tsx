@@ -1,6 +1,6 @@
 "use client";
 
-import CustomsPortalBox from "@/components/portal-box";
+import PortalBoxResponsive from "@/components/portal-box-responsive";
 import PeopleRow from "@/components/people-row";
 import { useLanguage } from "@/contexts/language-context";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
@@ -52,7 +52,7 @@ const Page = () => {
 				}}
 			>
 				<div className="w-full   flex items-end justify-center">
-					<CustomsPortalBox />
+					<PortalBoxResponsive />
 				</div>
 			</div>
 
