@@ -1,14 +1,20 @@
+"use cache";
+
 import PortalBoxResponsive from "@/components/portal-box-responsive";
 import PeopleRow from "@/components/people-row";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
 import ExpandableCards from "@/components/ui/custom/Scrollable-gallery";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
 import CSMMap from "@/components/CSMMap";
+import { cacheLife } from "next/dist/server/use-cache/cache-life";
+import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 
+const Page = async () => {
+	// Cache for 1 hour
+	cacheLife("1h");
 
-
-
-const Page = () => {
+	// Tag for on-demand revalidation
+	cacheTag("page-home");
 	return (
 		<main>
 			<div
@@ -51,7 +57,7 @@ const Page = () => {
 					<h2 className="text-3xl font-bold text-foreground mb-2">City Tour</h2>
 					<p className="text-muted-foreground">Discover the beauty and heritage of Chhatrapati Sambhaji Nagar</p>
 				</div>
-				<ExpandableCards  />
+				<ExpandableCards />
 			</div>
 
 			{/* Map Section */}
