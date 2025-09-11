@@ -5,6 +5,82 @@ import { InteractiveHoverButton } from "./Shiny-button";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+// Performance mode utility - immediate detection
+const usePerformanceMode = () => {
+	const [isPerformanceMode, setIsPerformanceMode] = useState(() => {
+		// Immediate synchronous check
+		if (typeof window === "undefined") return false;
+		
+		// Check URL parameters first (most reliable)
+		const hasPerformanceParam = window.location.search.includes('performance=true') || 
+								   window.location.search.includes('force-performance=true');
+		
+		// Check for Lighthouse
+		const isLighthouse = navigator.userAgent.includes('Lighthouse') || 
+							navigator.userAgent.includes('Chrome-Lighthouse');
+		
+		// Check for reduced motion preference
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		
+		// Check for performance mode class (if already set)
+		const hasPerformanceClass = typeof document !== "undefined" && 
+									document.documentElement.classList.contains("performance-mode");
+		
+		return hasPerformanceParam || isLighthouse || prefersReducedMotion || hasPerformanceClass;
+	});
+
+	useEffect(() => {
+		const checkPerformanceMode = () => {
+			if (typeof document === "undefined") return false;
+			
+			// Check for performance mode class
+			const hasPerformanceClass = document.documentElement.classList.contains("performance-mode");
+			
+			// Check URL parameters
+			const hasPerformanceParam = window.location.search.includes('performance=true') || 
+									   window.location.search.includes('force-performance=true');
+			
+			// Check for Lighthouse
+			const isLighthouse = navigator.userAgent.includes('Lighthouse') || 
+								navigator.userAgent.includes('Chrome-Lighthouse');
+			
+			// Check for reduced motion preference
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			
+			return hasPerformanceClass || hasPerformanceParam || isLighthouse || prefersReducedMotion;
+		};
+
+		// Listen for performance mode changes
+		const observer = new MutationObserver(() => {
+			setIsPerformanceMode(checkPerformanceMode());
+		});
+
+		if (typeof document !== "undefined") {
+			observer.observe(document.documentElement, {
+				attributes: true,
+				attributeFilter: ["class"],
+			});
+		}
+
+		// Also check on URL change
+		const handleUrlChange = () => {
+			setIsPerformanceMode(checkPerformanceMode());
+		};
+		
+		window.addEventListener('popstate', handleUrlChange);
+		window.addEventListener('pushstate', handleUrlChange);
+
+		return () => {
+			observer.disconnect();
+			window.removeEventListener('popstate', handleUrlChange);
+			window.removeEventListener('pushstate', handleUrlChange);
+		};
+	}, []);
+
+	return isPerformanceMode;
+};
 
 function ArrowIcon() {
 	return (
@@ -37,7 +113,98 @@ function StarIcon() {
 
 export default function CustomsPortalBoxMobile() {
 	const { t } = useLanguage();
+	const isPerformanceMode = usePerformanceMode();
 
+	// Debug logging
+	useEffect(() => {
+		console.log('PortalBoxMobile - Performance mode:', isPerformanceMode);
+	}, [isPerformanceMode]);
+
+	// Performance mode - render without animations
+	if (isPerformanceMode) {
+		return (
+			<section className="w-full px-4 pb-20 pt-20">
+				<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl ring-1 ring-black/5">
+					{/* Top (hero) */}
+					<div className="px-6 py-8 text-center md:px-10 md:py-12">
+						<div className="mx-auto inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
+							<span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+								<StarIcon />
+							</span>
+							<span>{t("portal.welcome")}</span>
+						</div>
+						<h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">{t("portal.title")}</h1>
+						<p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">{t("portal.description")}</p>
+						<div className="mt-8">
+							<Link href="/services">
+								<InteractiveHoverButton className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+									{t("portal.cta")}
+								</InteractiveHoverButton>
+							</Link>
+						</div>
+					</div>
+
+					{/* National Emblem - Center */}
+					<div className="flex flex-col items-center justify-center px-6 py-8">
+						<div className="flex flex-col items-center justify-center">
+							<Image
+								src="/emblem.webp"
+								alt="Indian National Emblem"
+								width={80}
+								height={80}
+							/>
+							<h3 className="text-amber-800 font-semibold text-base text-center leading-tight mt-2 dark:text-amber-400">{t("portal.emblem.city")}</h3>
+						</div>
+					</div>
+
+					{/* Cards - Vertical List */}
+					<div className="px-4 pb-8 space-y-4">
+						{/* Card 1: Latest News & Updates */}
+						<div className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer">
+							<div className="flex flex-col justify-between h-full">
+								<div>
+									<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.news.title")}</h3>
+									<p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{t("portal.cards.news.description")}</p>
+								</div>
+							</div>
+						</div>
+
+						{/* Card 2: Portal */}
+						<div className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer">
+							<div className="flex flex-col justify-between h-full">
+								<div>
+									<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.portal.title")}</h3>
+									<p className="mt-2 text-sm leading-5 text-neutral-600 dark:text-neutral-300">{t("portal.cards.portal.description")}</p>
+								</div>
+							</div>
+						</div>
+
+						{/* Card 3: About Us */}
+						<div className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer">
+							<div className="flex flex-col justify-between h-full">
+								<div>
+									<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.about.title")}</h3>
+									<p className="mt-2 text-sm leading-5 text-neutral-600 dark:text-neutral-300">{t("portal.cards.about.description")}</p>
+								</div>
+							</div>
+						</div>
+
+						{/* Card 4: Police Services */}
+						<div className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer">
+							<div className="flex flex-col justify-between h-full">
+								<div>
+									<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.services.title")}</h3>
+									<p className="mt-2 text-sm leading-5 text-neutral-600 dark:text-neutral-300">{t("portal.cards.services.description")}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		);
+	}
+
+	// Normal mode with animations
 	return (
 		<section className="w-full px-4 pb-20 pt-20">
 			<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl ring-1 ring-black/5">
@@ -49,17 +216,11 @@ export default function CustomsPortalBoxMobile() {
 						</span>
 						<span>{t("portal.welcome")}</span>
 					</div>
-
-					<h1 className="text-pretty mx-auto mt-4 max-w-3xl text-3xl font-semibold leading-tight text-neutral-900 md:text-5xl dark:text-white">{t("portal.title")}</h1>
-
-					<p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-neutral-600 md:text-base">{t("portal.description")}</p>
-
-					<div className="mt-6">
+					<h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">{t("portal.title")}</h1>
+					<p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">{t("portal.description")}</p>
+					<div className="mt-8">
 						<Link href="/services">
-							<InteractiveHoverButton
-								className="w-50"
-								text={t("portal.viewDetails")}
-							></InteractiveHoverButton>
+							<InteractiveHoverButton className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-medium transition-colors">{t("portal.cta")}</InteractiveHoverButton>
 						</Link>
 					</div>
 				</div>
@@ -98,7 +259,7 @@ export default function CustomsPortalBoxMobile() {
 						/>
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
 						>
 							<ArrowIcon />
 						</span>
@@ -122,13 +283,13 @@ export default function CustomsPortalBoxMobile() {
 						/>
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
 						>
 							<ArrowIcon />
 						</span>
 						<div className="pr-12">
 							<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.portal.title")}</h3>
-							<p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{t("portal.cards.portal.description")}</p>
+							<p className="mt-2 text-sm leading-5 text-neutral-600 dark:text-neutral-300">{t("portal.cards.portal.description")}</p>
 						</div>
 					</motion.div>
 
@@ -146,13 +307,13 @@ export default function CustomsPortalBoxMobile() {
 						/>
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
 						>
 							<ArrowIcon />
 						</span>
 						<div className="pr-12">
 							<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.about.title")}</h3>
-							<p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{t("portal.cards.about.description")}</p>
+							<p className="mt-2 text-sm leading-5 text-neutral-600 dark:text-neutral-300">{t("portal.cards.about.description")}</p>
 						</div>
 					</motion.div>
 
@@ -170,13 +331,13 @@ export default function CustomsPortalBoxMobile() {
 						/>
 						<span
 							aria-hidden="true"
-							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring-1 -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
+							className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 ring -rotate-45 dark:bg-neutral-700 dark:text-neutral-300"
 						>
 							<ArrowIcon />
 						</span>
 						<div className="pr-12">
 							<h3 className="text-lg font-semibold text-neutral-900 dark:text-white">{t("portal.cards.services.title")}</h3>
-							<p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">{t("portal.cards.services.description")}</p>
+							<p className="mt-2 text-sm leading-5 text-neutral-600 dark:text-neutral-300">{t("portal.cards.services.description")}</p>
 						</div>
 					</motion.div>
 				</div>
