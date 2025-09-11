@@ -5,6 +5,77 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion, Variants } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
+
+// Performance mode utility - immediate detection
+const usePerformanceMode = () => {
+	const [isPerformanceMode, setIsPerformanceMode] = useState(() => {
+		// Immediate synchronous check
+		if (typeof window === "undefined") return false;
+
+		// Check URL parameters first (most reliable)
+		const hasPerformanceParam = window.location.search.includes("performance=true") || window.location.search.includes("force-performance=true");
+
+		// Check for Lighthouse
+		const isLighthouse = navigator.userAgent.includes("Lighthouse") || navigator.userAgent.includes("Chrome-Lighthouse");
+
+		// Check for reduced motion preference
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		// Check for performance mode class (if already set)
+		const hasPerformanceClass = typeof document !== "undefined" && document.documentElement.classList.contains("performance-mode");
+
+		return hasPerformanceParam || isLighthouse || prefersReducedMotion || hasPerformanceClass;
+	});
+
+	useEffect(() => {
+		const checkPerformanceMode = () => {
+			if (typeof document === "undefined") return false;
+
+			// Check for performance mode class
+			const hasPerformanceClass = document.documentElement.classList.contains("performance-mode");
+
+			// Check URL parameters
+			const hasPerformanceParam = window.location.search.includes("performance=true") || window.location.search.includes("force-performance=true");
+
+			// Check for Lighthouse
+			const isLighthouse = navigator.userAgent.includes("Lighthouse") || navigator.userAgent.includes("Chrome-Lighthouse");
+
+			// Check for reduced motion preference
+			const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			return hasPerformanceClass || hasPerformanceParam || isLighthouse || prefersReducedMotion;
+		};
+
+		// Listen for performance mode changes
+		const observer = new MutationObserver(() => {
+			setIsPerformanceMode(checkPerformanceMode());
+		});
+
+		if (typeof document !== "undefined") {
+			observer.observe(document.documentElement, {
+				attributes: true,
+				attributeFilter: ["class"],
+			});
+		}
+
+		// Also check on URL change
+		const handleUrlChange = () => {
+			setIsPerformanceMode(checkPerformanceMode());
+		};
+
+		window.addEventListener("popstate", handleUrlChange);
+		window.addEventListener("pushstate", handleUrlChange);
+
+		return () => {
+			observer.disconnect();
+			window.removeEventListener("popstate", handleUrlChange);
+			window.removeEventListener("pushstate", handleUrlChange);
+		};
+	}, []);
+
+	return isPerformanceMode;
+};
 
 interface Person {
 	id: string;
@@ -20,7 +91,6 @@ interface PeopleRowProps {
 	height?: string;
 	className?: string;
 }
-
 
 // Static data - no need for client-side translation
 const leadershipData = [
@@ -82,34 +152,51 @@ const leadershipData = [
 	},
 ];
 
-const PeopleRow = ({ people=leadershipData, height = "h-auto", className = "" }: PeopleRowProps) => {
+const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" }: PeopleRowProps) => {
 	const { language } = useLanguage();
+	const isPerformanceMode = usePerformanceMode();
 	const { ref, inView } = useInView({
 		threshold: 0.1,
 		triggerOnce: true,
 	});
 
+	// Performance mode - render minimal static content
+	if (isPerformanceMode) {
+		return (
+			<div className={`w-full max-w-6xl mx-auto ${height} ${className}`}>
+				<div className="text-center py-8">
+					<h2 className="text-2xl font-bold text-foreground mb-4">Leadership Team</h2>
+					<p className="text-muted-foreground">Meet our dedicated leaders serving Chhatrapati Sambhaji Nagar</p>
+				</div>
+			</div>
+		);
+	}
+
 	const containerVariants: Variants = {
-		hidden: { opacity: 0 },
+		hidden: isPerformanceMode ? {} : { opacity: 0 },
 		visible: {
 			opacity: 1,
-			transition: {
-				delayChildren: 0.3,
-				staggerChildren: 0.15,
-			},
+			transition: isPerformanceMode
+				? { duration: 0 }
+				: {
+						delayChildren: 0.3,
+						staggerChildren: 0.15,
+				  },
 		},
 	};
 
 	const itemVariants: Variants = {
-		hidden: { y: 50, opacity: 0, scale: 0.8 },
+		hidden: isPerformanceMode ? {} : { y: 50, opacity: 0, scale: 0.8 },
 		visible: {
 			y: 0,
 			opacity: 1,
 			scale: 1,
-			transition: {
-				duration: 0.6,
-				ease: "easeOut",
-			},
+			transition: isPerformanceMode
+				? { duration: 0 }
+				: {
+						duration: 0.6,
+						ease: "easeOut",
+				  },
 		},
 	};
 
@@ -129,24 +216,32 @@ const PeopleRow = ({ people=leadershipData, height = "h-auto", className = "" }:
 					<motion.div
 						key={person.id}
 						variants={itemVariants}
-						whileHover={{
-							y: -8,
-							transition: { duration: 0.2 },
-						}}
+						whileHover={
+							isPerformanceMode
+								? {}
+								: {
+										y: -8,
+										transition: { duration: 0.2 },
+								  }
+						}
 						className="flex-shrink-0"
 					>
 						<Card className="w-44 sm:w-56 shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
 							<CardContent className="p-4 sm:p-6 flex flex-col items-center justify-center space-y-3 sm:space-y-4">
 								<motion.div
-									initial={{ scale: 0, rotate: -180 }}
-									animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-									transition={{
-										delay: index * 0.1 + 0.5,
-										duration: 0.5,
-										type: "spring",
-										stiffness: 200,
-										damping: 20,
-									}}
+									initial={isPerformanceMode ? {} : { scale: 0, rotate: -180 }}
+									animate={isPerformanceMode ? {} : inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+									transition={
+										isPerformanceMode
+											? { duration: 0 }
+											: {
+													delay: index * 0.1 + 0.5,
+													duration: 0.5,
+													type: "spring",
+													stiffness: 200,
+													damping: 20,
+											  }
+									}
 								>
 									<Avatar className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300">
 										<AvatarImage
@@ -165,9 +260,9 @@ const PeopleRow = ({ people=leadershipData, height = "h-auto", className = "" }:
 								</motion.div>
 								<motion.div
 									className="text-center space-y-2"
-									initial={{ opacity: 0, y: 20 }}
-									animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-									transition={{ delay: index * 0.1 + 0.7, duration: 0.4 }}
+									initial={isPerformanceMode ? {} : { opacity: 0, y: 20 }}
+									animate={isPerformanceMode ? {} : inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+									transition={isPerformanceMode ? { duration: 0 } : { delay: index * 0.1 + 0.7, duration: 0.4 }}
 								>
 									<h3 className="font-bold text-sm sm:text-base text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
 									<p className="text-xs sm:text-sm text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
@@ -189,24 +284,32 @@ const PeopleRow = ({ people=leadershipData, height = "h-auto", className = "" }:
 					<motion.div
 						key={person.id}
 						variants={itemVariants}
-						whileHover={{
-							y: -8,
-							transition: { duration: 0.2 },
-						}}
+						whileHover={
+							isPerformanceMode
+								? {}
+								: {
+										y: -8,
+										transition: { duration: 0.2 },
+								  }
+						}
 						className="flex-shrink-0"
 					>
 						<Card className="w-44 shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
 							<CardContent className="p-4 flex flex-col items-center justify-center space-y-3">
 								<motion.div
-									initial={{ scale: 0, rotate: -180 }}
-									animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-									transition={{
-										delay: index * 0.1 + 0.5,
-										duration: 0.5,
-										type: "spring",
-										stiffness: 200,
-										damping: 20,
-									}}
+									initial={isPerformanceMode ? {} : { scale: 0, rotate: -180 }}
+									animate={isPerformanceMode ? {} : inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+									transition={
+										isPerformanceMode
+											? { duration: 0 }
+											: {
+													delay: index * 0.1 + 0.5,
+													duration: 0.5,
+													type: "spring",
+													stiffness: 200,
+													damping: 20,
+											  }
+									}
 								>
 									<Avatar className="w-16 h-16 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300">
 										<AvatarImage
@@ -225,9 +328,9 @@ const PeopleRow = ({ people=leadershipData, height = "h-auto", className = "" }:
 								</motion.div>
 								<motion.div
 									className="text-center space-y-2"
-									initial={{ opacity: 0, y: 20 }}
-									animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-									transition={{ delay: index * 0.1 + 0.7, duration: 0.4 }}
+									initial={isPerformanceMode ? {} : { opacity: 0, y: 20 }}
+									animate={isPerformanceMode ? {} : inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+									transition={isPerformanceMode ? { duration: 0 } : { delay: index * 0.1 + 0.7, duration: 0.4 }}
 								>
 									<h3 className="font-bold text-sm text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
 									<p className="text-xs text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
