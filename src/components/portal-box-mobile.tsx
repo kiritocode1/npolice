@@ -12,43 +12,38 @@ const usePerformanceMode = () => {
 	const [isPerformanceMode, setIsPerformanceMode] = useState(() => {
 		// Immediate synchronous check
 		if (typeof window === "undefined") return false;
-		
+
 		// Check URL parameters first (most reliable)
-		const hasPerformanceParam = window.location.search.includes('performance=true') || 
-								   window.location.search.includes('force-performance=true');
-		
+		const hasPerformanceParam = window.location.search.includes("performance=true") || window.location.search.includes("force-performance=true");
+
 		// Check for Lighthouse
-		const isLighthouse = navigator.userAgent.includes('Lighthouse') || 
-							navigator.userAgent.includes('Chrome-Lighthouse');
-		
+		const isLighthouse = navigator.userAgent.includes("Lighthouse") || navigator.userAgent.includes("Chrome-Lighthouse");
+
 		// Check for reduced motion preference
-		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 		// Check for performance mode class (if already set)
-		const hasPerformanceClass = typeof document !== "undefined" && 
-									document.documentElement.classList.contains("performance-mode");
-		
+		const hasPerformanceClass = typeof document !== "undefined" && document.documentElement.classList.contains("performance-mode");
+
 		return hasPerformanceParam || isLighthouse || prefersReducedMotion || hasPerformanceClass;
 	});
 
 	useEffect(() => {
 		const checkPerformanceMode = () => {
 			if (typeof document === "undefined") return false;
-			
+
 			// Check for performance mode class
 			const hasPerformanceClass = document.documentElement.classList.contains("performance-mode");
-			
+
 			// Check URL parameters
-			const hasPerformanceParam = window.location.search.includes('performance=true') || 
-									   window.location.search.includes('force-performance=true');
-			
+			const hasPerformanceParam = window.location.search.includes("performance=true") || window.location.search.includes("force-performance=true");
+
 			// Check for Lighthouse
-			const isLighthouse = navigator.userAgent.includes('Lighthouse') || 
-								navigator.userAgent.includes('Chrome-Lighthouse');
-			
+			const isLighthouse = navigator.userAgent.includes("Lighthouse") || navigator.userAgent.includes("Chrome-Lighthouse");
+
 			// Check for reduced motion preference
-			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			
+			const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 			return hasPerformanceClass || hasPerformanceParam || isLighthouse || prefersReducedMotion;
 		};
 
@@ -68,14 +63,14 @@ const usePerformanceMode = () => {
 		const handleUrlChange = () => {
 			setIsPerformanceMode(checkPerformanceMode());
 		};
-		
-		window.addEventListener('popstate', handleUrlChange);
-		window.addEventListener('pushstate', handleUrlChange);
+
+		window.addEventListener("popstate", handleUrlChange);
+		window.addEventListener("pushstate", handleUrlChange);
 
 		return () => {
 			observer.disconnect();
-			window.removeEventListener('popstate', handleUrlChange);
-			window.removeEventListener('pushstate', handleUrlChange);
+			window.removeEventListener("popstate", handleUrlChange);
+			window.removeEventListener("pushstate", handleUrlChange);
 		};
 	}, []);
 
@@ -117,7 +112,7 @@ export default function CustomsPortalBoxMobile() {
 
 	// Debug logging
 	useEffect(() => {
-		console.log('PortalBoxMobile - Performance mode:', isPerformanceMode);
+		console.log("PortalBoxMobile - Performance mode:", isPerformanceMode);
 	}, [isPerformanceMode]);
 
 	// Performance mode - render without animations
