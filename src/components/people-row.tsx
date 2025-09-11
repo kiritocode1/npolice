@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, Variants } from "framer-motion";
@@ -14,12 +16,73 @@ interface Person {
 }
 
 interface PeopleRowProps {
-	people: Person[];
+	people?: Person[];
 	height?: string;
 	className?: string;
 }
 
-const PeopleRow = ({ people, height = "h-auto", className = "" }: PeopleRowProps) => {
+
+// Static data - no need for client-side translation
+const leadershipData = [
+	{
+		id: "1",
+		name: "Shri. Devendra Fadnavis",
+		nameMarathi: "श्री. देवेंद्र फडणवीस",
+		position: "Hon'ble Chief Minister",
+		positionMarathi: "माननीय मुख्यमंत्री",
+		image: "/people/1.webp",
+	},
+	{
+		id: "2",
+		name: "Shri. Eknath Shinde",
+		nameMarathi: "श्री. एकनाथ शिंदे",
+		position: "Hon'ble Deputy Chief Minister",
+		positionMarathi: "माननीय उपमुख्यमंत्री",
+		image: "/people/2.webp",
+	},
+	{
+		id: "3",
+		name: "Shri. Ajit Pawar",
+		nameMarathi: "श्री अजित पवार",
+		position: "Hon'ble Deputy Chief Minister",
+		positionMarathi: "माननीय उपमुख्यमंत्री",
+		image: "/people/3.webp",
+	},
+	{
+		id: "4",
+		name: "Dr. Pankaj Bhoyar",
+		nameMarathi: "डॉ. पंकज भोयर",
+		position: "Hon'ble Minister of State, Home(Rural)",
+		positionMarathi: "माननीय राज्यमंत्री, गृह(ग्रामीण)",
+		image: "/people/4.webp",
+	},
+	{
+		id: "5",
+		name: "Shri. Yogesh Kadam",
+		nameMarathi: "श्री. योगेश कदम",
+		position: "Hon'ble Minister of State, Home(Urban)",
+		positionMarathi: "माननीय राज्यमंत्री, गृह(शहरी)",
+		image: "/people/5.webp",
+	},
+	{
+		id: "6",
+		name: "Shri. Iqbal Singh Chahal",
+		nameMarathi: "श्री. इकबाल सिंह चहल",
+		position: "Additional Chief Secretary (Home)",
+		positionMarathi: "अतिरिक्त मुख्य सचिव (गृह)",
+		image: "/people/6.webp",
+	},
+	{
+		id: "7",
+		name: "Smt. Rashmi Shukla",
+		nameMarathi: "श्रीमती. रश्मी शुक्ला",
+		position: "Director General of Police",
+		positionMarathi: "पोलिस महासंचालक",
+		image: "/people/7.webp",
+	},
+];
+
+const PeopleRow = ({ people=leadershipData, height = "h-auto", className = "" }: PeopleRowProps) => {
 	const { language } = useLanguage();
 	const { ref, inView } = useInView({
 		threshold: 0.1,

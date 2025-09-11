@@ -17,55 +17,31 @@ export interface Card {
 	};
 }
 
-const dreams = "https://images.unsplash.com/photo-1536893827774-411e1dc7c902?=jpg&fit=crop&w=400&q=80&fit=max";
-const fashion = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?=jpg&fit=crop&w=400&q=80&fit=max";
-const galleryart = "https://images.unsplash.com/photo-1522878308970-972ec5eedc0d?=jpg&fit=crop&w=400&q=80&fit=max";
-const summer = "https://images.unsplash.com/photo-1572246538688-3f326dca3951?=jpg&fit=crop&w=400&q=80&fit=max";
 
-const defaultCards: Card[] = [
+const cityCards: Card[] = [
 	{
 		id: 1,
-		title: "Summer Opening",
-		image: summer,
-		content: "Join us for the Summer Opening event, where we celebrate the start of a vibrant season filled with art and culture.",
-		author: {
-			name: "Zé Manuel",
-			role: "Fundador, Summer Opening",
-			image: "https://github.com/educlopez.png",
-		},
+		title: "Historic Forts",
+		image: "/gallery/1.webp",
+		content: "Explore the magnificent forts that tell the story of Chhatrapati Sambhaji Nagar's rich heritage and architectural marvels.",
 	},
 	{
 		id: 2,
-		title: "Fashion",
-		image: fashion,
-		content: "Explore the latest trends in fashion at our exclusive showcase, featuring renowned designers and unique styles.",
-		author: {
-			name: "Maria Silva",
-			role: "Fashion Curator",
-			image: "https://github.com/educlopez.png",
-		},
+		title: "Cityscape Views",
+		image: "/gallery/2.webp",
+		content: "Witness the beautiful cityscape of Chhatrapati Sambhaji Nagar with its modern infrastructure and traditional charm.",
 	},
 	{
 		id: 3,
-		title: "Gallery Art",
-		image: galleryart,
-		content: "Immerse yourself in the world of art at our gallery, showcasing stunning pieces from emerging and established artists.",
-		author: {
-			name: "João Santos",
-			role: "Gallery Director",
-			image: "https://github.com/educlopez.png",
-		},
+		title: "Landmarks",
+		image: "/gallery/3.webp",
+		content: "Discover the iconic landmarks that define the cultural and historical significance of our city.",
 	},
 	{
 		id: 4,
-		title: "Dreams",
-		image: dreams,
-		content: "Join us on a journey through dreams, exploring the subconscious and the art of dreaming.",
-		author: {
-			name: "Ana Rodrigues",
-			role: "Dream Interpreter",
-			image: "https://github.com/educlopez.png",
-		},
+		title: "Natural Beauty",
+		image: "/gallery/4.webp",
+		content: "Experience the natural beauty and serene landscapes that surround Chhatrapati Sambhaji Nagar.",
 	},
 ];
 
@@ -79,7 +55,7 @@ export interface ExpandableCardsProps {
 	cardClassName?: string;
 }
 
-export default function ExpandableCards({ cards = defaultCards, selectedCard: controlledSelected, onSelect, className = "", cardClassName = "" }: ExpandableCardsProps) {
+export default function ExpandableCards({ cards = cityCards, selectedCard: controlledSelected, onSelect, className = "", cardClassName = "" }: ExpandableCardsProps) {
 	const [internalSelected, setInternalSelected] = useState<number | null>(null);
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { t } = useLanguage();
