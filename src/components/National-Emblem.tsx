@@ -15,7 +15,7 @@ const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva J
 				width={160}
 				height={256}
 				className="block dark:hidden w-full h-full"
-				priority
+				loading="lazy"
 			/>
 			<Image
 				src="/national-emblem/dark.webp"
@@ -23,7 +23,7 @@ const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva J
 				width={160}
 				height={256}
 				className="hidden dark:block w-full h-full"
-				priority
+				loading="lazy"
 			/>
 		</div>
 	);

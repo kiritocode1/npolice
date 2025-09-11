@@ -7,6 +7,7 @@ import ExpandableCards from "@/components/ui/custom/Scrollable-gallery";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
 import CSMMap from "@/components/CSMMap";
 import PerformanceGate from "@/components/performance-gate";
+import Image from "next/image";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 
@@ -18,16 +19,18 @@ const Page = async () => {
 	cacheTag("page-home");
 	return (
 		<main>
-			<div
-				className="min-w-full min-h-[96vh] flex items-end justify-center "
-				style={{
-					backgroundImage: "url('/sunrise.svg')",
-					backgroundSize: "cover",
-					backgroundPosition: "center",
-					backgroundRepeat: "no-repeat",
-				}}
-			>
-				<div className="w-full   flex items-end justify-center">
+			<div className="relative min-w-full min-h-[96vh] flex items-end justify-center overflow-hidden">
+				{/* Hero background image as Next/Image for proper preload and LCP control */}
+				<Image
+					src="/sunrise.svg"
+					alt=""
+					fill
+					priority
+					fetchPriority="high"
+					sizes="100vw"
+					className="object-cover object-center select-none pointer-events-none"
+				/>
+				<div className="relative z-10 w-full flex items-end justify-center">
 					<PerformanceGate>
 						<PortalBoxResponsive />
 					</PerformanceGate>
