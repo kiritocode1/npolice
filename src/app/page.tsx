@@ -6,34 +6,32 @@ import { useLanguage } from "@/contexts/language-context";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
 import ExpandableCards, { Card } from "@/components/ui/custom/Scrollable-gallery";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
+import CSMMap from "@/components/CSMMap";
 
-const cityCards: Card[] = [
+const getCityCards = (t: (key: string) => string): Card[] => [
 	{
 		id: 1,
-		title: "Historic Forts",
+		title: t("city.tour.forts.title"),
 		image: "/gallery/1.png",
-		content:
-			"Explore the magnificent historic forts that stand as testaments to CSM&apos;s rich cultural heritage and architectural brilliance. These ancient structures tell stories of valor, culture, and the glorious past of Maharashtra.",
+		content: t("city.tour.forts.content"),
 	},
 	{
 		id: 2,
-		title: "Modern Cityscape",
+		title: t("city.tour.cityscape.title"),
 		image: "/gallery/2.png",
-		content:
-			"Discover the vibrant modern cityscape of CSM, showcasing contemporary architecture and urban development. Experience the perfect blend of tradition and modernity in this rapidly growing city.",
+		content: t("city.tour.cityscape.content"),
 	},
 	{
 		id: 3,
-		title: "Cultural Landmarks",
+		title: t("city.tour.landmarks.title"),
 		image: "/gallery/3.png",
-		content: "Visit iconic cultural landmarks that define the identity and spirit of Chhatrapati Sambhajinagar city. These monuments preserve the rich Maratha heritage and cultural significance.",
+		content: t("city.tour.landmarks.content"),
 	},
 	{
 		id: 4,
-		title: "Natural Beauty",
+		title: t("city.tour.nature.title"),
 		image: "/gallery/4.png",
-		content:
-			"Experience the natural beauty and scenic landscapes that surround the historic city of CSM. From rolling hills to serene lakes, nature&apos;s bounty complements the city&apos;s urban charm.",
+		content: t("city.tour.nature.content"),
 	},
 ];
 
@@ -138,11 +136,14 @@ const Page = () => {
 
 			<div className="w-full py-12 bg-muted/30 dark:bg-muted/10">
 				<div className="text-center mb-8">
-					<h2 className="text-3xl font-bold text-foreground mb-2">City Tour</h2>
-					<p className="text-muted-foreground">Discover the beauty and heritage of Chhatrapati Sambhajinagar</p>
+					<h2 className="text-3xl font-bold text-foreground mb-2">{t("city.tour.title")}</h2>
+					<p className="text-muted-foreground">{t("city.tour.subtitle")}</p>
 				</div>
-				<ExpandableCards cards={cityCards} />
+				<ExpandableCards cards={getCityCards(t)} />
 			</div>
+
+			{/* Map Section */}
+			<CSMMap />
 		</main>
 	);
 };

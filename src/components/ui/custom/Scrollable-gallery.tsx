@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { useLanguage } from "@/contexts/language-context";
 
 export interface Card {
 	id: number;
@@ -81,6 +82,7 @@ export interface ExpandableCardsProps {
 export default function ExpandableCards({ cards = defaultCards, selectedCard: controlledSelected, onSelect, className = "", cardClassName = "" }: ExpandableCardsProps) {
 	const [internalSelected, setInternalSelected] = useState<number | null>(null);
 	const scrollRef = useRef<HTMLDivElement>(null);
+	const { t } = useLanguage();
 
 	const selectedCard = controlledSelected !== undefined ? controlledSelected : internalSelected;
 

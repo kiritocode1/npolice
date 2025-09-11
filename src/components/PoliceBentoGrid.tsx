@@ -6,6 +6,7 @@ import { motion, useMotionValue, useTransform, type Variants } from "motion/reac
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/language-context";
 
 interface BentoItem {
 	id: string;
@@ -310,50 +311,51 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 };
 
 export default function PoliceBentoGrid() {
+	const { t } = useLanguage();
 	const bentoItems: BentoItem[] = [
 		{
 			id: "latest-updates",
-			title: "Latest Updates",
-			description: "Stay informed with the latest news and updates from Chhatrapati Sambhajinagar Rural Police",
+			title: t("bento.updates.title"),
+			description: t("bento.updates.description"),
 			feature: "news",
 			size: "md",
 			className: "col-span-1 row-span-1",
 			content: [
 				{
-					title: "सराईत घरफोड्या जेरबंद",
+					title: t("bento.news.title1"),
 					date: "Dec 15, 2024",
-					content: "04 घरफोडीचे गुन्हे उघड.... स्थानिक गुन्हे शाखा, छत्रपती संभाजीनगर ग्रामीण यांची कारवाई.",
+					content: t("bento.news.content1"),
 				},
 				{
-					title: "Traffic Safety Campaign",
+					title: t("bento.news.title2"),
 					date: "Dec 14, 2024",
-					content: "New traffic safety measures implemented across major highways in the district.",
+					content: t("bento.news.content2"),
 				},
 				{
-					title: "Community Outreach Program",
+					title: t("bento.news.title3"),
 					date: "Dec 13, 2024",
-					content: "Police department launches new community engagement initiatives for better public relations.",
+					content: t("bento.news.content3"),
 				},
 			],
 		},
 		{
 			id: "sp-message",
-			title: "DGP's Message",
-			description: "A message from our Superintendent of Police",
+			title: t("bento.dgp.title"),
+			description: t("bento.dgp.description"),
 			feature: "message",
 			size: "lg",
 			className: "col-span-2 row-span-1",
 			content: {
-				text: "The purpose of this website is to provide the platform to the citizens to voice their grievances & offer suggestions. I hope that this interactive relationship between Police & Public will help us in preventing crime & winning trust of People.",
-				author: "Smt. Rashmi Shukla (DGP)",
-				position: "Director General of Police, Chhatrapati Sambhajinagar Rural Police",
+				text: t("bento.dgp.message"),
+				author: t("bento.dgp.author"),
+				position: t("bento.dgp.position"),
 				image: "/people/7.png",
 			},
 		},
 		{
 			id: "recent-events",
-			title: "Recent Events",
-			description: "Latest events and activities from our department",
+			title: t("bento.events.title"),
+			description: t("bento.events.description"),
 			feature: "carousel",
 			size: "md",
 			className: "col-span-1 row-span-1",
@@ -361,8 +363,8 @@ export default function PoliceBentoGrid() {
 		},
 		{
 			id: "online-services",
-			title: "Online Services and Forms",
-			description: "Access various police services and forms online",
+			title: t("bento.services.title"),
+			description: t("bento.services.description"),
 			feature: "services",
 			size: "md",
 			className: "col-span-1 row-span-1",
@@ -380,8 +382,8 @@ export default function PoliceBentoGrid() {
 		},
 		{
 			id: "popular-info",
-			title: "Popular Information",
-			description: "Essential information and resources for citizens",
+			title: t("bento.info.title"),
+			description: t("bento.info.description"),
 			feature: "info",
 			size: "md",
 			className: "col-span-1 row-span-1",

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Globe, Shield, Users, FileText, AlertTriangle, Clock, Heart } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
 
 const navigation = {
 	categories: [
@@ -73,6 +74,7 @@ const Underline = `hover:-translate-y-1 border border-dotted rounded-xl p-2.5 tr
 
 const PoliceFooter = () => {
 	const [visitCount, setVisitCount] = useState(0);
+	const { t } = useLanguage();
 
 	useEffect(() => {
 		const storedCount = localStorage.getItem("police-visit-count");
@@ -93,9 +95,9 @@ const PoliceFooter = () => {
 			<div className="w-full bg-gradient-to-b from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 py-16">
 				<div className="flex flex-col items-center">
 					<h1 className="md:text-[8rem] text-[3rem] text-center w-[90vw] font-extrabold tracking-tighter text-[#555555] dark:text-neutral-400 border-b border-[#555555] dark:border-neutral-600 pb-4">
-						Chhatrapati Sambhajinagar
+						{t("footer.title")}
 					</h1>
-					<p className="text-xl md:text-2xl text-[#666666] dark:text-neutral-500 font-semibold mt-4">Rural Police Department</p>
+					<p className="text-xl md:text-2xl text-[#666666] dark:text-neutral-500 font-semibold mt-4">{t("footer.subtitle")}</p>
 				</div>
 			</div>
 
@@ -106,11 +108,7 @@ const PoliceFooter = () => {
 						<Shield className="w-8 text-orange-500" />
 					</div>
 				</Link>
-				<p className="bg-transparent text-center text-xs leading-4 text-neutral-600 dark:text-neutral-400 md:text-left">
-					Welcome to Chhatrapati Sambhajinagar Rural Police Department, where we are committed to ensuring the safety and security of our citizens. Our mission is to maintain law and order,
-					prevent crime, and provide efficient police services to the community. We believe in transparency, accountability, and building trust with the public through professional policing.
-					Our dedicated officers work around the clock to protect and serve the people of Maharashtra with integrity and excellence.
-				</p>
+				<p className="bg-transparent text-center text-xs leading-4 text-neutral-600 dark:text-neutral-400 md:text-left">{t("footer.description")}</p>
 			</div>
 
 			<div className="mx-auto max-w-7xl px-6 py-10">
@@ -201,12 +199,12 @@ const PoliceFooter = () => {
 						<Youtube className="h-5 w-5" />
 					</Link>
 					{/* Visit Counter */}
-					<div className="bg-orange-500 text-white p-2 rounded-lg text-center min-w-[80px]">
+					<div className="bg-orange-500 text-white p-3 rounded-lg text-center min-w-[120px]">
 						<div className="flex items-center justify-center gap-1 mb-1">
-							<Globe className="w-3 h-3" />
-							<span className="text-xs font-medium">Visits</span>
+							<Globe className="w-4 h-4" />
+							<span className="text-sm font-medium">{t("footer.visits")}</span>
 						</div>
-						<div className="text-lg font-bold">{formatCount(visitCount)}</div>
+						<div className="text-xl font-bold">{formatCount(visitCount)}</div>
 					</div>
 				</div>
 			</div>
@@ -215,16 +213,16 @@ const PoliceFooter = () => {
 				<div className="flex flex-row items-center justify-center gap-1 text-slate-600 dark:text-slate-400">
 					<span>©</span>
 					<span>{new Date().getFullYear()}</span>
-					<span>Made with</span>
+					<span>{t("footer.copyright")}</span>
 					<Heart className="text-red-600 mx-1 h-4 w-4 animate-pulse" />
-					<span>for the people of</span>
+					<span>{t("footer.for")}</span>
 					<span className="hover:text-orange-500 dark:hover:text-orange-500 cursor-pointer text-black dark:text-white">
 						<Link
 							aria-label="Maharashtra"
 							className="font-bold"
 							href="/"
 						>
-							Maharashtra 🇮🇳
+							{t("footer.maharashtra")}
 						</Link>
 					</span>
 					-
@@ -234,7 +232,7 @@ const PoliceFooter = () => {
 							className=""
 							href="/"
 						>
-							Chhatrapati Sambhajinagar Rural Police
+							{t("footer.police")}
 						</Link>
 					</span>
 				</div>
