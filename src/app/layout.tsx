@@ -9,7 +9,23 @@ import PoliceFooter from "@/components/PoliceFooter";
 export const metadata: Metadata = {
 	title: "Chhatrapati Sambhaji Nagar Police | Official Website",
 	description: "Official website of Chhatrapati Sambhaji Nagar Police Department. Access police services, report crimes, emergency contacts, and community safety information.",
-	keywords: ["Chhatrapati Sambhaji Nagar Police", "Police Department", "Crime Report", "Emergency", "Safety", "Aurangabad Police", "Maharashtra Police"],
+	keywords: [
+		"Chhatrapati Sambhaji Nagar Police",
+		"Police Department",
+		"Crime Report",
+		"Emergency",
+		"Safety",
+
+		"Maharashtra Police",
+		"Police Verification",
+		"FIR Registration",
+		"Traffic Police",
+		"Women Safety",
+		"Community Policing",
+		"Police Station",
+		"Emergency Contacts",
+		"Police Services",
+	],
 	authors: [{ name: "Chhatrapati Sambhaji Nagar Police Department" }],
 	creator: "Chhatrapati Sambhaji Nagar Police Department",
 	publisher: "Chhatrapati Sambhaji Nagar Police Department",
@@ -22,6 +38,13 @@ export const metadata: Metadata = {
 			"max-video-preview": -1,
 			"max-image-preview": "large",
 			"max-snippet": -1,
+		},
+	},
+	alternates: {
+		canonical: "https://csmpolice.vercel.app",
+		languages: {
+			en: "https://csmpolice.vercel.app",
+			mr: "https://csmpolice.vercel.app?lang=mr",
 		},
 	},
 	openGraph: {
