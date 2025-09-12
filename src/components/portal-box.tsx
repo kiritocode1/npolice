@@ -156,7 +156,7 @@ export default function CustomsPortalBox() {
 							alt="Indian National Emblem"
 							width={100}
 							height={100}
-							quality={75}
+							quality={50}
 							priority={false}
 							sizes="100px"
 						/>

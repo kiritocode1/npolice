@@ -100,7 +100,7 @@ export default function CustomsPortalBoxMobile() {
 								alt="Indian National Emblem"
 								width={80}
 								height={80}
-								quality={75}
+								quality={50}
 								priority={false}
 								sizes="80px"
 							/>
