@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function CSMMap() {
 	const { resolvedTheme } = useTheme();
-	const { t } = useLanguage();
+	const { t, language } = useLanguage();
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
@@ -27,8 +27,8 @@ export default function CSMMap() {
 			<section className="w-full py-16 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
 				<div className="mx-auto max-w-7xl px-4">
 					<div className="text-center mb-12">
-						<h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">{t("map.title")}</h2>
-						<p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">{t("map.description")}</p>
+						<h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">Find Us</h2>
+						<p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">Locate our headquarters and contact information</p>
 					</div>
 					<div className="grid lg:grid-cols-2 gap-8 items-center">
 						<div className="w-full h-96 bg-neutral-200 dark:bg-neutral-700 rounded-2xl flex items-center justify-center">
@@ -59,8 +59,10 @@ export default function CSMMap() {
 			<div className="mx-auto max-w-7xl px-4">
 				{/* Header */}
 				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">{t("map.title")}</h2>
-					<p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">{t("map.description")}</p>
+					<h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">{language === "mr" ? "आमच्याला शोधा" : "Find Us"}</h2>
+					<p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+						{language === "mr" ? "आमचे मुख्यालय आणि संपर्क माहिती शोधा" : "Locate our headquarters and contact information"}
+					</p>
 				</div>
 
 				<div className="grid lg:grid-cols-2 gap-8 items-center">
