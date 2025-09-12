@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 	},
 
-	typedRoutes: true,
+
 	
 };
 
