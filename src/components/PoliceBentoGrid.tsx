@@ -76,6 +76,9 @@ const MessageFeature = ({ message }: { message: { text: string; author: string; 
 						width={64}
 						height={64}
 						className="object-cover"
+						quality={75}
+						priority={false}
+						sizes="64px"
 					/>
 				</div>
 				<div className="flex-1 relative">
@@ -112,6 +115,9 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 					width={400}
 					height={96}
 					className="object-cover w-full h-full"
+					quality={75}
+					priority={false}
+					sizes="(max-width: 768px) 100vw, 400px"
 				/>
 				<button
 					onClick={prevSlide}
@@ -212,7 +218,6 @@ const UpdatesFeature = ({ updates }: { updates: Array<{ name: string; icon: any;
 };
 
 const BentoCard = ({ item }: { item: BentoItem }) => {
-	const [isHovered, setIsHovered] = useState(false);
 	const x = useMotionValue(0);
 	const y = useMotionValue(0);
 	const rotateX = useTransform(y, [-100, 100], [2, -2]);
@@ -233,7 +238,6 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 	function handleMouseLeave() {
 		x.set(0);
 		y.set(0);
-		setIsHovered(false);
 	}
 
 	return (
@@ -242,7 +246,6 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 			whileHover={{ y: -5 }}
 			transition={{ type: "spring", stiffness: 300, damping: 20 }}
 			className="h-full"
-			onHoverStart={() => setIsHovered(true)}
 			onHoverEnd={handleMouseLeave}
 			onMouseMove={handleMouseMove}
 			style={{

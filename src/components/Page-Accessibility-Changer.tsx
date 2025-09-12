@@ -203,14 +203,6 @@ const PageAccessibilityChanger = () => {
 		}
 	};
 
-	const handleTextToSpeech = () => {
-		if ("speechSynthesis" in window) {
-			const utterance = new SpeechSynthesisUtterance(document.body.innerText);
-			utterance.rate = 0.8;
-			utterance.pitch = 1;
-			speechSynthesis.speak(utterance);
-		}
-	};
 
 	const handleLargeCursor = () => {
 		setLargeCursor(!largeCursor);

@@ -37,6 +37,9 @@ export default function Section() {
 						fill
 						alt="Chatrapati Shambhaji Nagar cityscape"
 						style={{ objectFit: "cover" }}
+						quality={75}
+						priority={false}
+						sizes="100vw"
 					/>
 				</motion.div>
 			</div>

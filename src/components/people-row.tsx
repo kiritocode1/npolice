@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, Variants } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
@@ -243,20 +243,18 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 											  }
 									}
 								>
-									<Avatar className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300">
-										<AvatarImage
-											src={person.image}
+									<div className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
+										<Image
+											src={person.image || "/placeholder.svg"}
 											alt={language === "mr" ? person.nameMarathi : person.name}
-											className="object-cover"
+											width={80}
+											height={80}
+											className="object-cover w-full h-full"
+											quality={75}
+											priority={false}
+											sizes="(max-width: 640px) 64px, 80px"
 										/>
-										<AvatarFallback className="text-xl font-bold bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
-											{(language === "mr" ? person.nameMarathi : person.name)
-												.split(" ")
-												.map((n) => n[0])
-												.join("")
-												.toUpperCase()}
-										</AvatarFallback>
-									</Avatar>
+									</div>
 								</motion.div>
 								<motion.div
 									className="text-center space-y-2"
@@ -311,20 +309,18 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 											  }
 									}
 								>
-									<Avatar className="w-16 h-16 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300">
-										<AvatarImage
-											src={person.image}
+									<div className="w-16 h-16 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
+										<Image
+											src={person.image || "/placeholder.svg"}
 											alt={language === "mr" ? person.nameMarathi : person.name}
-											className="object-cover"
+											width={64}
+											height={64}
+											className="object-cover w-full h-full"
+											quality={75}
+											priority={false}
+											sizes="64px"
 										/>
-										<AvatarFallback className="text-xl font-bold bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
-											{(language === "mr" ? person.nameMarathi : person.name)
-												.split(" ")
-												.map((n) => n[0])
-												.join("")
-												.toUpperCase()}
-										</AvatarFallback>
-									</Avatar>
+									</div>
 								</motion.div>
 								<motion.div
 									className="text-center space-y-2"
@@ -372,20 +368,18 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 											damping: 20,
 										}}
 									>
-										<Avatar className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300">
-											<AvatarImage
-												src={person.image}
+										<div className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
+											<Image
+												src={person.image || "/placeholder.svg"}
 												alt={language === "mr" ? person.nameMarathi : person.name}
-												className="object-cover"
+												width={80}
+												height={80}
+												className="object-cover w-full h-full"
+												quality={75}
+												priority={false}
+												sizes="(max-width: 640px) 64px, 80px"
 											/>
-											<AvatarFallback className="text-xl font-bold bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
-												{(language === "mr" ? person.nameMarathi : person.name)
-													.split(" ")
-													.map((n) => n[0])
-													.join("")
-													.toUpperCase()}
-											</AvatarFallback>
-										</Avatar>
+										</div>
 									</motion.div>
 									<motion.div
 										className="text-center space-y-2"

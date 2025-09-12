@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Globe, Shield, Users, FileText, AlertTriangle, Clock, Heart } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube, Mail, Globe, Shield, Heart } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 
 const navigation = {

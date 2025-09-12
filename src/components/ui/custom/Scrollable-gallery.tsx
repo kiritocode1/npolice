@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLanguage } from "@/contexts/language-context";
+import Image from "next/image";
 
 export interface Card {
 	id: number;
@@ -58,7 +58,6 @@ export interface ExpandableCardsProps {
 export default function ExpandableCards({ cards = cityCards, selectedCard: controlledSelected, onSelect, className = "", cardClassName = "" }: ExpandableCardsProps) {
 	const [internalSelected, setInternalSelected] = useState<number | null>(null);
 	const scrollRef = useRef<HTMLDivElement>(null);
-	const { t } = useLanguage();
 
 	const selectedCard = controlledSelected !== undefined ? controlledSelected : internalSelected;
 
@@ -118,12 +117,15 @@ export default function ExpandableCards({ cards = cityCards, selectedCard: contr
 						onClick={() => handleCardClick(card.id)}
 					>
 						<div className="relative h-full w-[200px]">
-							<img
+							<Image
 								src={card.image || "/placeholder.svg"}
 								alt={card.title}
 								width={200}
 								height={300}
 								className="h-full w-full object-cover"
+								quality={75}
+								priority={false}
+								sizes="(max-width: 768px) 200px, 200px"
 							/>
 							<div className="absolute inset-0 bg-black/20" />
 							<div className="absolute inset-0 flex flex-col justify-center p-6 text-white">

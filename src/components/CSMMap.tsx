@@ -7,7 +7,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { useEffect, useState } from "react";
 
 export default function CSMMap() {
-	const { theme, resolvedTheme } = useTheme();
+	const { resolvedTheme } = useTheme();
 	const { t } = useLanguage();
 	const [mounted, setMounted] = useState(false);
 
