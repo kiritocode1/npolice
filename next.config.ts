@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
 		},
 		optimizeCss: true,
 		optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
+		useLightningcss: true,
 	},
 	compiler: {
 		removeConsole: process.env.NODE_ENV === "production",
@@ -32,6 +33,9 @@ const nextConfig: NextConfig = {
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 	},
+
+	typedRoutes: true,
+	
 };
 
 export default nextConfig;
