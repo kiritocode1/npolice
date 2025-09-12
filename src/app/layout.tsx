@@ -101,46 +101,6 @@ export default function RootLayout({
 						<PageAccessibilityChanger />
 					</LanguageProvider>
 				</ThemeProvider>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-							(function() {
-								// Detect performance testing tools
-								const isLighthouse = navigator.userAgent.includes('Lighthouse') || 
-													navigator.userAgent.includes('Chrome-Lighthouse');
-								
-								const isPerformanceTest = window.location.search.includes('performance=true');
-								
-								const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-								
-								// Add performance mode class immediately
-								if (isLighthouse || isPerformanceTest || prefersReducedMotion) {
-									document.documentElement.classList.add('performance-mode');
-									console.log('Performance mode activated:', { isLighthouse, isPerformanceTest, prefersReducedMotion });
-								}
-								
-								// Detect slow connections
-								if ('connection' in navigator) {
-									const connection = navigator.connection;
-									const isSlowConnection = connection.effectiveType === 'slow-2g' || 
-															connection.effectiveType === '2g' || 
-															connection.saveData === true;
-									
-									if (isSlowConnection) {
-										document.documentElement.classList.add('performance-mode');
-										console.log('Performance mode activated: slow connection');
-									}
-								}
-								
-								// Force performance mode for testing
-								if (window.location.search.includes('force-performance=true')) {
-									document.documentElement.classList.add('performance-mode');
-									console.log('Performance mode forced via URL parameter');
-								}
-							})();
-						`,
-					}}
-				/>
 			</body>
 		</html>
 	);

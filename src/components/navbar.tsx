@@ -125,7 +125,7 @@ const AccessibilityMenu = () => {
 	const { t } = useLanguage();
 
 	return (
-		<div className="flex items-center gap-2 justify-end p-2 z-10 bg-background/95 backdrop-blur-sm">
+		<div className="hidden lg:flex items-center gap-2 justify-end p-2 z-10 bg-background/95 backdrop-blur-sm">
 			<Link
 				href="#main-content"
 				className="hover:underline text-sm"
@@ -343,6 +343,80 @@ const Navbar = () => {
 									</ul>
 								</nav>
 							</div>
+							{/* Accessibility Controls for Mobile */}
+							<div className="lg:hidden space-y-3">
+								<div className="flex items-center justify-between">
+									<LanguageSwitch />
+									<ThemeToggle />
+								</div>
+
+								{/* Font Size Controls */}
+								<div className="space-y-2">
+									<p className="text-xs text-muted-foreground">Font Size</p>
+									<div className="flex -space-x-px">
+										<Button
+											variant="outline"
+											className="rounded-r-none focus:z-10 text-xs"
+											onClick={() => {
+												const currentSize = parseFloat(getComputedStyle(document.body).fontSize) || 16;
+												const newSize = Math.min(currentSize + 2, 24);
+												document.body.style.fontSize = `${newSize}px`;
+											}}
+											aria-label={t("accessibility.font.increase")}
+										>
+											+A
+										</Button>
+										<Button
+											variant="outline"
+											className="rounded-none focus:z-10 text-xs"
+											onClick={() => {
+												document.body.style.fontSize = "16px";
+											}}
+											aria-label={t("accessibility.font.reset")}
+										>
+											A
+										</Button>
+										<Button
+											variant="outline"
+											className="rounded-l-none focus:z-10 text-xs"
+											onClick={() => {
+												const currentSize = parseFloat(getComputedStyle(document.body).fontSize) || 16;
+												const newSize = Math.max(currentSize - 2, 12);
+												document.body.style.fontSize = `${newSize}px`;
+											}}
+											aria-label={t("accessibility.font.decrease")}
+										>
+											-A
+										</Button>
+									</div>
+								</div>
+
+								{/* Quick Access Links */}
+								<div className="flex flex-wrap gap-2">
+									<Link
+										href="#main-content"
+										className="hover:underline text-xs px-2 py-1 rounded bg-muted/50"
+										onClick={() => setMenuState(false)}
+									>
+										{t("accessibility.skip")}
+									</Link>
+									<Link
+										href="/screen-reader-access"
+										className="hover:underline text-xs px-2 py-1 rounded bg-muted/50"
+										onClick={() => setMenuState(false)}
+									>
+										{t("accessibility.screen")}
+									</Link>
+									<Link
+										href="/sitemap.xml"
+										className="hover:underline text-xs px-2 py-1 rounded bg-muted/50"
+										onClick={() => setMenuState(false)}
+									>
+										{t("accessibility.sitemap")}
+									</Link>
+								</div>
+							</div>
+
 							<div className="flex w-full flex-col space-y-2 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
 								<Button
 									asChild

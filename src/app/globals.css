@@ -132,13 +132,6 @@
 	}
 }
 
-/* Performance testing mode */
-.performance-mode * {
-	animation: none !important;
-	transition: none !important;
-	transform: none !important;
-}
-
 /* Essential animations only */
 @keyframes fadeIn {
 	from {
