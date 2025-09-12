@@ -153,10 +153,25 @@
 	}
 }
 
+@keyframes fade-scale {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%) scale(0.95);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+}
+
 .animate-fade-in {
 	animation: fadeIn 0.3s ease-out;
 }
 
 .animate-slide-up {
 	animation: slideUp 0.3s ease-out;
+}
+
+.animate-fade-scale {
+	animation: fade-scale 0.2s ease-out;
 }

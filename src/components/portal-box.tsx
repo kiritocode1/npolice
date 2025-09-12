@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import Image from "next/image";
 import { Suspense } from "react";
+import UniversalSearchBar from "./UniversalSearchBar";
 
 function ArrowIcon() {
 	return (
@@ -80,13 +81,8 @@ export default function CustomsPortalBox() {
 
 					<p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-neutral-600 md:text-base">{t("portal.description")}</p>
 
-					<div className="mt-6">
-						<Link href="/services">
-							<InteractiveHoverButton
-								className="w-50"
-								text={t("portal.viewDetails")}
-							></InteractiveHoverButton>
-						</Link>
+					<div className="mt-8 max-w-2xl mx-auto">
+						<UniversalSearchBar />
 					</div>
 				</div>
 

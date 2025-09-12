@@ -21,8 +21,6 @@ const Page = async () => {
 			role="main"
 			aria-label="Police Department Homepage"
 		>
-
-
 			<section
 				aria-label="Welcome to Police Department"
 				className="min-h-screen w-full bg-white dark:bg-zinc-950 relative"
