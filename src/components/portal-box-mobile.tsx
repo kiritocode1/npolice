@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 import Image from "next/image";
 import { Suspense } from "react";
-import UniversalSearchBar from "./UniversalSearchBar";
+import LazySearchBar from "./LazySearchBar";
 
 function ArrowIcon() {
 	return (
@@ -79,7 +79,7 @@ export default function CustomsPortalBoxMobile() {
 						<h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">{t("portal.title")}</h1>
 						<p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">{t("portal.description")}</p>
 						<div className="mt-8 max-w-2xl mx-auto px-4">
-							<UniversalSearchBar />
+							<LazySearchBar />
 						</div>
 					</div>
 
