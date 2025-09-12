@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "./ui/button";
 import React from "react";
 import { Moon, Sun, Equal, X, Shield, Users, FileText, Phone, AlertTriangle, Info, Building, MapPin, UserCheck } from "lucide-react";
@@ -190,6 +191,7 @@ const AccessibilityMenu = () => {
 const Navbar = () => {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
+	const [openDropdown, setOpenDropdown] = React.useState<number | null>(null);
 	const { t } = useLanguage();
 
 	React.useEffect(() => {
@@ -209,20 +211,31 @@ const Navbar = () => {
 				data-state={menuState && "active"}
 				className="fixed left-0 w-full z-20 px-2 top-12"
 			>
-				<div className={cn("mx-auto w-full px-6 transition-all duration-300 lg:px-12", isScrolled && "bg-background/80 backdrop-blur-lg border-b border-border/50")}>
-					<div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 py-4">
+				<div className={cn("w-full px-4 transition-all duration-300 lg:px-8", isScrolled && "bg-background/80 backdrop-blur-lg border-b border-border/50")}>
+					<div className="relative flex flex-wrap items-center justify-between gap-4 lg:gap-0 py-3">
 						<div className="flex w-full justify-between lg:w-auto">
 							<Link
 								href="/"
 								aria-label={t("dept.home")}
-								className="flex gap-3 items-center group"
+								className="flex gap-4 items-center group"
 							>
 								<div className="transition-transform duration-200 group-hover:scale-105">
 									<NationalEmblem className="w-12 h-12" />
 								</div>
+								<div className="transition-transform duration-200 group-hover:scale-105">
+									<Image
+										src="/national-emblem/MaharashtraPolice.avif"
+										alt="Maharashtra Police Logo"
+										width={48}
+										height={48}
+										quality={50}
+										priority={false}
+										className="w-12 h-12 object-contain"
+									/>
+								</div>
 								<div className="hidden sm:block">
-									<p className="font-bold text-lg lg:text-xl tracking-tight">{t("dept.name")}</p>
-									<p className="text-sm text-muted-foreground">{t("dept.type")}</p>
+									<p className="font-bold text-base lg:text-lg tracking-tight">{t("dept.name")}</p>
+									<p className="text-xs text-muted-foreground">{t("dept.type")}</p>
 								</div>
 							</Link>
 
@@ -242,7 +255,7 @@ const Navbar = () => {
 								role="navigation"
 								aria-label="Main navigation"
 							>
-								<ul className="flex gap-6 text-sm">
+								<ul className="flex gap-4 text-xs">
 									{menuItems.map((item, index) => (
 										<li key={index}>
 											<DropdownMenu
@@ -259,57 +272,78 @@ const Navbar = () => {
 
 						<div
 							className={cn(
-								"bg-background data-[state=active]:block lg:data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent",
+								"bg-background data-[state=active]:block lg:data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent max-h-[80vh] overflow-y-auto lg:max-h-none lg:overflow-visible",
 								menuState && "block lg:flex",
 							)}
 						>
-							<div className="lg:hidden">
+							<div className="lg:hidden w-full">
 								<nav
 									role="navigation"
 									aria-label="Mobile navigation"
 								>
-									<ul className="space-y-4 text-base">
+									<ul className="space-y-2 text-sm w-full">
 										{menuItems.map((item, index) => (
 											<li key={index}>
-												<div className="space-y-2">
-													<Link
-														href={item.href}
-														className="text-foreground font-medium block duration-150 transition-colors"
-														onClick={() => setMenuState(false)}
+												<div className="space-y-1">
+													<button
+														onClick={() => setOpenDropdown(openDropdown === index ? null : index)}
+														className="text-foreground font-medium flex items-center justify-between w-full p-2 rounded-md hover:bg-muted/50 duration-150 transition-colors"
+														aria-expanded={openDropdown === index}
 													>
-														{item.name}
-													</Link>
-													<ul className="ml-4 space-y-1">
-														{item.options.map((option, optionIndex) => (
-															<li key={optionIndex}>
-																{option.href ? (
-																	<Link
-																		href={option.href}
-																		className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm duration-150 transition-colors"
-																		onClick={() => setMenuState(false)}
-																	>
-																		{option.Icon}
-																		{option.label}
-																	</Link>
-																) : (
-																	<button
-																		onClick={() => setMenuState(false)}
-																		className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm duration-150 transition-colors"
-																	>
-																		{option.Icon}
-																		{option.label}
-																	</button>
-																)}
-															</li>
-														))}
-													</ul>
+														<span>{item.name}</span>
+														<svg
+															className={`w-4 h-4 transition-transform duration-200 ${openDropdown === index ? "rotate-180" : ""}`}
+															fill="none"
+															stroke="currentColor"
+															viewBox="0 0 24 24"
+														>
+															<path
+																strokeLinecap="round"
+																strokeLinejoin="round"
+																strokeWidth={2}
+																d="M19 9l-7 7-7-7"
+															/>
+														</svg>
+													</button>
+													{openDropdown === index && (
+														<ul className="ml-4 space-y-1 border-l border-muted pl-4">
+															{item.options.map((option, optionIndex) => (
+																<li key={optionIndex}>
+																	{option.href ? (
+																		<Link
+																			href={option.href}
+																			className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm duration-150 transition-colors p-2 rounded-md hover:bg-muted/30"
+																			onClick={() => {
+																				setMenuState(false);
+																				setOpenDropdown(null);
+																			}}
+																		>
+																			{option.Icon}
+																			{option.label}
+																		</Link>
+																	) : (
+																		<button
+																			onClick={() => {
+																				setMenuState(false);
+																				setOpenDropdown(null);
+																			}}
+																			className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm duration-150 transition-colors p-2 rounded-md hover:bg-muted/30 w-full text-left"
+																		>
+																			{option.Icon}
+																			{option.label}
+																		</button>
+																	)}
+																</li>
+															))}
+														</ul>
+													)}
 												</div>
 											</li>
 										))}
 									</ul>
 								</nav>
 							</div>
-							<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
+							<div className="flex w-full flex-col space-y-2 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
 								<Button
 									asChild
 									variant="outline"
