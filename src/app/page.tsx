@@ -17,11 +17,20 @@ const Page = async () => {
 	// Tag for on-demand revalidation
 	cacheTag("page-home");
 	return (
-		<main>
-			<div className="min-h-screen w-full bg-white dark:bg-zinc-950 relative">
+		<main
+			role="main"
+			aria-label="Police Department Homepage"
+		>
+
+
+			<section
+				aria-label="Welcome to Police Department"
+				className="min-h-screen w-full bg-white dark:bg-zinc-950 relative"
+			>
 				{/* Morning Haze - Light Mode */}
 				<div
 					className="absolute inset-0 z-0 dark:hidden"
+					aria-hidden="true"
 					style={{
 						backgroundImage: `
 							radial-gradient(circle at 50% 100%, rgba(253, 224, 71, 0.4) 0%, transparent 60%),
@@ -33,6 +42,7 @@ const Page = async () => {
 				{/* Dark Mode Gradient */}
 				<div
 					className="absolute inset-0 z-0 hidden dark:block"
+					aria-hidden="true"
 					style={{
 						backgroundImage: `
 							radial-gradient(circle at 50% 100%, rgba(253, 224, 71, 0.3) 0%, transparent 60%),
@@ -41,11 +51,15 @@ const Page = async () => {
 						`,
 					}}
 				/>
-				{/* Your Content/Components */}
+				{/* Portal Content */}
 				<div className="relative z-10 w-full flex items-end justify-center min-h-[96vh]">
 					<Suspense
 						fallback={
-							<div className="flex items-center justify-center min-h-[96vh]">
+							<div
+								className="flex items-center justify-center min-h-[96vh]"
+								aria-live="polite"
+								aria-label="Loading portal"
+							>
 								<div className="text-lg">Loading Portal...</div>
 							</div>
 						}
@@ -53,79 +67,145 @@ const Page = async () => {
 						<PortalBoxResponsive />
 					</Suspense>
 				</div>
-			</div>
+			</section>
 
-			<div className="w-full py-12 bg-muted/30 dark:bg-muted/10">
-				{/* Leadership Team */}
+			{/* Leadership Team Section */}
+			<section
+				aria-labelledby="leadership-heading"
+				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
+			>
 				<div className="text-center mb-8">
-					<h2 className="text-3xl font-bold text-foreground mb-2">Leadership Team</h2>
+					<h2
+						id="leadership-heading"
+						className="text-3xl font-bold text-foreground mb-2"
+					>
+						Leadership Team
+					</h2>
 					<p className="text-muted-foreground">Meet our dedicated leaders serving Chhatrapati Sambhaji Nagar</p>
 				</div>
 
 				<Suspense
 					fallback={
-						<div className="flex items-center justify-center py-12">
+						<div
+							className="flex items-center justify-center py-12"
+							aria-live="polite"
+							aria-label="Loading content"
+						>
 							<div className="text-lg">Loading Team...</div>
 						</div>
 					}
 				>
 					<PeopleRow />
 				</Suspense>
-			</div>
+			</section>
 
-			<div
-				className="w-full min-h-full mb-40 "
+			{/* Services Section */}
+			<section
+				aria-labelledby="services-heading"
+				className="w-full min-h-full mb-40"
 				id="main-content"
 			>
+				<h1
+					id="services-heading"
+					className="sr-only"
+				>
+					Police Services and Information
+				</h1>
 				<Suspense
 					fallback={
-						<div className="flex items-center justify-center py-20">
+						<div
+							className="flex items-center justify-center py-20"
+							aria-live="polite"
+							aria-label="Loading content"
+						>
 							<div className="text-lg">Loading Services...</div>
 						</div>
 					}
 				>
 					<PoliceBentoGrid />
 				</Suspense>
-			</div>
+			</section>
 
-			<div>
+			{/* Gallery Section */}
+			<section
+				aria-labelledby="gallery-heading"
+				className="w-full"
+			>
+				<h2
+					id="gallery-heading"
+					className="sr-only"
+				>
+					Photo Gallery
+				</h2>
 				<Suspense
 					fallback={
-						<div className="flex items-center justify-center py-12">
+						<div
+							className="flex items-center justify-center py-12"
+							aria-live="polite"
+							aria-label="Loading content"
+						>
 							<div className="text-lg">Loading Gallery...</div>
 						</div>
 					}
 				>
 					<PictureScrollSection />
 				</Suspense>
-			</div>
+			</section>
 
-			<div className="w-full py-12 bg-muted/30 dark:bg-muted/10">
+			{/* City Tour Section */}
+			<section
+				aria-labelledby="city-tour-heading"
+				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
+			>
 				<div className="text-center mb-8">
-					<h2 className="text-3xl font-bold text-foreground mb-2">City Tour</h2>
+					<h2
+						id="city-tour-heading"
+						className="text-3xl font-bold text-foreground mb-2"
+					>
+						City Tour
+					</h2>
 					<p className="text-muted-foreground">Discover the beauty and heritage of Chhatrapati Sambhaji Nagar</p>
 				</div>
 				<Suspense
 					fallback={
-						<div className="flex items-center justify-center py-12">
+						<div
+							className="flex items-center justify-center py-12"
+							aria-live="polite"
+							aria-label="Loading content"
+						>
 							<div className="text-lg">Loading City Tour...</div>
 						</div>
 					}
 				>
 					<ExpandableCards />
 				</Suspense>
-			</div>
+			</section>
 
 			{/* Map Section */}
-			<Suspense
-				fallback={
-					<div className="flex items-center justify-center py-12">
-						<div className="text-lg">Loading Map...</div>
-					</div>
-				}
+			<section
+				aria-labelledby="map-heading"
+				className="w-full"
 			>
-				<CSMMap />
-			</Suspense>
+				<h2
+					id="map-heading"
+					className="sr-only"
+				>
+					Interactive Map of Chhatrapati Sambhaji Nagar
+				</h2>
+				<Suspense
+					fallback={
+						<div
+							className="flex items-center justify-center py-12"
+							aria-live="polite"
+							aria-label="Loading content"
+						>
+							<div className="text-lg">Loading Map...</div>
+						</div>
+					}
+				>
+					<CSMMap />
+				</Suspense>
+			</section>
 		</main>
 	);
 };

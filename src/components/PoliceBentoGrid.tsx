@@ -121,12 +121,14 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 				/>
 				<button
 					onClick={prevSlide}
+					aria-label="Previous image"
 					className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-8 md:h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors touch-manipulation"
 				>
 					<ChevronLeft className="w-4 h-4" />
 				</button>
 				<button
 					onClick={nextSlide}
+					aria-label="Next image"
 					className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-8 md:h-8 bg-white/80 dark:bg-black/80 rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-black transition-colors touch-manipulation"
 				>
 					<ChevronRight className="w-4 h-4" />
@@ -137,6 +139,8 @@ const CarouselFeature = ({ images }: { images: string[] }) => {
 					<button
 						key={index}
 						onClick={() => setCurrentIndex(index)}
+						aria-label={`Go to image ${index + 1}`}
+						aria-pressed={index === currentIndex}
 						className={cn("w-2 h-2 md:w-2 md:h-2 rounded-full transition-colors touch-manipulation", index === currentIndex ? "bg-orange-500" : "bg-neutral-300 dark:bg-neutral-600")}
 					/>
 				))}

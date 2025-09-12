@@ -88,6 +88,7 @@ export default function CSMMap() {
 									loading="lazy"
 									referrerPolicy="no-referrer-when-downgrade"
 									className="rounded-2xl"
+									title="Interactive map of Chhatrapati Sambhaji Nagar Police Headquarters"
 								></iframe>
 							</div>
 
