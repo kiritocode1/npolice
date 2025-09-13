@@ -9,6 +9,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAutoResizeTextarea } from "../hooks/use-auto-resize-textarea";
 // Import search data
 import { getSearchData, SearchItem } from "../data/searchData";
+// Import semantic search
+import { hybridSearch } from "@/lib/semantic-search";
 
 // TypeScript declarations for Speech Recognition API
 interface SpeechRecognition extends EventTarget {
@@ -69,6 +71,7 @@ const UniversalSearchBar = () => {
 	const [isListening, setIsListening] = useState(false);
 	const [speechSupported, setSpeechSupported] = useState(false);
 	const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+	const [isSearching, setIsSearching] = useState(false);
 	const { t, language } = useLanguage();
 	const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -173,24 +176,54 @@ const UniversalSearchBar = () => {
 
 	// Search function - memoized to prevent re-creation
 	const performSearch = useMemo(() => {
-		return (searchQuery: string) => {
+		return async (searchQuery: string) => {
 			if (!searchQuery.trim()) {
 				setResults([]);
+				setIsSearching(false);
 				return;
 			}
 
-			const filteredResults = searchData.filter((item: SearchItem) => {
-				const searchTerm = searchQuery.toLowerCase();
-				return (
-					item.title.toLowerCase().includes(searchTerm) ||
-					item.description.toLowerCase().includes(searchTerm) ||
-					item.keywords.some((keyword: string) => keyword.toLowerCase().includes(searchTerm)) ||
-					item.category.toLowerCase().includes(searchTerm)
-				);
-			});
+			setIsSearching(true);
 
-			setResults(filteredResults.slice(0, 10)); // Limit to 10 results
-			setSelectedIndex(0);
+			try {
+				// Use hybrid search for best results (combines text + semantic)
+				// Only run semantic search in browser environment
+				const filteredResults =
+					typeof window !== "undefined"
+						? await hybridSearch(searchQuery, searchData)
+						: searchData
+								.filter((item: SearchItem) => {
+									const searchTerm = searchQuery.toLowerCase();
+									return (
+										item.title.toLowerCase().includes(searchTerm) ||
+										item.description.toLowerCase().includes(searchTerm) ||
+										item.keywords.some((keyword: string) => keyword.toLowerCase().includes(searchTerm)) ||
+										item.category.toLowerCase().includes(searchTerm)
+									);
+								})
+								.slice(0, 10);
+
+				setResults(filteredResults);
+				setSelectedIndex(0);
+			} catch (error) {
+				console.error("Search failed:", error);
+				// Fallback to text search
+				const fallbackResults = searchData
+					.filter((item: SearchItem) => {
+						const searchTerm = searchQuery.toLowerCase();
+						return (
+							item.title.toLowerCase().includes(searchTerm) ||
+							item.description.toLowerCase().includes(searchTerm) ||
+							item.keywords.some((keyword: string) => keyword.toLowerCase().includes(searchTerm)) ||
+							item.category.toLowerCase().includes(searchTerm)
+						);
+					})
+					.slice(0, 10);
+				setResults(fallbackResults);
+				setSelectedIndex(0);
+			} finally {
+				setIsSearching(false);
+			}
 		};
 	}, [searchData]);
 
@@ -354,7 +387,14 @@ const UniversalSearchBar = () => {
 			{/* Search Results */}
 			{isOpen && (query || results.length > 0) && (
 				<div className="absolute top-full left-2 right-2 sm:left-4 sm:right-4 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-xl shadow-2xl z-50 max-h-80 sm:max-h-96 overflow-y-auto">
-					{results.length === 0 && query ? (
+					{isSearching ? (
+						<div className="p-4 text-center text-muted-foreground">
+							<div className="flex items-center justify-center gap-2">
+								<div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+								{language === "mr" ? "शोधत आहे..." : "Searching..."}
+							</div>
+						</div>
+					) : results.length === 0 && query ? (
 						<div className="p-4 text-center text-muted-foreground">{language === "mr" ? "कोणतेही परिणाम सापडले नाहीत" : "No results found"}</div>
 					) : (
 						<div className="py-2">
