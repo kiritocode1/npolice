@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Search, ChevronRight, CornerRightUp, Mic } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
+import { ChevronRight, CornerRightUp, Mic } from "lucide-react";
 import Link from "next/link";
-import { Textarea } from "@/components/ui/textarea";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAutoResizeTextarea } from "../hooks/use-auto-resize-textarea";
 // Import search data
 import { getSearchData, SearchItem } from "../data/searchData";
