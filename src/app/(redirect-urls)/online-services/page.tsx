@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { CheckCircle, Clock, FileText, Phone, Shield, Users } from "lucide-react";
 
 const OnlineServicesPage = () => {
-	const { t } = useLanguage();
-
 	const services = [
 		{
 			title: "Online FIR Filing",

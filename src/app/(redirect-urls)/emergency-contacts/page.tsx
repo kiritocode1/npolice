@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, Car, Heart, Phone, Shield, Users } from "lucide-react";
 
 const EmergencyContactsPage = () => {
-	const { t } = useLanguage();
-
 	const emergencyNumbers = [
 		{
 			number: "112",
@@ -170,7 +167,7 @@ const EmergencyContactsPage = () => {
 						<div className="space-y-4">
 							<div className="flex items-start gap-3">
 								<div className="w-2 h-2 bg-red-500 rounded-full mt-2"></div>
-								<p>Always call 112 for police emergencies - it's free and available 24/7</p>
+								<p>Always call 112 for police emergencies - it&apos;s free and available 24/7</p>
 							</div>
 							<div className="flex items-start gap-3">
 								<div className="w-2 h-2 bg-red-500 rounded-full mt-2"></div>

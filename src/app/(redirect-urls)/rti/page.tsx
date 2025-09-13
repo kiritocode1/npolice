@@ -5,12 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useLanguage } from "@/contexts/language-context";
 import { Clock, Download, FileText, Search } from "lucide-react";
 
 const RTIPage = () => {
-	const { t } = useLanguage();
-
 	const rtiTypes = [
 		{
 			title: "Police Records",

@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, Clock, FileText, Shield, TrendingUp, Users } from "lucide-react";
 
 const DashboardPage = () => {
-	const { t } = useLanguage();
-
 	const stats = [
 		{
 			title: "Total Cases (2024)",

@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { InteractiveHoverButton } from "./Shiny-button";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Suspense } from "react";
 import LazySearchBar from "./LazySearchBar";

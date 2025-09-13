@@ -4,12 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useLanguage } from "@/contexts/language-context";
 import { CheckCircle, FileText, Search, UserCheck } from "lucide-react";
 
 const VerificationPage = () => {
-	const { t } = useLanguage();
-
 	const verificationTypes = [
 		{
 			title: "Police Clearance Certificate",

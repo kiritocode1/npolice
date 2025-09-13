@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useLanguage } from "@/contexts/language-context";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export interface Card {
 	id: number;
@@ -16,7 +15,6 @@ export interface Card {
 		image: string;
 	};
 }
-
 
 const cityCards: Card[] = [
 	{

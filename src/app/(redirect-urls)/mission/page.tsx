@@ -1,12 +1,9 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Heart, Shield, Target, Users } from "lucide-react";
 
 const MissionPage = () => {
-	const { t } = useLanguage();
-
 	const values = [
 		{
 			icon: <Shield className="h-6 w-6" />,

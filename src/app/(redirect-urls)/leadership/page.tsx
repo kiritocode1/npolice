@@ -2,12 +2,9 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Award, Mail, Phone, Users } from "lucide-react";
 
 const LeadershipPage = () => {
-	const { t } = useLanguage();
-
 	const leadership = [
 		{
 			name: "Shri. Manoj Lohiya, IPS",

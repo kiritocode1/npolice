@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Calendar, Download, FileText, TrendingUp, Users } from "lucide-react";
 
 const ReportsPage = () => {
-	const { t } = useLanguage();
-
 	const reportTypes = [
 		{
 			title: "Annual Crime Report 2023",

@@ -54,7 +54,7 @@ const UniversalSearchBar = () => {
 		}, 150);
 
 		return () => clearTimeout(timeoutId);
-	}, [query, searchData]);
+	}, [query, searchData, performSearch]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const value = e.target.value;

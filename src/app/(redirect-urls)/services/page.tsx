@@ -2,13 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, FileText, MapPin, Phone, Shield, UserCheck, Users } from "lucide-react";
 import Link from "next/link";
 
 const ServicesPage = () => {
-	const { t } = useLanguage();
-
 	const services = [
 		{
 			icon: <UserCheck className="h-6 w-6" />,

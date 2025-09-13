@@ -1,12 +1,9 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Award, Shield, Target, Users } from "lucide-react";
 
 const AboutPage = () => {
-	const { t } = useLanguage();
-
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="max-w-4xl mx-auto">

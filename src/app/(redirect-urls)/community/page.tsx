@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Calendar, Heart, MapPin, Phone, Users } from "lucide-react";
 
 const CommunityPage = () => {
-	const { t } = useLanguage();
-
 	const programs = [
 		{
 			title: "Youth Safety Awareness Program",

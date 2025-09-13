@@ -2,12 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, Heart, Phone, Shield, Users } from "lucide-react";
 
 const WomenSafetyPage = () => {
-	const { t } = useLanguage();
-
 	const emergencyNumbers = [
 		{
 			number: "1091",
@@ -141,7 +138,7 @@ const WomenSafetyPage = () => {
 					</CardHeader>
 					<CardContent>
 						<div className="text-center space-y-4">
-							<p className="text-lg">If you need immediate assistance or want to report an incident, we're here to help</p>
+							<p className="text-lg">If you need immediate assistance or want to report an incident, we&apos;re here to help</p>
 							<div className="flex flex-col sm:flex-row gap-4 justify-center">
 								<Button
 									size="lg"

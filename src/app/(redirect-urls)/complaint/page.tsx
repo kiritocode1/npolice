@@ -6,12 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { useLanguage } from "@/contexts/language-context";
 import { CheckCircle, Clock, FileText } from "lucide-react";
 
 const ComplaintPage = () => {
-	const { t } = useLanguage();
-
 	const complaintTypes = [
 		{
 			value: "officer",

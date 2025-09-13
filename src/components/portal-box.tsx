@@ -1,11 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { InteractiveHoverButton } from "./Shiny-button";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { Suspense } from "react";
 import LazySearchBar from "./LazySearchBar";
 
 function ArrowIcon() {
@@ -36,31 +33,6 @@ function StarIcon() {
 		</svg>
 	);
 }
-
-// Loading component for Suspense
-const PortalLoading = () => (
-	<section className="w-full px-4 pb-20 pt-20">
-		<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl ring-1 ring-black/5">
-			<div className="px-6 py-8 text-center md:px-10 md:py-12">
-				<div className="mx-auto inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
-					<span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-700">
-						<StarIcon />
-					</span>
-					<span>Loading...</span>
-				</div>
-				<h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">Loading Portal...</h1>
-				<p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">Please wait while we load the portal</p>
-			</div>
-			<div className="flex items-end justify-center gap-8 px-4 pb-8 md:px-6 h-[500px] w-full max-w-full">
-				<div className="flex-1 max-w-xs h-96 bg-neutral-100 dark:bg-neutral-800 rounded-3xl animate-pulse"></div>
-				<div className="flex-1 max-w-xs h-80 bg-neutral-100 dark:bg-neutral-800 rounded-3xl animate-pulse"></div>
-				<div className="flex-1 max-w-xs h-64 bg-neutral-100 dark:bg-neutral-800 rounded-3xl animate-pulse"></div>
-				<div className="flex-1 max-w-xs h-80 bg-neutral-100 dark:bg-neutral-800 rounded-3xl animate-pulse"></div>
-				<div className="flex-1 max-w-xs h-96 bg-neutral-100 dark:bg-neutral-800 rounded-3xl animate-pulse"></div>
-			</div>
-		</div>
-	</section>
-);
 
 export default function CustomsPortalBox() {
 	const { t } = useLanguage();

@@ -5,12 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useLanguage } from "@/contexts/language-context";
 import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 
 const ContactPage = () => {
-	const { t } = useLanguage();
-
 	const contactInfo = [
 		{
 			title: "Emergency Helpline",
@@ -50,7 +47,7 @@ const ContactPage = () => {
 					<Card>
 						<CardHeader>
 							<CardTitle className="text-2xl">Send us a Message</CardTitle>
-							<CardDescription>Fill out the form below and we'll get back to you as soon as possible.</CardDescription>
+							<CardDescription>Fill out the form below and we&apos;ll get back to you as soon as possible.</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<form className="space-y-4">

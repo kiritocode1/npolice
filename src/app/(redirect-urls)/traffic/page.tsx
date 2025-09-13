@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, Car, Clock, MapPin, Users } from "lucide-react";
 
 const TrafficPage = () => {
-	const { t } = useLanguage();
-
 	const trafficUpdates = [
 		{
 			location: "Jalna Road - Near Railway Station",

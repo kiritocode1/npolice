@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Award, Mail, MapPin, Phone, Users } from "lucide-react";
 
 const SeniorOfficersPage = () => {
-	const { t } = useLanguage();
-
 	const officers = [
 		{
 			name: "Shri. Manoj Lohiya, IPS",

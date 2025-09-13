@@ -5,12 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, Clock, FileText, Search } from "lucide-react";
 
 const FIRPage = () => {
-	const { t } = useLanguage();
-
 	const firStatuses = [
 		{
 			id: "FIR/2024/001234",

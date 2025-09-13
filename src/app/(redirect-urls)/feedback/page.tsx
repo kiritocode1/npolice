@@ -6,12 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { useLanguage } from "@/contexts/language-context";
 import { MessageSquare, Send, Star, ThumbsUp } from "lucide-react";
 
 const FeedbackPage = () => {
-	const { t } = useLanguage();
-
 	const feedbackTypes = [
 		{
 			value: "service",

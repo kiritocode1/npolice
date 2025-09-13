@@ -3,12 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { Download, Eye, Keyboard, Mouse, Settings, Volume2 } from "lucide-react";
 
 const ScreenReaderAccessPage = () => {
-	const { t } = useLanguage();
-
 	const accessibilityFeatures = [
 		{
 			title: "Screen Reader Support",

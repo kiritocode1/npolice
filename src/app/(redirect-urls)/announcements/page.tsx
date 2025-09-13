@@ -2,12 +2,9 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, Calendar } from "lucide-react";
 
 const AnnouncementsPage = () => {
-	const { t } = useLanguage();
-
 	const announcements = [
 		{
 			id: 1,

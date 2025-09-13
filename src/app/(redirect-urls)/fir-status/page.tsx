@@ -5,12 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useLanguage } from "@/contexts/language-context";
 import { AlertTriangle, CheckCircle, Clock, FileText, Search } from "lucide-react";
 
 const FIRStatusPage = () => {
-	const { t } = useLanguage();
-
 	const firStatuses = [
 		{
 			id: "FIR001234",
