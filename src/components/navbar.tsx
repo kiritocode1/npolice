@@ -1,16 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "./ui/button";
-import React from "react";
-import { Moon, Sun, Equal, X, Shield, Users, FileText, Phone, AlertTriangle, Info, Building, MapPin, UserCheck } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
-import NationalEmblem from "./National-Emblem";
-import { DropdownMenu } from "./ui/dropdown-menu";
 import { useLanguage } from "@/contexts/language-context";
+import { cn } from "@/lib/utils";
+import { AlertTriangle, Building, Equal, FileText, Info, MapPin, Moon, Phone, Shield, Sun, UserCheck, Users, X } from "lucide-react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 import LanguageSwitch from "./language-switch";
+import NationalEmblem from "./National-Emblem";
+import { Button } from "./ui/button";
+import { DropdownMenu } from "./ui/dropdown-menu";
 
 const getMenuItems = (t: (key: string) => string) => [
 	{
@@ -192,6 +192,7 @@ const Navbar = () => {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
 	const [openDropdown, setOpenDropdown] = React.useState<number | null>(null);
+	const [openDesktopDropdown, setOpenDesktopDropdown] = React.useState<number | null>(null);
 	const { t } = useLanguage();
 
 	React.useEffect(() => {
@@ -261,6 +262,9 @@ const Navbar = () => {
 											<DropdownMenu
 												options={item.options}
 												onOptionClick={() => setMenuState(false)}
+												index={index}
+												openDropdown={openDesktopDropdown}
+												onDropdownToggle={setOpenDesktopDropdown}
 											>
 												{item.name}
 											</DropdownMenu>

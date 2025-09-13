@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
 type DropdownOption = {
 	label: string;
@@ -19,12 +19,19 @@ type DropdownMenuProps = {
 	className?: string;
 	buttonClassName?: string;
 	onOptionClick?: () => void;
+	index?: number;
+	openDropdown?: number | null;
+	onDropdownToggle?: (index: number) => void;
 };
 
-const DropdownMenu = ({ options, children, className, buttonClassName, onOptionClick }: DropdownMenuProps) => {
+const DropdownMenu = ({ options, children, className, buttonClassName, onOptionClick, index, openDropdown, onDropdownToggle }: DropdownMenuProps) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleDropdown = () => {
+		if (onDropdownToggle && index !== undefined) {
+			onDropdownToggle(index);
+		}
 		setIsOpen(!isOpen);
 	};
 
@@ -38,8 +45,38 @@ const DropdownMenu = ({ options, children, className, buttonClassName, onOptionC
 		setIsOpen(false);
 	};
 
+	// Sync with parent's openDropdown state
+	useEffect(() => {
+		if (index !== undefined && openDropdown !== undefined) {
+			setIsOpen(openDropdown === index);
+		}
+	}, [openDropdown, index]);
+
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
+				if (onDropdownToggle && index !== undefined) {
+					onDropdownToggle(-1); // Close all dropdowns
+				}
+			}
+		};
+
+		if (isOpen) {
+			document.addEventListener("mousedown", handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [isOpen, onDropdownToggle, index]);
+
 	return (
-		<div className={cn("relative", className)}>
+		<div
+			ref={dropdownRef}
+			className={cn("relative", className)}
+		>
 			<Button
 				onClick={toggleDropdown}
 				variant="ghost"
