@@ -3,18 +3,72 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
-import { ChevronRight, CornerRightUp, Mic } from "lucide-react";
+import { ChevronRight, CornerRightUp, Mic, MicOff } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAutoResizeTextarea } from "../hooks/use-auto-resize-textarea";
 // Import search data
 import { getSearchData, SearchItem } from "../data/searchData";
 
+// TypeScript declarations for Speech Recognition API
+interface SpeechRecognition extends EventTarget {
+	continuous: boolean;
+	interimResults: boolean;
+	maxAlternatives: number;
+	lang: string;
+	start(): void;
+	stop(): void;
+	abort(): void;
+	onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+	onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+	onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+	onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
+	onnomatch: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+}
+
+interface SpeechRecognitionEvent extends Event {
+	resultIndex: number;
+	results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionErrorEvent extends Event {
+	error: string;
+	message: string;
+}
+
+interface SpeechRecognitionResultList {
+	readonly length: number;
+	item(index: number): SpeechRecognitionResult;
+	[index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionResult {
+	readonly length: number;
+	item(index: number): SpeechRecognitionAlternative;
+	[index: number]: SpeechRecognitionAlternative;
+	isFinal: boolean;
+}
+
+interface SpeechRecognitionAlternative {
+	transcript: string;
+	confidence: number;
+}
+
+declare global {
+	interface Window {
+		SpeechRecognition: new () => SpeechRecognition;
+		webkitSpeechRecognition: new () => SpeechRecognition;
+	}
+}
+
 const UniversalSearchBar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const [results, setResults] = useState<SearchItem[]>([]);
 	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [isListening, setIsListening] = useState(false);
+	const [speechSupported, setSpeechSupported] = useState(false);
+	const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 	const { t, language } = useLanguage();
 	const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -26,35 +80,128 @@ const UniversalSearchBar = () => {
 	// Optimized search data with memoization
 	const searchData = useMemo(() => getSearchData(t), [t]);
 
-	// Search function
-	const performSearch = (searchQuery: string) => {
-		if (!searchQuery.trim()) {
-			setResults([]);
+	// Initialize speech recognition
+	useEffect(() => {
+		initializeSpeechRecognition();
+	}, []);
+
+	const initializeSpeechRecognition = () => {
+		if (typeof window !== "undefined") {
+			const isSecureContext = window.isSecureContext || window.location.protocol === "https:" || window.location.hostname === "localhost";
+
+			if (!isSecureContext) {
+				console.warn("Speech recognition requires HTTPS or localhost");
+				setSpeechSupported(false);
+				return;
+			}
+
+			const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+			if (SpeechRecognition) {
+				try {
+					const recognitionInstance = new SpeechRecognition();
+					recognitionInstance.continuous = false;
+					recognitionInstance.interimResults = false;
+					recognitionInstance.maxAlternatives = 1;
+
+					recognitionInstance.onstart = () => {
+						setIsListening(true);
+					};
+
+					recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
+						let transcript = "";
+						for (let i = event.resultIndex; i < event.results.length; i++) {
+							transcript += event.results[i][0].transcript;
+						}
+
+						if (transcript.trim()) {
+							setQuery((prev) => {
+								const newText = prev + (prev && !prev.endsWith(" ") ? " " : "") + transcript;
+								return newText.length <= 1000 ? newText : newText.slice(0, 1000);
+							});
+						}
+					};
+
+					recognitionInstance.onerror = (event: SpeechRecognitionErrorEvent) => {
+						console.error("Speech recognition error:", event.error);
+						setIsListening(false);
+					};
+
+					recognitionInstance.onend = () => {
+						setIsListening(false);
+					};
+
+					setRecognition(recognitionInstance);
+					setSpeechSupported(true);
+				} catch (error) {
+					console.error("Error initializing speech recognition:", error);
+					setSpeechSupported(false);
+				}
+			} else {
+				setSpeechSupported(false);
+			}
+		}
+	};
+
+	const toggleSpeechRecognition = () => {
+		if (!recognition) {
+			console.error("Speech recognition not initialized");
 			return;
 		}
 
-		const filteredResults = searchData.filter((item: SearchItem) => {
-			const searchTerm = searchQuery.toLowerCase();
-			return (
-				item.title.toLowerCase().includes(searchTerm) ||
-				item.description.toLowerCase().includes(searchTerm) ||
-				item.keywords.some((keyword: string) => keyword.toLowerCase().includes(searchTerm)) ||
-				item.category.toLowerCase().includes(searchTerm)
-			);
-		});
+		if (isListening) {
+			try {
+				recognition.stop();
+			} catch (error) {
+				console.error("Error stopping speech recognition:", error);
+				setIsListening(false);
+			}
+		} else {
+			if (!navigator.onLine) {
+				console.warn("No internet connection");
+				return;
+			}
 
-		setResults(filteredResults.slice(0, 10)); // Limit to 10 results
-		setSelectedIndex(0);
+			try {
+				recognition.start();
+			} catch (error) {
+				console.error("Error starting speech recognition:", error);
+				setIsListening(false);
+			}
+		}
 	};
 
-	// Debounced search
+	// Search function - memoized to prevent re-creation
+	const performSearch = useMemo(() => {
+		return (searchQuery: string) => {
+			if (!searchQuery.trim()) {
+				setResults([]);
+				return;
+			}
+
+			const filteredResults = searchData.filter((item: SearchItem) => {
+				const searchTerm = searchQuery.toLowerCase();
+				return (
+					item.title.toLowerCase().includes(searchTerm) ||
+					item.description.toLowerCase().includes(searchTerm) ||
+					item.keywords.some((keyword: string) => keyword.toLowerCase().includes(searchTerm)) ||
+					item.category.toLowerCase().includes(searchTerm)
+				);
+			});
+
+			setResults(filteredResults.slice(0, 10)); // Limit to 10 results
+			setSelectedIndex(0);
+		};
+	}, [searchData]);
+
+	// Debounced search - fixed to prevent infinite re-renders
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
 			performSearch(query);
-		}, 150);
+		}, 300);
 
 		return () => clearTimeout(timeoutId);
-	}, [query, searchData, performSearch]);
+	}, [query, performSearch]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const value = e.target.value;
@@ -125,7 +272,7 @@ const UniversalSearchBar = () => {
 			<div className="w-full py-2 sm:py-4">
 				<div className="relative max-w-xl w-full mx-auto">
 					<Textarea
-						placeholder={language === "mr" ? "सर्व सेवा शोधा..." : "Search all services..."}
+						placeholder={isListening ? "" : language === "mr" ? "सर्व सेवा शोधा..." : "Search all services..."}
 						className={cn(
 							"w-full max-w-xl bg-black/5 dark:bg-white/5 rounded-3xl pl-4 sm:pl-6 pr-12 sm:pr-16",
 							"placeholder:text-black/50 dark:placeholder:text-white/50",
@@ -133,27 +280,44 @@ const UniversalSearchBar = () => {
 							"text-black dark:text-white text-wrap",
 							"overflow-y-auto resize-none",
 							"focus-visible:ring-0 focus-visible:ring-offset-0",
-							"transition-[height] duration-100 ease-out",
+							"transition-all duration-200 ease-out",
 							"leading-[1.2] py-3 sm:py-[16px]",
 							"min-h-[48px] sm:min-h-[52px]",
 							"max-h-[200px]",
 							"text-sm sm:text-base",
 							"[&::-webkit-resizer]:hidden",
+							isListening && "ring-2 ring-red-200 dark:ring-red-800 bg-red-50/50 dark:bg-red-900/10",
 						)}
 						ref={textareaRef}
 						value={query}
 						onChange={handleInputChange}
 						onKeyDown={handleKeyDown}
 						onFocus={() => setIsOpen(true)}
+						autoFocus
 					/>
-					<div
-						className={cn(
-							"absolute top-1/2 -translate-y-1/2 rounded-xl bg-black/5 dark:bg-white/5 py-1 px-1 transition-all duration-200",
-							query ? "right-8 sm:right-10" : "right-2 sm:right-3",
-						)}
-					>
-						<Mic className="w-3 h-3 sm:w-4 sm:h-4 text-black/70 dark:text-white/70" />
-					</div>
+					{speechSupported && (
+						<div
+							className={cn(
+								"absolute top-1/2 -translate-y-1/2 rounded-xl bg-black/5 dark:bg-white/5 py-1 px-1 transition-all duration-200",
+								query ? "right-8 sm:right-10" : "right-2 sm:right-3",
+							)}
+						>
+							<button
+								type="button"
+								onClick={toggleSpeechRecognition}
+								disabled={false}
+								className={cn(
+									"group w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200",
+									isListening
+										? "bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400"
+										: "bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-black/70 dark:text-white/70",
+								)}
+								title={isListening ? "Stop recording" : "Start voice input"}
+							>
+								{isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+							</button>
+						</div>
+					)}
 
 					<button
 						onClick={handleSearch}
@@ -167,6 +331,23 @@ const UniversalSearchBar = () => {
 					>
 						<CornerRightUp className="w-3 h-3 sm:w-4 sm:h-4 text-black/70 dark:text-white/70" />
 					</button>
+
+					{isListening && (
+						<div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+							<div className="h-4 w-32 flex items-center justify-center gap-0.5">
+								{[...Array(24)].map((_, i) => (
+									<div
+										key={i}
+										className="w-0.5 rounded-full bg-red-500 dark:bg-red-400 animate-pulse transition-all duration-300"
+										style={{
+											height: `${20 + Math.random() * 80}%`,
+											animationDelay: `${i * 0.05}s`,
+										}}
+									/>
+								))}
+							</div>
+						</div>
+					)}
 				</div>
 			</div>
 
