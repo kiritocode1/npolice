@@ -1,5 +1,4 @@
 import { SearchItem } from "@/data/searchData";
-import { openAISemanticSearch } from "./openai-search";
 
 // Initialize the embedding pipeline (now using OpenAI)
 export async function initializeSemanticSearch(searchData: SearchItem[]) {
@@ -156,45 +155,68 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 	return results;
 }
 
-// Semantic search function (now using OpenAI)
+// Semantic search function (now using server-side API)
 export async function semanticSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
-	return openAISemanticSearch(query, searchData);
+	try {
+		const response = await fetch("/api/semantic-search", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ query }),
+		});
+
+		if (!response.ok) {
+			throw new Error(`API request failed: ${response.status}`);
+		}
+
+		const data = await response.json();
+		const results = data.results || [];
+
+		// Restore icons from original search data
+		const resultsWithIcons = results.map((result: any) => {
+			const originalItem = searchData.find((item) => item.id === result.id);
+			return {
+				...result,
+				icon: originalItem?.icon || null,
+			};
+		});
+
+		return resultsWithIcons;
+	} catch (error) {
+		console.error("Semantic search API failed:", error);
+		return [];
+	}
 }
 
 // Hybrid search combining semantic and text search
 export async function hybridSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
+	// First try text search
+	const textResults = textSearch(query, searchData);
+
+	// If text search returns good results (more than 3), use them
+	if (textResults.length >= 3) {
+		console.log("🔍 Using text search results:", textResults.length);
+		return textResults;
+	}
+
+	// If text search has few results, try semantic search as fallback
+	console.log("🔍 Text search returned few results, trying semantic search...");
 	try {
-		// Try to get both semantic and text search results
-		const [semanticResults, textResults] = await Promise.allSettled([semanticSearch(query, searchData), Promise.resolve(textSearch(query, searchData))]);
+		const semanticResults = await semanticSearch(query, searchData);
 
-		// Extract successful results
-		const semantic = semanticResults.status === "fulfilled" ? semanticResults.value : [];
-		const text = textResults.status === "fulfilled" ? textResults.value : [];
-
-		// If semantic search failed, return text results
-		if (semanticResults.status === "rejected") {
-			console.warn("Semantic search failed, using text search only:", semanticResults.reason);
-			return text;
+		// If semantic search has results, combine them
+		if (semanticResults.length > 0) {
+			console.log("🔍 Combining text and semantic results");
+			const combinedResults = combineSearchResults(semanticResults, textResults, query);
+			return combinedResults;
 		}
 
-		// If text search failed, return semantic results
-		if (textResults.status === "rejected") {
-			console.warn("Text search failed, using semantic search only:", textResults.reason);
-			return semantic;
-		}
-
-		// If no semantic results, just return text results
-		if (semantic.length === 0) {
-			return text;
-		}
-
-		// Combine and deduplicate results
-		const combinedResults = combineSearchResults(semantic, text, query);
-		return combinedResults;
+		// If no semantic results, return text results
+		return textResults;
 	} catch (error) {
-		console.error("Hybrid search failed:", error);
-		// Fallback to text search
-		return textSearch(query, searchData);
+		console.error("Semantic search failed, using text results only:", error);
+		return textResults;
 	}
 }
 

@@ -1,10 +1,10 @@
-import { SearchItem } from "@/data/searchData";
+import { getSearchData } from "@/data/searchData";
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-// Initialize OpenAI client
+// Initialize OpenAI client (server-side only)
 const openai = new OpenAI({
-	apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-	dangerouslyAllowBrowser: true, // Only for client-side usage
+	apiKey: process.env.OPENAI_API_KEY, // Server-side env var
 });
 
 // Cache for embeddings with 1-hour expiry
@@ -13,7 +13,6 @@ interface CachedEmbedding {
 	timestamp: number;
 }
 
-// Cache for similarity calculations with 1-hour expiry
 interface CachedSimilarity {
 	similarities: number[];
 	timestamp: number;
@@ -22,6 +21,10 @@ interface CachedSimilarity {
 const embeddingCache = new Map<string, CachedEmbedding>();
 const similarityCache = new Map<string, CachedSimilarity>();
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+
+// Global variables for caching
+let documentEmbeddings: number[][] = [];
+let documents: any[] = [];
 
 // Generate embedding using OpenAI
 async function generateEmbedding(text: string): Promise<number[]> {
@@ -73,13 +76,8 @@ function cosineSimilarity(a: number[], b: number[]): number {
 	return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
-// Global variables for caching
-let documentEmbeddings: number[][] = [];
-let documents: SearchItem[] = [];
-let isOpenAISearchAvailable = true;
-
-// Initialize OpenAI search with document embeddings
-export async function initializeOpenAISearch(searchData: SearchItem[]): Promise<void> {
+// Initialize embeddings
+async function initializeEmbeddings(searchData: any[]): Promise<void> {
 	if (documentEmbeddings.length === searchData.length && documents.length === searchData.length) {
 		return; // Already initialized
 	}
@@ -91,38 +89,36 @@ export async function initializeOpenAISearch(searchData: SearchItem[]): Promise<
 		// Generate embeddings for all documents
 		documentEmbeddings = await Promise.all(documentTexts.map((text) => generateEmbedding(text)));
 
-		console.log("🔍 OpenAI Embeddings Generated:", {
+		console.log("🔍 Server: Embeddings initialized", {
 			documentCount: documents.length,
 			embeddingCount: documentEmbeddings.length,
-			firstEmbedding: documentEmbeddings[0]?.slice(0, 5), // First 5 dimensions
-			embeddingDimensions: documentEmbeddings[0]?.length,
-			cacheSize: embeddingCache.size,
 		});
 	} catch (error) {
-		console.error("Failed to initialize OpenAI search:", error);
-		isOpenAISearchAvailable = false;
+		console.error("Failed to initialize embeddings:", error);
 		throw error;
 	}
 }
 
-// OpenAI-based semantic search
-export async function openAISemanticSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
-	if (!query.trim() || !isOpenAISearchAvailable) return [];
-
+export async function POST(request: NextRequest) {
 	try {
-		// Initialize if needed
-		if (documentEmbeddings.length === 0) {
-			await initializeOpenAISearch(searchData);
+		const { query, language = "en" } = await request.json();
+
+		if (!query || typeof query !== "string") {
+			return NextResponse.json({ error: "Query is required" }, { status: 400 });
 		}
+
+		// Get search data and strip React components for serialization
+		const rawSearchData = getSearchData((key: string) => key);
+		const searchData = rawSearchData.map((item) => ({
+			...item,
+			icon: null, // Remove React components for server processing
+		}));
+
+		// Initialize embeddings if needed
+		await initializeEmbeddings(searchData);
 
 		// Generate query embedding
 		const queryEmbedding = await generateEmbedding(query);
-
-		console.log("🔍 Query Embedding:", {
-			query,
-			embedding: queryEmbedding.slice(0, 5), // First 5 dimensions
-			dimensions: queryEmbedding.length,
-		});
 
 		// Check similarity cache first
 		const similarityCacheKey = `${query.toLowerCase().trim()}_${documentEmbeddings.length}`;
@@ -131,7 +127,7 @@ export async function openAISemanticSearch(query: string, searchData: SearchItem
 		let similarities: number[];
 		if (cachedSimilarity && Date.now() - cachedSimilarity.timestamp < CACHE_DURATION) {
 			similarities = cachedSimilarity.similarities;
-			console.log("🔍 Using cached similarities for query:", query);
+			console.log("🔍 Server: Using cached similarities for query:", query);
 		} else {
 			// Calculate similarities
 			similarities = documentEmbeddings.map((docEmb) => cosineSimilarity(queryEmbedding, docEmb));
@@ -142,16 +138,8 @@ export async function openAISemanticSearch(query: string, searchData: SearchItem
 				timestamp: Date.now(),
 			});
 
-			console.log("🔍 Calculated new similarities for query:", query);
+			console.log("🔍 Server: Calculated new similarities for query:", query);
 		}
-
-		console.log("🔍 Similarity Scores:", {
-			query,
-			similarities: similarities.slice(0, 5), // First 5 scores
-			maxSimilarity: Math.max(...similarities),
-			avgSimilarity: similarities.reduce((a, b) => a + b, 0) / similarities.length,
-			cached: !!cachedSimilarity,
-		});
 
 		// Map to results with scores and sort
 		const results = documents
@@ -164,37 +152,15 @@ export async function openAISemanticSearch(query: string, searchData: SearchItem
 			.slice(0, 10) // Limit to 10 results
 			.map((result) => result.doc);
 
-		console.log("🔍 Search Results:", {
+		console.log("🔍 Server: Semantic search results:", {
 			query,
 			resultCount: results.length,
-			topResults: results.slice(0, 3).map((r) => ({ title: r.title, score: similarities[documents.indexOf(r)] })),
+			topResults: results.slice(0, 3).map((r: any) => ({ title: r.title, score: similarities[documents.indexOf(r)] })),
 		});
 
-		return results;
+		return NextResponse.json({ results });
 	} catch (error) {
-		console.error("OpenAI semantic search failed:", error);
-		isOpenAISearchAvailable = false;
-		return [];
+		console.error("Semantic search API error:", error);
+		return NextResponse.json({ error: "Semantic search failed" }, { status: 500 });
 	}
-}
-
-// Clear cache (useful for testing or manual cache management)
-export function clearEmbeddingCache(): void {
-	embeddingCache.clear();
-	similarityCache.clear();
-}
-
-// Get cache stats
-export function getCacheStats(): {
-	embeddingSize: number;
-	similaritySize: number;
-	embeddingKeys: string[];
-	similarityKeys: string[];
-} {
-	return {
-		embeddingSize: embeddingCache.size,
-		similaritySize: similarityCache.size,
-		embeddingKeys: Array.from(embeddingCache.keys()),
-		similarityKeys: Array.from(similarityCache.keys()),
-	};
 }
