@@ -1,73 +1,11 @@
 import { SearchItem } from "@/data/searchData";
+import { openAISemanticSearch } from "./openai-search";
 
-// Dynamic import to avoid SSR issues
-let pipeline: any = null;
-
-// Global variables for caching
-let extractor: any = null;
-let documentEmbeddings: number[][] = [];
-let documents: SearchItem[] = [];
-let isSemanticSearchAvailable = true;
-
-// Initialize the embedding pipeline
+// Initialize the embedding pipeline (now using OpenAI)
 export async function initializeSemanticSearch(searchData: SearchItem[]) {
-	if (extractor && documents.length === searchData.length) {
-		return; // Already initialized
-	}
-
-	// Check if we're in browser environment
-	if (typeof window === "undefined") {
-		throw new Error("Semantic search only works in browser environment");
-	}
-
-	try {
-		// Dynamic import to avoid SSR issues
-		if (!pipeline) {
-			// Try to load transformers with a timeout
-			const transformersPromise = import("@xenova/transformers");
-			const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Transformers load timeout")), 10000));
-
-			const transformers = (await Promise.race([transformersPromise, timeoutPromise])) as any;
-
-			if (!transformers || !transformers.pipeline) {
-				throw new Error("Failed to load transformers module");
-			}
-			pipeline = transformers.pipeline;
-		}
-
-		// Create embedding pipeline
-		extractor = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
-
-		// Prepare documents for embedding
-		documents = searchData;
-		const documentTexts = documents.map((doc) => `${doc.title} ${doc.description} ${doc.category} ${doc.keywords.join(" ")}`);
-
-		// Generate embeddings for all documents
-		documentEmbeddings = await Promise.all(documentTexts.map((text) => extractor(text, { pooling: "mean", normalize: true })));
-	} catch (error) {
-		console.error("Failed to initialize semantic search:", error);
-		isSemanticSearchAvailable = false;
-		throw error;
-	}
-}
-
-// Cosine similarity function
-function cosineSimilarity(a: number[], b: number[]): number {
-	if (a.length !== b.length) return 0;
-
-	let dotProduct = 0;
-	let normA = 0;
-	let normB = 0;
-
-	for (let i = 0; i < a.length; i++) {
-		dotProduct += a[i] * b[i];
-		normA += a[i] * a[i];
-		normB += b[i] * b[i];
-	}
-
-	if (normA === 0 || normB === 0) return 0;
-
-	return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+	// This function is kept for compatibility but now uses OpenAI
+	// The actual initialization happens in openai-search.ts
+	return;
 }
 
 // Enhanced text search function with natural language support
@@ -84,7 +22,7 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 		where: ["location", "place", "address"],
 		when: ["time", "schedule", "hours"],
 		what: ["information", "details", "about"],
-		file: ["submit", "report", "register", "complaint"],
+		file: ["submit", "report", "register", "complaint", "fir"],
 		check: ["status", "verify", "lookup", "track"],
 		police: ["officer", "cop", "law enforcement", "authority"],
 		emergency: ["urgent", "crisis", "help", "danger"],
@@ -93,6 +31,11 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 		complaint: ["grievance", "issue", "problem", "concern"],
 		status: ["progress", "update", "check", "tracking"],
 		service: ["help", "support", "assistance", "aid"],
+		// FIR and incident related synonyms
+		first: ["initial", "primary", "main"],
+		incident: ["event", "occurrence", "case", "matter", "fir"],
+		report: ["fir", "complaint", "statement", "document"],
+		fir: ["first information report", "incident report", "police report", "complaint"],
 	};
 
 	// Expand query with synonyms
@@ -111,7 +54,13 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 
 	const expandedTerms = expandQuery(searchTerm);
 
-	return searchData
+	console.log("🔍 Text Search Debug:", {
+		query: searchTerm,
+		expandedTerms,
+		searchDataLength: searchData.length,
+	});
+
+	const results = searchData
 		.map((item: SearchItem) => {
 			let score = 0;
 			const title = item.title.toLowerCase();
@@ -168,6 +117,16 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 				if (keywords.some((k) => ["status", "check", "fir"].includes(k))) score += 25;
 			}
 
+			// FIR and incident report patterns
+			if (searchTerm.includes("fir") || searchTerm.includes("first") || searchTerm.includes("incident")) {
+				if (keywords.some((k) => ["fir", "status", "check"].includes(k))) score += 30;
+				if (title.toLowerCase().includes("fir")) score += 40;
+			}
+
+			if (searchTerm.includes("report") && (searchTerm.includes("first") || searchTerm.includes("incident"))) {
+				if (keywords.some((k) => ["fir", "report"].includes(k))) score += 35;
+			}
+
 			// Partial word matches with higher weight for meaningful words
 			const queryWords = searchTerm.split(" ").filter((w) => w.length > 2);
 			queryWords.forEach((word) => {
@@ -188,45 +147,85 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 		.sort((a, b) => b.score - a.score)
 		.slice(0, 10)
 		.map((result) => result.item);
+
+	console.log("🔍 Text Search Results:", {
+		query: searchTerm,
+		results: results.slice(0, 3).map((r: SearchItem) => ({ title: r.title })),
+	});
+
+	return results;
 }
 
-// Semantic search function
+// Semantic search function (now using OpenAI)
 export async function semanticSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
-	if (!query.trim() || !isSemanticSearchAvailable) return [];
-
-	try {
-		if (!extractor || documentEmbeddings.length === 0) {
-			await initializeSemanticSearch(searchData);
-		}
-
-		// Generate query embedding
-		const queryEmbedding = await extractor(query, { pooling: "mean", normalize: true });
-
-		// Calculate similarities
-		const similarities = documentEmbeddings.map((docEmb) => cosineSimilarity(queryEmbedding.data, docEmb));
-
-		// Map to results with scores and sort
-		const results = documents
-			.map((doc, i) => ({
-				doc,
-				score: similarities[i],
-			}))
-			.filter((result) => result.score > 0.1) // Filter out very low similarity
-			.sort((a, b) => b.score - a.score)
-			.slice(0, 10) // Limit to 10 results
-			.map((result) => result.doc);
-
-		return results;
-	} catch (error) {
-		console.error("Semantic search failed:", error);
-		isSemanticSearchAvailable = false;
-		return [];
-	}
+	return openAISemanticSearch(query, searchData);
 }
 
 // Hybrid search combining semantic and text search
 export async function hybridSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
-	// For now, use enhanced text search only due to transformers module issues
-	// This provides better results than basic text search
-	return textSearch(query, searchData);
+	try {
+		// Try to get both semantic and text search results
+		const [semanticResults, textResults] = await Promise.allSettled([semanticSearch(query, searchData), Promise.resolve(textSearch(query, searchData))]);
+
+		// Extract successful results
+		const semantic = semanticResults.status === "fulfilled" ? semanticResults.value : [];
+		const text = textResults.status === "fulfilled" ? textResults.value : [];
+
+		// If semantic search failed, return text results
+		if (semanticResults.status === "rejected") {
+			console.warn("Semantic search failed, using text search only:", semanticResults.reason);
+			return text;
+		}
+
+		// If text search failed, return semantic results
+		if (textResults.status === "rejected") {
+			console.warn("Text search failed, using semantic search only:", textResults.reason);
+			return semantic;
+		}
+
+		// If no semantic results, just return text results
+		if (semantic.length === 0) {
+			return text;
+		}
+
+		// Combine and deduplicate results
+		const combinedResults = combineSearchResults(semantic, text, query);
+		return combinedResults;
+	} catch (error) {
+		console.error("Hybrid search failed:", error);
+		// Fallback to text search
+		return textSearch(query, searchData);
+	}
+}
+
+// Combine semantic and text search results with deduplication and scoring
+function combineSearchResults(semanticResults: SearchItem[], textResults: SearchItem[], query: string): SearchItem[] {
+	const resultMap = new Map<string, { item: SearchItem; score: number; source: "semantic" | "text" | "both" }>();
+
+	// Add semantic results with higher base score
+	semanticResults.forEach((item, index) => {
+		const score = Math.max(0.1, 1 - index * 0.1); // Decreasing score based on position
+		resultMap.set(item.id, { item, score, source: "semantic" });
+	});
+
+	// Add text results, boosting existing items or adding new ones
+	textResults.forEach((item, index) => {
+		const textScore = Math.max(0.1, 1 - index * 0.05); // Lower base score for text
+		const existing = resultMap.get(item.id);
+
+		if (existing) {
+			// Boost existing semantic result with text match
+			existing.score += textScore * 0.3; // 30% boost
+			existing.source = "both";
+		} else {
+			// Add new text result
+			resultMap.set(item.id, { item, score: textScore, source: "text" });
+		}
+	});
+
+	// Convert back to array and sort by score
+	return Array.from(resultMap.values())
+		.sort((a, b) => b.score - a.score)
+		.slice(0, 10) // Limit to 10 results
+		.map((result) => result.item);
 }
