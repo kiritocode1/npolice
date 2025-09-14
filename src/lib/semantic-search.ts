@@ -1,9 +1,9 @@
 import { SearchItem } from "@/data/searchData";
 
 // Initialize the embedding pipeline (now using OpenAI)
-export async function initializeSemanticSearch(searchData: SearchItem[]) {
+export async function initializeSemanticSearch(_searchData: SearchItem[]) {
 	// This function is kept for compatibility but now uses OpenAI
-	// The actual initialization happens in openai-search.ts
+	// The actual initialization happens in the API route
 	return;
 }
 
@@ -221,7 +221,7 @@ export async function hybridSearch(query: string, searchData: SearchItem[]): Pro
 }
 
 // Combine semantic and text search results with deduplication and scoring
-function combineSearchResults(semanticResults: SearchItem[], textResults: SearchItem[], query: string): SearchItem[] {
+function combineSearchResults(semanticResults: SearchItem[], textResults: SearchItem[], _query: string): SearchItem[] {
 	const resultMap = new Map<string, { item: SearchItem; score: number; source: "semantic" | "text" | "both" }>();
 
 	// Add semantic results with higher base score

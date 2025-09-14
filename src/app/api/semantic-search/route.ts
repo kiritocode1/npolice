@@ -101,7 +101,7 @@ async function initializeEmbeddings(searchData: any[]): Promise<void> {
 
 export async function POST(request: NextRequest) {
 	try {
-		const { query, language = "en" } = await request.json();
+		const { query } = await request.json();
 
 		if (!query || typeof query !== "string") {
 			return NextResponse.json({ error: "Query is required" }, { status: 400 });
