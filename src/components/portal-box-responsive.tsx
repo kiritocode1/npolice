@@ -1,9 +1,9 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect, useState } from "react";
 import CustomsPortalBox from "./portal-box";
 import CustomsPortalBoxMobile from "./portal-box-mobile";
-import { useEffect, useState } from "react";
 
 // Performance mode utility - immediate detection
 const usePerformanceMode = () => {
@@ -78,7 +78,7 @@ export default function PortalBoxResponsive() {
 					<div className="px-6 py-8 text-center md:px-10 md:py-12">
 						<h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">One-Stop Portal Police Services</h1>
 						<p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">
-							The Chhatrapati Sambhaji Nagar Police is committed to simplifying access to various services for citizens.
+							The Chatrapati Sambhajinagar City Police is committed to simplifying access to various services for citizens.
 						</p>
 					</div>
 				</div>

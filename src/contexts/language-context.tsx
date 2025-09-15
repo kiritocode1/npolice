@@ -110,22 +110,22 @@ const translations = {
 		"accessibility.menu.close": "Close Menu",
 
 		// Department name
-		"dept.name": "Chatrapati Shambhaji Nagar",
-		"dept.type": "Police Department",
-		"dept.home": "Chatrapati Shambhaji Nagar Police Department - Home",
+		"dept.name": "Chatrapati Sambhajinagar City Police",
+		"dept.type": "City Police",
+		"dept.home": "Chatrapati Sambhajinagar City Police - Home",
 
 		// External Link Modal
 		"externalLink.title": "Leaving Our Website",
-		"externalLink.message": "You are about to leave the Chatrapati Shambhaji Nagar Police Department website and visit an external site.",
+		"externalLink.message": "You are about to leave the Chatrapati Sambhajinagar City Police website and visit an external site.",
 		"externalLink.disclaimer.title": "Disclaimer",
-		"externalLink.disclaimer.text": "Chatrapati Shambhaji Nagar Police Department is not responsible for the content, accuracy, or updates of external websites.",
+		"externalLink.disclaimer.text": "Chatrapati Sambhajinagar City Police is not responsible for the content, accuracy, or updates of external websites.",
 		"externalLink.cancel": "Stay Here",
 		"externalLink.continue": "Continue to External Site",
 
 		// Portal
-		"portal.welcome": "Welcome to Chatrapati Shambhaji Nagar Police Department",
+		"portal.welcome": "Welcome to Chatrapati Sambhajinagar City Police",
 		"portal.title": "One-Stop Portal For Police Services",
-		"portal.description": "The Chatrapati Shambhaji Nagar Police Department is your go-to source for police services—simplifying access to various police services for citizens.",
+		"portal.description": "The Chatrapati Sambhajinagar City Police is your go-to source for police services—simplifying access to various police services for citizens.",
 		"portal.viewDetails": "View Details",
 
 		// Portal Cards
@@ -136,19 +136,19 @@ const translations = {
 		"portal.cards.about.title": "About Us",
 		"portal.cards.about.description": "Our mission and services",
 		"portal.cards.services.title": "Police Services",
-		"portal.cards.services.description": "Comprehensive police services for citizens of Chatrapati Shambhaji Nagar.",
+		"portal.cards.services.description": "Comprehensive police services for citizens of Chatrapati Sambhajinagar.",
 
 		// Portal Emblem
 		"portal.emblem.national": "National",
 		"portal.emblem.emblem": "Emblem",
-		"portal.emblem.city": "Chatrapati\nShambhaji Nagar",
+		"portal.emblem.city": "Chatrapati\nSambhajinagar",
 
 		// Leadership Team
 		"leadership.title": "Leadership Team",
 		"leadership.subtitle": "Meet our dedicated  leadership",
 
 		// Picture Scroll Section
-		"picture.title": "Chatrapati Shambhaji Nagar",
+		"picture.title": "Chatrapati Sambhajinagar",
 		"picture.subtitle": "A city of heritage, culture, and modern development",
 		"picture.description": "Welcome to the heart of Maharashtra, where tradition meets progress and every citizen is valued.",
 
@@ -156,7 +156,7 @@ const translations = {
 		"map.title": "Find Us",
 		"map.description": "Visit our headquarters in Chhatrapati Sambhajinagar. We're here to serve you with dedication and commitment.",
 		"map.headquarters": "Police Headquarters",
-		"map.location": "Chhatrapati Sambhajinagar Rural Police",
+		"map.location": "Chatrapati Sambhajinagar City Police",
 		"map.state": "Maharashtra, India",
 		"map.emergency": "Emergency: 100",
 		"map.helpline": "Helpline: 1090",
@@ -166,25 +166,25 @@ const translations = {
 		"map.call": "Call Now",
 
 		// Footer
-		"footer.title": "Chatrapati Sambhajinagar",
+		"footer.title": "Chatrapati Sambhajinagar City Police",
 		"footer.subtitle": "Police Department Official Website issued by Govt. of Maharashtra",
 		"footer.description":
-			"Welcome to Chhatrapati Sambhajinagar Rural Police Department, where we are committed to ensuring the safety and security of our citizens. Our mission is to maintain law and order, prevent crime, and provide efficient police services to the community. We believe in transparency, accountability, and building trust with the public through professional policing. Our dedicated officers work around the clock to protect and serve the people of Maharashtra with integrity and excellence.",
+			"Welcome to Chatrapati Sambhajinagar City Police, where we are committed to ensuring the safety and security of our citizens. Our mission is to maintain law and order, prevent crime, and provide efficient police services to the community. We believe in transparency, accountability, and building trust with the public through professional policing. Our dedicated officers work around the clock to protect and serve the people of Maharashtra with integrity and excellence.",
 		"footer.visits": "Visits",
 		"footer.copyright": "Made with",
 		"footer.for": "for the people of",
 		"footer.maharashtra": "Maharashtra 🇮🇳",
-		"footer.police": "Chhatrapati Sambhajinagar Rural Police",
+		"footer.police": "Chatrapati Sambhajinagar City Police",
 
 		// Bento Grid
 		"bento.updates.title": "Latest Updates",
-		"bento.updates.description": "Stay informed with the latest news and updates from Chhatrapati Sambhajinagar Rural Police",
+		"bento.updates.description": "Stay informed with the latest news and updates from Chatrapati Sambhajinagar City Police",
 		"bento.dgp.title": "DGP's Message",
 		"bento.dgp.description": "A message from our Superintendent of Police",
 		"bento.dgp.message":
 			"The purpose of this website is to provide the platform to the citizens to voice their grievances & offer suggestions. I hope that this interactive relationship between Police & Public will help us in preventing crime & winning trust of People.",
 		"bento.dgp.author": "Smt. Rashmi Shukla (DGP)",
-		"bento.dgp.position": "Director General of Police, Chhatrapati Sambhajinagar Rural Police",
+		"bento.dgp.position": "Director General of Police, Chatrapati Sambhajinagar City Police",
 		"bento.events.title": "Recent Events",
 		"bento.events.description": "Latest events and activities from our department",
 		"bento.services.title": "Online Services and Forms",
