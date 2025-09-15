@@ -165,6 +165,27 @@ const AccessibilityMenu = () => {
 				{t("accessibility.sitemap")}
 			</ExtendedLink>
 			<span className="text-muted-foreground">|</span>
+			<ExtendedLink
+				href="/disclaimer"
+				className="hover:underline text-sm"
+			>
+				{t("accessibility.disclaimer")}
+			</ExtendedLink>
+			<span className="text-muted-foreground">|</span>
+			<ExtendedLink
+				href="/terms"
+				className="hover:underline text-sm"
+			>
+				{t("accessibility.terms")}
+			</ExtendedLink>
+			<span className="text-muted-foreground">|</span>
+			<ExtendedLink
+				href="/privacy"
+				className="hover:underline text-sm"
+			>
+				{t("accessibility.privacy")}
+			</ExtendedLink>
+			<span className="text-muted-foreground">|</span>
 			<LanguageSwitch />
 			<div className="flex -space-x-px">
 				<Button
