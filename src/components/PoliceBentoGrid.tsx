@@ -1,12 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { ArrowUpRight, CheckCircle2, FileText, Shield, Users, Globe, Download, AlertTriangle, Phone, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, useMotionValue, useTransform, type Variants } from "motion/react";
-import Link from "next/link";
-import { useState } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
+import { cn } from "@/lib/utils";
+import { AlertTriangle, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, Download, FileText, Globe, Phone, Shield, Users } from "lucide-react";
+import { motion, useMotionValue, useTransform, type Variants } from "motion/react";
+import Image from "next/image";
+import { useState } from "react";
+import ExtendedLink from "./ExtendedLink";
 
 interface BentoItem {
 	id: string;
@@ -160,13 +160,13 @@ const ServicesFeature = ({ services }: { services: Array<{ name: string; icon: R
 					transition={{ delay: 0.1 * index }}
 					className="p-3 md:p-2 bg-white/50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white/70 dark:hover:bg-neutral-700/50 transition-colors touch-manipulation"
 				>
-					<Link
+					<ExtendedLink
 						href={service.href}
 						className="flex items-center gap-2 md:gap-1.5 min-h-[44px] md:min-h-0"
 					>
 						<service.icon className="w-4 h-4 md:w-3 md:h-3 text-orange-500 flex-shrink-0" />
 						<span className="text-sm md:text-xs font-medium text-neutral-700 dark:text-neutral-300 truncate">{service.name}</span>
-					</Link>
+					</ExtendedLink>
 				</motion.div>
 			))}
 		</div>
@@ -185,12 +185,12 @@ const InfoFeature = ({ info }: { info: Array<{ name: string; icon: any; href: st
 					className="flex items-center gap-3 md:gap-2 p-2 md:p-1.5 hover:bg-white/50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors touch-manipulation min-h-[44px] md:min-h-0"
 				>
 					<item.icon className="w-4 h-4 md:w-3 md:h-3 text-orange-500 flex-shrink-0" />
-					<Link
+					<ExtendedLink
 						href={item.href}
 						className="text-sm md:text-xs text-neutral-700 dark:text-neutral-300 hover:text-orange-500 transition-colors truncate"
 					>
 						{item.name}
-					</Link>
+					</ExtendedLink>
 				</motion.div>
 			))}
 		</div>
@@ -209,12 +209,12 @@ const UpdatesFeature = ({ updates }: { updates: Array<{ name: string; icon: any;
 					className="flex items-center gap-3 p-2 hover:bg-white/50 dark:hover:bg-neutral-800/50 rounded-lg transition-colors"
 				>
 					<update.icon className="w-4 h-4 text-orange-500 flex-shrink-0" />
-					<Link
+					<ExtendedLink
 						href={update.href}
 						className="text-sm text-neutral-700 dark:text-neutral-300 hover:text-orange-500 transition-colors"
 					>
 						{update.name}
-					</Link>
+					</ExtendedLink>
 				</motion.div>
 			))}
 		</div>

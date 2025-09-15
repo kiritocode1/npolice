@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import ExtendedLink from "../ExtendedLink";
 
 type DropdownOption = {
 	label: string;
@@ -131,14 +132,14 @@ const DropdownMenu = ({ options, children, className, buttonClassName, onOptionC
 												{option.subOptions.map((subOption, subIndex) => (
 													<div key={subOption.label}>
 														{subOption.href ? (
-															<a
+															<ExtendedLink
 																href={subOption.href}
 																className="px-3 py-2 cursor-pointer text-sm rounded-md w-full text-left flex items-center gap-x-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
 																onClick={() => handleOptionClick(subOption)}
 															>
 																{subOption.Icon}
 																{subOption.label}
-															</a>
+															</ExtendedLink>
 														) : (
 															<button
 																onClick={() => handleOptionClick(subOption)}
@@ -153,14 +154,14 @@ const DropdownMenu = ({ options, children, className, buttonClassName, onOptionC
 											</div>
 										</div>
 									) : option.href ? (
-										<a
+										<ExtendedLink
 											href={option.href}
 											className="px-3 py-2 cursor-pointer text-sm rounded-md w-full text-left flex items-center gap-x-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
 											onClick={() => handleOptionClick(option)}
 										>
 											{option.Icon}
 											{option.label}
-										</a>
+										</ExtendedLink>
 									) : (
 										<button
 											onClick={() => handleOptionClick(option)}

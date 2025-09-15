@@ -4,13 +4,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import { ChevronRight, CornerRightUp, Mic, MicOff } from "lucide-react";
-import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAutoResizeTextarea } from "../hooks/use-auto-resize-textarea";
 // Import search data
 import { getSearchData, SearchItem } from "../data/searchData";
 // Import semantic search
 import { hybridSearch } from "@/lib/semantic-search";
+import ExtendedLink from "./ExtendedLink";
 
 // TypeScript declarations for Speech Recognition API
 interface SpeechRecognition extends EventTarget {
@@ -399,7 +399,7 @@ const UniversalSearchBar = () => {
 					) : (
 						<div className="py-2">
 							{results.map((item, index) => (
-								<Link
+								<ExtendedLink
 									key={item.id}
 									href={item.href}
 									data-index={index}
@@ -419,7 +419,7 @@ const UniversalSearchBar = () => {
 									<div className="flex-shrink-0 text-muted-foreground">
 										<ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
 									</div>
-								</Link>
+								</ExtendedLink>
 							))}
 						</div>
 					)}

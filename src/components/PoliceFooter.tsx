@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube, Mail, Globe, Shield, Heart } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+import { Facebook, Globe, Heart, Instagram, Mail, Shield, Twitter, Youtube } from "lucide-react";
+import { useEffect, useState } from "react";
+import ExtendedLink from "./ExtendedLink";
 
 const navigation = {
 	categories: [
@@ -103,11 +103,11 @@ const PoliceFooter = () => {
 
 			{/* Main Footer Content */}
 			<div className="relative mx-auto grid max-w-7xl items-center justify-center gap-6 p-10 pb-0 md:flex">
-				<Link href="/">
+				<ExtendedLink href="/">
 					<div className="flex items-center justify-center rounded-full">
 						<Shield className="w-8 text-orange-500" />
 					</div>
-				</Link>
+				</ExtendedLink>
 				<p className="bg-transparent text-center text-xs leading-4 text-neutral-600 dark:text-neutral-400 md:text-left">{t("footer.description")}</p>
 			</div>
 
@@ -131,12 +131,12 @@ const PoliceFooter = () => {
 												key={item.name}
 												className="flow-root"
 											>
-												<Link
+												<ExtendedLink
 													href={item.href}
 													className="text-sm text-slate-600 hover:text-orange-500 dark:text-slate-400 hover:dark:text-white md:text-xs"
 												>
 													{item.name}
-												</Link>
+												</ExtendedLink>
 											</li>
 										))}
 									</ul>
@@ -150,7 +150,7 @@ const PoliceFooter = () => {
 
 			<div className="flex flex-wrap justify-center gap-y-6">
 				<div className="flex flex-wrap items-center justify-center gap-6 gap-y-4 px-6">
-					<Link
+					<ExtendedLink
 						aria-label="Email"
 						href="mailto:police@csr.gov.in"
 						rel="noreferrer"
@@ -161,8 +161,8 @@ const PoliceFooter = () => {
 							strokeWidth={1.5}
 							className="h-5 w-5"
 						/>
-					</Link>
-					<Link
+					</ExtendedLink>
+					<ExtendedLink
 						aria-label="Twitter"
 						href="https://x.com/maharashtrapolice"
 						rel="noreferrer"
@@ -170,8 +170,8 @@ const PoliceFooter = () => {
 						className={Underline}
 					>
 						<Twitter className="h-5 w-5" />
-					</Link>
-					<Link
+					</ExtendedLink>
+					<ExtendedLink
 						aria-label="Instagram"
 						href="https://www.instagram.com/maharashtrapolice/"
 						rel="noreferrer"
@@ -179,8 +179,8 @@ const PoliceFooter = () => {
 						className={Underline}
 					>
 						<Instagram className="h-5 w-5" />
-					</Link>
-					<Link
+					</ExtendedLink>
+					<ExtendedLink
 						aria-label="Facebook"
 						href="https://www.facebook.com/maharashtrapolice"
 						rel="noreferrer"
@@ -188,8 +188,8 @@ const PoliceFooter = () => {
 						className={Underline}
 					>
 						<Facebook className="h-5 w-5" />
-					</Link>
-					<Link
+					</ExtendedLink>
+					<ExtendedLink
 						aria-label="YouTube"
 						href="https://www.youtube.com/@maharashtrapolice"
 						rel="noreferrer"
@@ -197,7 +197,7 @@ const PoliceFooter = () => {
 						className={Underline}
 					>
 						<Youtube className="h-5 w-5" />
-					</Link>
+					</ExtendedLink>
 					{/* Visit Counter */}
 					<div className="bg-orange-500 text-white p-3 rounded-lg text-center min-w-[120px]">
 						<div className="flex items-center justify-center gap-1 mb-1">
@@ -217,23 +217,23 @@ const PoliceFooter = () => {
 					<Heart className="text-red-600 mx-1 h-4 w-4 animate-pulse" />
 					<span>{t("footer.for")}</span>
 					<span className="hover:text-orange-500 dark:hover:text-orange-500 cursor-pointer text-black dark:text-white">
-						<Link
+						<ExtendedLink
 							aria-label="Maharashtra"
 							className="font-bold"
 							href="/"
 						>
 							{t("footer.maharashtra")}
-						</Link>
+						</ExtendedLink>
 					</span>
 					-
 					<span className="hover:text-orange-500 dark:hover:text-orange-500 cursor-pointer text-slate-600 dark:text-slate-400">
-						<Link
+						<ExtendedLink
 							aria-label="Police Department"
 							className=""
 							href="/"
 						>
 							{t("footer.police")}
-						</Link>
+						</ExtendedLink>
 					</span>
 				</div>
 			</div>

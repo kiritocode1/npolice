@@ -113,6 +113,14 @@ const translations = {
 		"dept.type": "Police Department",
 		"dept.home": "Chatrapati Shambhaji Nagar Police Department - Home",
 
+		// External Link Modal
+		"externalLink.title": "Leaving Our Website",
+		"externalLink.message": "You are about to leave the Chatrapati Shambhaji Nagar Police Department website and visit an external site.",
+		"externalLink.disclaimer.title": "Disclaimer",
+		"externalLink.disclaimer.text": "Chatrapati Shambhaji Nagar Police Department is not responsible for the content, accuracy, or updates of external websites.",
+		"externalLink.cancel": "Stay Here",
+		"externalLink.continue": "Continue to External Site",
+
 		// Portal
 		"portal.welcome": "Welcome to Chatrapati Shambhaji Nagar Police Department",
 		"portal.title": "One-Stop Portal For Police Services",
@@ -303,6 +311,14 @@ const translations = {
 		"dept.name": "छत्रपती संभाजीनगर",
 		"dept.type": "पोलिस विभाग",
 		"dept.home": "छत्रपती संभाजीनगर पोलिस विभाग - मुख्यपृष्ठ",
+
+		// External Link Modal
+		"externalLink.title": "आमच्या वेबसाइटवरून बाहेर जात आहात",
+		"externalLink.message": "आपण छत्रपती संभाजीनगर पोलिस विभागाच्या वेबसाइटवरून बाहेर जाऊन बाह्य साइटला भेट देणार आहात.",
+		"externalLink.disclaimer.title": "सूचना",
+		"externalLink.disclaimer.text": "छत्रपती संभाजीनगर पोलिस विभाग बाह्य वेबसाइटच्या सामग्री, अचूकता किंवा अद्यतनांसाठी जबाबदार नाही.",
+		"externalLink.cancel": "येथेच रहा",
+		"externalLink.continue": "बाह्य साइटवर जा",
 
 		// Portal
 		"portal.welcome": "छत्रपती संभाजीनगर पोलिस विभागात आपले स्वागत आहे",

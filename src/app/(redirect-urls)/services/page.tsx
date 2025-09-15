@@ -1,9 +1,9 @@
 "use client";
 
+import ExtendedLink from "@/components/ExtendedLink";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle, FileText, MapPin, Phone, Shield, UserCheck, Users } from "lucide-react";
-import Link from "next/link";
 
 const ServicesPage = () => {
 	const services = [
@@ -79,7 +79,7 @@ const ServicesPage = () => {
 									asChild
 									className="w-full group-hover:bg-primary/90"
 								>
-									<Link href={service.href}>Access Service</Link>
+									<ExtendedLink href={service.href}>Access Service</ExtendedLink>
 								</Button>
 							</CardContent>
 						</Card>
@@ -102,17 +102,17 @@ const ServicesPage = () => {
 									size="lg"
 									className="bg-red-600 hover:bg-red-700"
 								>
-									<Link href="tel:112">
+									<ExtendedLink href="tel:112">
 										<Phone className="h-4 w-4 mr-2" />
 										Call Emergency - 112
-									</Link>
+									</ExtendedLink>
 								</Button>
 								<Button
 									asChild
 									size="lg"
 									variant="outline"
 								>
-									<Link href="/emergency-contacts">More Contacts</Link>
+									<ExtendedLink href="/emergency-contacts">More Contacts</ExtendedLink>
 								</Button>
 							</div>
 						</div>

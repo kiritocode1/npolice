@@ -3,6 +3,7 @@
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import React from "react";
+import ExtendedLink from "./ExtendedLink";
 
 // Define the type for individual portal props
 interface Portal {
@@ -141,7 +142,7 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 					>
 						{/* Render portals twice to create a seamless loop */}
 						{[...portals, ...portals].map((portal, index) => (
-							<a
+							<ExtendedLink
 								key={index}
 								href={portal.link}
 								target="_blank"
@@ -174,7 +175,7 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 
 								{/* Portal Description */}
 								<p className="relative text-xs text-muted-foreground text-center px-2 line-clamp-3">{portal.description}</p>
-							</a>
+							</ExtendedLink>
 						))}
 					</div>
 				</div>

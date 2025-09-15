@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { AlertTriangle, Building, Equal, FileText, Info, MapPin, Moon, Phone, Shield, Sun, Users, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
+import ExtendedLink from "./ExtendedLink";
 import LanguageSwitch from "./language-switch";
 import NationalEmblem from "./National-Emblem";
 import { Button } from "./ui/button";
@@ -145,25 +145,25 @@ const AccessibilityMenu = () => {
 
 	return (
 		<div className="hidden lg:flex items-center gap-2 justify-end p-2 z-10 bg-background/95 backdrop-blur-sm">
-			<Link
+			<ExtendedLink
 				href="#main-content"
 				className="hover:underline text-sm"
 			>
 				{t("accessibility.skip")}
-			</Link>
+			</ExtendedLink>
 			<span className="text-muted-foreground">|</span>
-			<Link
+			<ExtendedLink
 				href="/screen-reader-access"
 				className="hover:underline text-sm"
 			>
 				{t("accessibility.screen")}
-			</Link>
-			<Link
+			</ExtendedLink>
+			<ExtendedLink
 				href="/sitemap.xml"
 				className="hover:underline text-sm"
 			>
 				{t("accessibility.sitemap")}
-			</Link>
+			</ExtendedLink>
 			<span className="text-muted-foreground">|</span>
 			<LanguageSwitch />
 			<div className="flex -space-x-px">
@@ -234,7 +234,7 @@ const Navbar = () => {
 				<div className={cn("w-full px-4 transition-all duration-300 lg:px-8", isScrolled && "bg-background/80 backdrop-blur-lg border-b border-border/50")}>
 					<div className="relative flex flex-wrap items-center justify-between gap-4 lg:gap-0 py-3">
 						<div className="flex w-full justify-between lg:w-auto">
-							<Link
+							<ExtendedLink
 								href="/"
 								aria-label={t("dept.home")}
 								className="flex gap-4 items-center group"
@@ -258,7 +258,7 @@ const Navbar = () => {
 									<p className="font-bold text-base lg:text-lg tracking-tight">{t("dept.name")}</p>
 									<p className="text-xs text-muted-foreground">{t("dept.type")}</p>
 								</div>
-							</Link>
+							</ExtendedLink>
 
 							<button
 								onClick={() => setMenuState(!menuState)}
@@ -283,10 +283,10 @@ const Navbar = () => {
 											variant="ghost"
 											className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors duration-150 relative group"
 										>
-											<Link href="/">
+											<ExtendedLink href="/">
 												{t("nav.home.simple")}
 												<span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
-											</Link>
+											</ExtendedLink>
 										</Button>
 									</li>
 									{menuItems.map((item, index) => (
@@ -324,12 +324,12 @@ const Navbar = () => {
 												variant="ghost"
 												className="text-foreground hover:text-foreground/80 transition-colors duration-150 font-medium flex items-center w-full p-2 rounded-md hover:bg-muted/50"
 											>
-												<Link
+												<ExtendedLink
 													href="/"
 													onClick={() => setMenuState(false)}
 												>
 													{t("nav.home.simple")}
-												</Link>
+												</ExtendedLink>
 											</Button>
 										</li>
 										{menuItems.map((item, index) => (
@@ -360,7 +360,7 @@ const Navbar = () => {
 															{item.options.map((option, optionIndex) => (
 																<li key={optionIndex}>
 																	{option.href ? (
-																		<Link
+																		<ExtendedLink
 																			href={option.href}
 																			className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm duration-150 transition-colors p-2 rounded-md hover:bg-muted/30"
 																			onClick={() => {
@@ -370,7 +370,7 @@ const Navbar = () => {
 																		>
 																			{option.Icon}
 																			{option.label}
-																		</Link>
+																		</ExtendedLink>
 																	) : (
 																		<button
 																			onClick={() => {
@@ -443,27 +443,27 @@ const Navbar = () => {
 
 								{/* Quick Access Links */}
 								<div className="flex flex-wrap gap-2">
-									<Link
+									<ExtendedLink
 										href="#main-content"
 										className="hover:underline text-xs px-2 py-1 rounded bg-muted/50"
 										onClick={() => setMenuState(false)}
 									>
 										{t("accessibility.skip")}
-									</Link>
-									<Link
+									</ExtendedLink>
+									<ExtendedLink
 										href="/screen-reader-access"
 										className="hover:underline text-xs px-2 py-1 rounded bg-muted/50"
 										onClick={() => setMenuState(false)}
 									>
 										{t("accessibility.screen")}
-									</Link>
-									<Link
+									</ExtendedLink>
+									<ExtendedLink
 										href="/sitemap.xml"
 										className="hover:underline text-xs px-2 py-1 rounded bg-muted/50"
 										onClick={() => setMenuState(false)}
 									>
 										{t("accessibility.sitemap")}
-									</Link>
+									</ExtendedLink>
 								</div>
 							</div>
 
@@ -474,27 +474,27 @@ const Navbar = () => {
 									size="sm"
 									className={cn(isScrolled && "lg:hidden")}
 								>
-									<Link href="tel:112">
+									<ExtendedLink href="tel:112">
 										<span>{t("nav.emergency.call")}</span>
-									</Link>
+									</ExtendedLink>
 								</Button>
 								<Button
 									asChild
 									size="sm"
 									className={cn(isScrolled && "lg:hidden")}
 								>
-									<Link href="/contact">
+									<ExtendedLink href="/contact">
 										<span>{t("btn.contact")}</span>
-									</Link>
+									</ExtendedLink>
 								</Button>
 								<Button
 									asChild
 									size="sm"
 									className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
 								>
-									<Link href="tel:112">
+									<ExtendedLink href="tel:112">
 										<span>{t("btn.emergency")}</span>
-									</Link>
+									</ExtendedLink>
 								</Button>
 							</div>
 						</div>
