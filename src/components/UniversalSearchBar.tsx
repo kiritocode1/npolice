@@ -64,6 +64,7 @@ declare global {
 }
 
 const UniversalSearchBar = () => {
+	const [mounted, setMounted] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const [results, setResults] = useState<SearchItem[]>([]);
@@ -79,6 +80,18 @@ const UniversalSearchBar = () => {
 		minHeight: 52,
 		maxHeight: 200,
 	});
+
+	// Avoid SSR/CSR mismatches by rendering only after mount
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	// After mount, set focus programmatically to avoid SSR autoFocus mismatch
+	useEffect(() => {
+		if (mounted) {
+			textareaRef.current?.focus();
+		}
+	}, [mounted, textareaRef]);
 
 	// Optimized search data with memoization
 	const searchData = useMemo(() => getSearchData(t), [t]);
@@ -296,6 +309,10 @@ const UniversalSearchBar = () => {
 		}
 	}, [selectedIndex]);
 
+	if (!mounted) {
+		return null;
+	}
+
 	return (
 		<div
 			className="relative w-full max-w-3xl mx-auto min-w-0 sm:min-w-[400px] p-2 sm:p-4"
@@ -326,7 +343,8 @@ const UniversalSearchBar = () => {
 						onChange={handleInputChange}
 						onKeyDown={handleKeyDown}
 						onFocus={() => setIsOpen(true)}
-						autoFocus
+						// Avoid hydration issues from differing focus state
+						autoFocus={false}
 					/>
 					{speechSupported && (
 						<div

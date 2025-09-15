@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion, Variants } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
-import { useInView } from "react-intersection-observer";
+import { motion, Variants } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 // Performance mode utility - immediate detection
 const usePerformanceMode = () => {
@@ -153,7 +153,7 @@ const leadershipData = [
 ];
 
 const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" }: PeopleRowProps) => {
-	const { language } = useLanguage();
+	const { language, t } = useLanguage();
 	const isPerformanceMode = usePerformanceMode();
 	const { ref, inView } = useInView({
 		threshold: 0.1,
@@ -165,8 +165,8 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 		return (
 			<div className={`w-full max-w-6xl mx-auto ${height} ${className}`}>
 				<div className="text-center py-8">
-					<h2 className="text-2xl font-bold text-foreground mb-4">Leadership Team</h2>
-					<p className="text-muted-foreground">Meet our dedicated leaders serving Chhatrapati Sambhaji Nagar</p>
+					<h2 className="text-2xl font-bold text-foreground mb-4">{t("leadership.title")}</h2>
+					<p className="text-muted-foreground">{t("leadership.subtitle")}</p>
 				</div>
 			</div>
 		);

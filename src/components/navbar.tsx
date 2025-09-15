@@ -255,7 +255,7 @@ const Navbar = () => {
 									/>
 								</div>
 								<div className="hidden sm:block">
-									<p className="font-bold text-base lg:text-lg tracking-tight">{t("dept.name")}</p>
+									<p className="font-bold text-base lg:text-md tracking-tight">{t("dept.name")}</p>
 									<p className="text-xs text-muted-foreground">{t("dept.type")}</p>
 								</div>
 							</ExtendedLink>

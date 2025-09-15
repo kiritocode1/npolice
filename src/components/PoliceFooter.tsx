@@ -75,12 +75,23 @@ const Underline = `hover:-translate-y-1 border border-dotted rounded-xl p-2.5 tr
 const PoliceFooter = () => {
 	const [visitCount, setVisitCount] = useState(0);
 	const { t } = useLanguage();
+	const [lastUpdated, setLastUpdated] = useState("");
 
 	useEffect(() => {
 		const storedCount = localStorage.getItem("police-visit-count");
 		const count = storedCount ? parseInt(storedCount) + 1 : 1;
 		setVisitCount(count);
 		localStorage.setItem("police-visit-count", count.toString());
+	}, []);
+
+	useEffect(() => {
+		try {
+			const now = new Date();
+			const formatted = new Intl.DateTimeFormat(undefined, { dateStyle: "long", timeStyle: "short" }).format(now);
+			setLastUpdated(formatted);
+		} catch (e) {
+			setLastUpdated(new Date().toLocaleString());
+		}
 	}, []);
 
 	const formatCount = (num: number) => {
@@ -102,13 +113,50 @@ const PoliceFooter = () => {
 			</div>
 
 			{/* Main Footer Content */}
-			<div className="relative mx-auto grid max-w-7xl items-center justify-center gap-6 p-10 pb-0 md:flex">
+			<div className="relative mx-auto grid max-w-7xl items-center justify-center gap-6 p-10 md:flex pb-20">
 				<ExtendedLink href="/">
 					<div className="flex items-center justify-center rounded-full">
 						<Shield className="w-8 text-orange-500" />
 					</div>
 				</ExtendedLink>
 				<p className="bg-transparent text-center text-xs leading-4 text-neutral-600 dark:text-neutral-400 md:text-left">{t("footer.description")}</p>
+			</div>
+
+			{/* Quick Links Row */}
+			<div className="mx-auto max-w-7xl px-6">
+				<div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-600 dark:text-neutral-400">
+					<ExtendedLink
+						href="/sitemap.xml"
+						className="hover:text-orange-500"
+					>
+						{t("accessibility.sitemap")}
+					</ExtendedLink>
+					<span className="text-neutral-400">|</span>
+					<ExtendedLink
+						href="/disclaimer"
+						className="hover:text-orange-500"
+					>
+						{t("accessibility.disclaimer")}
+					</ExtendedLink>
+					<span className="text-neutral-400">|</span>
+					<ExtendedLink
+						href="/terms"
+						className="hover:text-orange-500"
+					>
+						{t("accessibility.terms")}
+					</ExtendedLink>
+					<span className="text-neutral-400">|</span>
+					<ExtendedLink
+						href="/privacy"
+						className="hover:text-orange-500"
+					>
+						{t("accessibility.privacy")}
+					</ExtendedLink>
+					<span className="text-neutral-400">|</span>
+					<span className="whitespace-nowrap">
+						{t("footer.lastUpdated")} {lastUpdated}
+					</span>
+				</div>
 			</div>
 
 			<div className="mx-auto max-w-7xl px-6 py-10">

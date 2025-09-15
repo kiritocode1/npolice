@@ -1,8 +1,8 @@
 "use cache";
 
 import CSMMap from "@/components/CSMMap";
-import EmergencyContactsDrawer from "@/components/EmergencyContactsDrawer";
 import ImportantLinks from "@/components/ImportantLinks";
+import LeadershipSectionHeader from "@/components/LeadershipSectionHeader";
 import PeopleRow from "@/components/people-row";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
@@ -74,15 +74,7 @@ const Page = async () => {
 				aria-labelledby="leadership-heading"
 				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
 			>
-				<div className="text-center mb-8">
-					<h2
-						id="leadership-heading"
-						className="text-3xl font-bold text-foreground mb-2"
-					>
-						Leadership Team
-					</h2>
-					<p className="text-muted-foreground">Meet our dedicated leaders serving Chhatrapati Sambhaji Nagar</p>
-				</div>
+				<LeadershipSectionHeader />
 
 				<React.Suspense
 					fallback={
@@ -238,8 +230,6 @@ const Page = async () => {
 					</React.Suspense>
 				</div>
 			</section>
-
-
 		</main>
 	);
 };
