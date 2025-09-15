@@ -86,16 +86,16 @@ const translations = {
 		"portals.description": "Access to various police service portals",
 
 		// Individual Portal Details
-		"portals.maharashtra.title": "Maharashtra Police Portal",
-		"portals.maharashtra.description": "Official portal for Maharashtra Police services, complaints, and information",
+		"portals.maharashtra.title": "Citizen Portal Maharashtra Police",
+		"portals.maharashtra.description": "Official portal for registering police-related complaints and obtaining updated information",
 		"portals.cybercrime.title": "Cyber Crime Portal",
-		"portals.cybercrime.description": "Report and track cyber crimes, online fraud, and digital security issues",
-		"portals.grp.title": "Grievance Redressal",
-		"portals.grp.description": "Grievance redressal, crime reporting, and passenger safety services",
-		"portals.pg.title": "Police Grievance Portal",
-		"portals.pg.description": "File complaints, track status, and resolve police-related grievances",
-		"portals.aaple.title": "Aaple Sarkar Portal",
-		"portals.aaple.description": "Maharashtra government services and citizen welfare programs",
+		"portals.cybercrime.description": "Portal for registering cyber crimes and obtaining guidance",
+		"portals.grp.title": "Public Grievances",
+		"portals.grp.description": "Easily submit and track public grievances online",
+		"portals.pg.title": "P.G. Portal",
+		"portals.pg.description": "Portal for public grievances with government services",
+		"portals.aaple.title": "Aaple Sarkar",
+		"portals.aaple.description": "Official portal for citizen services and grievances in Maharashtra",
 
 		// Accessibility
 		"accessibility.skip": "Skip to main content",
@@ -277,16 +277,16 @@ const translations = {
 		"portals.description": "विविध पोलीस सेवा पोर्टल्सचा प्रवेश",
 
 		// Individual Portal Details
-		"portals.maharashtra.title": "महाराष्ट्र पोलीस पोर्टल",
-		"portals.maharashtra.description": "महाराष्ट्र पोलीस सेवा, तक्रारी आणि माहितीसाठी अधिकृत पोर्टल",
-		"portals.cybercrime.title": "सायबर गुन्हे पोर्टल",
-		"portals.cybercrime.description": "सायबर गुन्हे, ऑनलाइन फसवणूक आणि डिजिटल सुरक्षा समस्या नोंदवा",
-		"portals.grp.title": "तक्रार निवारण",
-		"portals.grp.description": "तक्रार निवारण, गुन्हे नोंदवणी आणि प्रवाशांची सुरक्षा सेवा",
-		"portals.pg.title": "पोलीस तक्रार पोर्टल",
-		"portals.pg.description": "तक्रारी नोंदवा, स्थिती ट्रॅक करा आणि पोलीस संबंधित तक्रारी सोडवा",
-		"portals.aaple.title": "आपले सरकार पोर्टल",
-		"portals.aaple.description": "महाराष्ट्र सरकारी सेवा आणि नागरिक कल्याण कार्यक्रम",
+		"portals.maharashtra.title": "महाराष्ट्र पोलीस",
+		"portals.maharashtra.description": "पोलीस संबंधित तक्रारी नोंदविण्यासाठी आणि अद्ययावत माहिती मिळविण्यासाठी अधिकृत पोर्टल",
+		"portals.cybercrime.title": "सायबर क्राइम पोर्टल",
+		"portals.cybercrime.description": "सायबर क्राइम नोंदविण्यासाठी आणि मार्गदर्शन मिळविण्यासाठी पोर्टल",
+		"portals.grp.title": "सार्वजनिक तक्रारी",
+		"portals.grp.description": "सार्वजनिक तक्रारी ऑनलाइन सहज सादर करा आणि त्याचा मागोवा घ्या",
+		"portals.pg.title": "सार्वजनिक तक्रारी",
+		"portals.pg.description": "सार्वजनिक तक्रारी ऑनलाइन सहज सादर करा आणि त्याचा मागोवा घ्या",
+		"portals.aaple.title": "आपले सरकार",
+		"portals.aaple.description": "महाराष्ट्रातील नागरिक सेवा आणि तक्रारींसाठी अधिकृत पोर्टल",
 
 		// Accessibility
 		"accessibility.skip": "मुख्य सामग्रीवर जा",
