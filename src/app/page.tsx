@@ -1,6 +1,7 @@
 "use cache";
 
 import CSMMap from "@/components/CSMMap";
+import ImportantLinks from "@/components/ImportantLinks";
 import PeopleRow from "@/components/people-row";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
@@ -214,6 +215,28 @@ const Page = async () => {
 				>
 					<PortalMarquee speed="normal" />
 				</Suspense>
+			</section>
+
+			{/* Important Links Section */}
+			<section
+				aria-labelledby="important-links-heading"
+				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
+			>
+				<div className="container mx-auto px-4">
+					<Suspense
+						fallback={
+							<div
+								className="flex items-center justify-center py-12"
+								aria-live="polite"
+								aria-label="Loading content"
+							>
+								<div className="text-lg">Loading Links...</div>
+							</div>
+						}
+					>
+						<ImportantLinks />
+					</Suspense>
+				</div>
 			</section>
 		</main>
 	);
