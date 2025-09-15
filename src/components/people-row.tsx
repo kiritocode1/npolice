@@ -203,11 +203,11 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 	return (
 		<div
 			ref={ref}
-			className={`w-full max-w-6xl mx-auto ${height} ${className}`}
+			className={`w-full max-w-6xl mx-auto ${height} sm:max-h-[50vh] sm:overflow-hidden ${className}`}
 		>
 			{/* First row - 5 people */}
 			<motion.div
-				className="hidden sm:flex gap-6 justify-center items-center px-4 py-8"
+				className="hidden sm:flex gap-3 justify-center items-center px-2 py-4"
 				variants={containerVariants}
 				initial="hidden"
 				animate={inView ? "visible" : "hidden"}
@@ -220,14 +220,14 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 							isPerformanceMode
 								? {}
 								: {
-										y: -8,
+										y: -4,
 										transition: { duration: 0.2 },
 								  }
 						}
 						className="flex-shrink-0"
 					>
-						<Card className="w-44 sm:w-56 shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
-							<CardContent className="p-4 sm:p-6 flex flex-col items-center justify-center space-y-3 sm:space-y-4">
+						<Card className="w-36 sm:w-44 shadow-md hover:shadow-lg transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
+							<CardContent className="p-2.5 sm:p-3.5 flex flex-col items-center justify-center space-y-2 sm:space-y-2.5">
 								<motion.div
 									initial={isPerformanceMode ? {} : { scale: 0, rotate: -180 }}
 									animate={isPerformanceMode ? {} : inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
@@ -235,35 +235,35 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 										isPerformanceMode
 											? { duration: 0 }
 											: {
-													delay: index * 0.1 + 0.5,
-													duration: 0.5,
+													delay: index * 0.06 + 0.35,
+													duration: 0.4,
 													type: "spring",
 													stiffness: 200,
 													damping: 20,
 											  }
 									}
 								>
-									<div className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
+									<div className="w-12 h-12 sm:w-14 sm:h-14 ring-2 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
 										<Image
 											src={person.image || "/placeholder.svg"}
 											alt={language === "mr" ? person.nameMarathi : person.name}
-											width={80}
-											height={80}
+											width={56}
+											height={56}
 											className="object-cover w-full h-full"
 											quality={75}
 											priority={false}
-											sizes="(max-width: 640px) 64px, 80px"
+											sizes="(max-width: 640px) 48px, 56px"
 										/>
 									</div>
 								</motion.div>
 								<motion.div
-									className="text-center space-y-2"
+									className="text-center space-y-1"
 									initial={isPerformanceMode ? {} : { opacity: 0, y: 20 }}
 									animate={isPerformanceMode ? {} : inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-									transition={isPerformanceMode ? { duration: 0 } : { delay: index * 0.1 + 0.7, duration: 0.4 }}
+									transition={isPerformanceMode ? { duration: 0 } : { delay: index * 0.06 + 0.5, duration: 0.3 }}
 								>
-									<h3 className="font-bold text-sm sm:text-base text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
-									<p className="text-xs sm:text-sm text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
+									<h3 className="font-bold text-[11px] sm:text-xs text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
+									<p className="text-[10px] sm:text-[11px] text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
 								</motion.div>
 							</CardContent>
 						</Card>
@@ -273,7 +273,7 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 
 			{/* Mobile layout - all people in wrap */}
 			<motion.div
-				className="flex sm:hidden flex-wrap gap-4 justify-center items-center px-2 py-8"
+				className="flex sm:hidden flex-wrap gap-4 justify-center items-center px-2 py-6"
 				variants={containerVariants}
 				initial="hidden"
 				animate={inView ? "visible" : "hidden"}
@@ -286,14 +286,14 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 							isPerformanceMode
 								? {}
 								: {
-										y: -8,
+										y: -4,
 										transition: { duration: 0.2 },
 								  }
 						}
 						className="flex-shrink-0"
 					>
-						<Card className="w-44 shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
-							<CardContent className="p-4 flex flex-col items-center justify-center space-y-3">
+						<Card className="w-40 shadow-md hover:shadow-lg transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
+							<CardContent className="p-3 flex flex-col items-center justify-center space-y-2.5">
 								<motion.div
 									initial={isPerformanceMode ? {} : { scale: 0, rotate: -180 }}
 									animate={isPerformanceMode ? {} : inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
@@ -301,35 +301,35 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 										isPerformanceMode
 											? { duration: 0 }
 											: {
-													delay: index * 0.1 + 0.5,
-													duration: 0.5,
+													delay: index * 0.06 + 0.35,
+													duration: 0.4,
 													type: "spring",
 													stiffness: 200,
 													damping: 20,
 											  }
 									}
 								>
-									<div className="w-16 h-16 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
+									<div className="w-12 h-12 ring-2 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
 										<Image
 											src={person.image || "/placeholder.svg"}
 											alt={language === "mr" ? person.nameMarathi : person.name}
-											width={64}
-											height={64}
+											width={48}
+											height={48}
 											className="object-cover w-full h-full"
 											quality={75}
 											priority={false}
-											sizes="64px"
+											sizes="48px"
 										/>
 									</div>
 								</motion.div>
 								<motion.div
-									className="text-center space-y-2"
+									className="text-center space-y-1"
 									initial={isPerformanceMode ? {} : { opacity: 0, y: 20 }}
 									animate={isPerformanceMode ? {} : inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-									transition={isPerformanceMode ? { duration: 0 } : { delay: index * 0.1 + 0.7, duration: 0.4 }}
+									transition={isPerformanceMode ? { duration: 0 } : { delay: index * 0.06 + 0.5, duration: 0.3 }}
 								>
-									<h3 className="font-bold text-sm text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
-									<p className="text-xs text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
+									<h3 className="font-bold text-xs text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
+									<p className="text-[11px] text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
 								</motion.div>
 							</CardContent>
 						</Card>
@@ -340,7 +340,7 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 			{/* Second row - remaining people (desktop only) */}
 			{people.length > 5 && (
 				<motion.div
-					className="hidden sm:flex gap-6 justify-center items-center px-4 py-8"
+					className="hidden sm:flex gap-3 justify-center items-center px-2 py-4"
 					variants={containerVariants}
 					initial="hidden"
 					animate={inView ? "visible" : "hidden"}
@@ -350,45 +350,45 @@ const PeopleRow = ({ people = leadershipData, height = "h-auto", className = "" 
 							key={person.id}
 							variants={itemVariants}
 							whileHover={{
-								y: -8,
+								y: -4,
 								transition: { duration: 0.2 },
 							}}
 							className="flex-shrink-0"
 						>
-							<Card className="w-44 sm:w-56 shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
-								<CardContent className="p-4 sm:p-6 flex flex-col items-center justify-center space-y-3 sm:space-y-4">
+							<Card className="w-36 sm:w-44 shadow-md hover:shadow-lg transition-all duration-300 border-0 bg-gradient-to-b from-background to-muted/30 dark:from-card dark:to-muted/10 overflow-hidden">
+								<CardContent className="p-2.5 sm:p-3.5 flex flex-col items-center justify-center space-y-2 sm:space-y-2.5">
 									<motion.div
 										initial={{ scale: 0, rotate: -180 }}
 										animate={inView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
 										transition={{
-											delay: (index + 5) * 0.1 + 0.5,
-											duration: 0.5,
+											delay: (index + 5) * 0.06 + 0.35,
+											duration: 0.4,
 											type: "spring",
 											stiffness: 200,
 											damping: 20,
 										}}
 									>
-										<div className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
+										<div className="w-12 h-12 sm:w-14 sm:h-14 ring-2 ring-primary/20 dark:ring-primary/30 transition-all duration-300 rounded-full overflow-hidden">
 											<Image
 												src={person.image || "/placeholder.svg"}
 												alt={language === "mr" ? person.nameMarathi : person.name}
-												width={80}
-												height={80}
+												width={56}
+												height={56}
 												className="object-cover w-full h-full"
 												quality={75}
 												priority={false}
-												sizes="(max-width: 640px) 64px, 80px"
+												sizes="(max-width: 640px) 48px, 56px"
 											/>
 										</div>
 									</motion.div>
 									<motion.div
-										className="text-center space-y-2"
+										className="text-center space-y-1"
 										initial={{ opacity: 0, y: 20 }}
 										animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-										transition={{ delay: (index + 5) * 0.1 + 0.7, duration: 0.4 }}
+										transition={{ delay: (index + 5) * 0.06 + 0.5, duration: 0.3 }}
 									>
-										<h3 className="font-bold text-base text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
-										<p className="text-sm text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
+										<h3 className="font-bold text-xs text-foreground leading-tight">{language === "mr" ? person.nameMarathi : person.name}</h3>
+										<p className="text-[11px] text-primary font-medium leading-tight">{language === "mr" ? person.positionMarathi : person.position}</p>
 									</motion.div>
 								</CardContent>
 							</Card>

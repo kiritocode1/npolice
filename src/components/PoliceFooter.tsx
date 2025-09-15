@@ -105,10 +105,7 @@ const PoliceFooter = () => {
 			{/* Big Heading Section */}
 			<div className="w-full bg-gradient-to-b from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 py-16">
 				<div className="flex flex-col items-center">
-					<h1 className="md:text-[7rem] text-[3rem] text-center w-[90vw] font-extrabold tracking-tighter text-[#555555] dark:text-neutral-400 border-b border-[#555555] dark:border-neutral-600 pb-4">
-						{t("footer.title")}
-					</h1>
-					<p className="text-xl md:text-2xl text-[#666666] dark:text-neutral-500 font-semibold mt-4">{t("footer.subtitle")}</p>
+					<h1 className="md:text-[4.5rem] text-[2.25rem] text-center w-[90vw] font-extrabold tracking-tighter text-[#555555] dark:text-neutral-400">{t("footer.title")}</h1>
 				</div>
 			</div>
 

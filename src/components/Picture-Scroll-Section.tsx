@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import { useScroll, useTransform, motion } from "framer-motion";
-import { useRef } from "react";
 import { useLanguage } from "@/contexts/language-context";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
+import { useRef } from "react";
 
 export default function Section() {
 	const container = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ export default function Section() {
 	return (
 		<div
 			ref={container}
-			className="relative flex items-center justify-center h-screen overflow-hidden"
+			className="relative flex items-center justify-center h-[70vh] overflow-hidden"
 			style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
 		>
 			<div className="relative z-10 p-20 mix-blend-difference text-white w-full h-full flex flex-col justify-between">
@@ -27,7 +27,7 @@ export default function Section() {
 					<p className="text-[2vw] mt-4 mix-blend-difference">{t("picture.subtitle")}</p>
 				</div>
 			</div>
-			<div className="fixed top-[-10vh] left-0 h-[120vh] w-full">
+			<div className="fixed top-[-10vh] left-0 h-[110vh] w-full">
 				<motion.div
 					style={{ y }}
 					className="relative w-full h-full"

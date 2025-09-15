@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, MessageCircle, Phone, X } from "lucide-react";
+import { Phone, X } from "lucide-react";
 import { motion } from "motion/react";
 import * as React from "react";
 import { Button } from "./ui/button";
@@ -55,10 +55,10 @@ const itemVariants = {
 };
 
 const emergencyContacts = [
-	{ name: "SOS Dial", numbers: ["100", "112"], isEmergency: true },
-	{ name: "Main Control", numbers: ["0240-2240500", "9226514013"], hasWhatsApp: true },
-	{ name: "Damini Patak", numbers: ["1091", "0240-2240500"], hasWhatsApp: true },
-	{ name: "Traffic Helpline", numbers: ["8454999999"], hasWhatsApp: true },
+	{ name: "SOS Dial", numbers: [ "112"], isEmergency: true },
+	{ name: "Main Control", numbers: ["0240-2240500", "9226514013"] },
+	{ name: "Damini Patak", numbers: ["1091", "0240-2240500"] },
+	{ name: "Traffic Helpline", numbers: ["8454999999"] },
 	{ name: "Child Care", numbers: ["1098"] },
 	{ name: "Elder Helpline", numbers: ["1090"] },
 	{ name: "Women Helpline", numbers: ["1091"] },
@@ -66,49 +66,8 @@ const emergencyContacts = [
 	{ name: "Narcotics", numbers: ["0240-2240500", "9529019061"] },
 ];
 
-const socialMediaIcons = [
-	{ name: "Facebook", icon: "f", color: "bg-blue-600" },
-	{ name: "YouTube", icon: "▶", color: "bg-red-600" },
-	{ name: "Instagram", icon: "📷", color: "bg-pink-600" },
-	{ name: "Twitter", icon: "🐦", color: "bg-blue-400" },
-	{ name: "WhatsApp", icon: "💬", color: "bg-green-500" },
-	{ name: "Location", icon: "📍", color: "bg-gray-600" },
-];
-
 const EmergencyContactsDrawer = () => {
 	const [isOpen, setIsOpen] = React.useState(false);
-	const [copiedNumber, setCopiedNumber] = React.useState<string | null>(null);
-
-	const copyToClipboard = async (number: string) => {
-		try {
-			await navigator.clipboard.writeText(number);
-			setCopiedNumber(number);
-			setTimeout(() => setCopiedNumber(null), 2000);
-		} catch (err) {
-			console.error("Failed to copy: ", err);
-		}
-	};
-
-	const makeCall = (number: string) => {
-		window.open(`tel:${number}`, "_self");
-	};
-
-	const openWhatsApp = (number: string) => {
-		window.open(`https://wa.me/91${number.replace(/\D/g, "")}`, "_blank");
-	};
-
-	// Keyboard shortcut handler
-	React.useEffect(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.ctrlKey && event.key === "F3") {
-				event.preventDefault();
-				setIsOpen(!isOpen);
-			}
-		};
-
-		document.addEventListener("keydown", handleKeyDown);
-		return () => document.removeEventListener("keydown", handleKeyDown);
-	}, [isOpen]);
 
 	return (
 		<div className="fixed bottom-28 right-8 z-50">
@@ -121,18 +80,18 @@ const EmergencyContactsDrawer = () => {
 					<div className="group">
 						<Button
 							aria-label="Emergency Contacts"
-							className="flex items-center justify-center gap-3 rounded-full w-16 group-hover:w-64 h-16 bg-red-600 hover:bg-red-700 text-white shadow-lg transition-all duration-300 overflow-hidden pr-4 pl-0 group-hover:pl-6 "
+							className="flex items-center justify-center gap-3 rounded-full w-16 group-hover:w-60 h-16 bg-white hover:bg-gray-50 text-black shadow-lg transition-all duration-300 overflow-hidden pr-4 pl-0 group-hover:pl-6 border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
 						>
-							<Phone className="w-12 h-12 shrink-0 translate-x-1 hover:translate-x-0 " />
-							<div className="overflow-hidden max-w-0 group-hover:max-w-[160px] transition-all duration-300">
-								<span className="block text-white text-base font-medium whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+							<Phone className="w-20 h-20 scale-[1.4] shrink-0 translate-x-1 hover:translate-x-0 dark:text-white text-black " />
+							<div className="overflow-hidden max-w-0 group-hover:max-w-[156px] transition-all duration-300">
+								<span className="block text-black dark:text-white text-base font-medium whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
 									Emergency Contacts
 								</span>
 							</div>
 						</Button>
 					</div>
 				</DrawerTrigger>
-				<DrawerContent className="h-full w-1/2 ml-auto p-6 rounded-l-2xl shadow-xl">
+				<DrawerContent className="h-full w-[600px] max-w-[80vw] ml-auto p-5 rounded-l-2xl shadow-xl">
 					<motion.div
 						variants={drawerVariants}
 						initial="hidden"
@@ -141,17 +100,10 @@ const EmergencyContactsDrawer = () => {
 					>
 						{/* Header */}
 						<motion.div variants={itemVariants}>
-							<DrawerHeader className="px-0 pb-4">
+							<DrawerHeader className="px-0 pb-3">
 								<div className="flex items-center justify-between">
-									<DrawerTitle className="text-xl font-semibold text-black dark:text-white">Emergency Contacts</DrawerTitle>
+									<DrawerTitle className="text-lg font-semibold text-black dark:text-white">Emergency Contacts</DrawerTitle>
 									<div className="flex items-center gap-2">
-										<Button
-											variant="outline"
-											size="sm"
-											className="text-black border-gray-200 hover:bg-gray-50 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700"
-										>
-											Ctrl+F3
-										</Button>
 										<DrawerClose asChild>
 											<Button
 												variant="ghost"
@@ -166,63 +118,37 @@ const EmergencyContactsDrawer = () => {
 							</DrawerHeader>
 						</motion.div>
 
-						{/* Emergency Contacts Table */}
+						{/* Emergency Contacts */}
 						<motion.div
 							variants={itemVariants}
-							className="flex-1 overflow-y-auto"
+							className="flex-1"
 						>
-							<div className="space-y-3">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 								{emergencyContacts.map((contact, index) => (
 									<motion.div
 										key={index}
 										variants={itemVariants}
-										transition={{ delay: index * 0.05 }}
-										className={`p-4 rounded-lg border ${
+										transition={{ delay: index * 0.03 }}
+										className={`p-3 rounded-lg border ${
 											contact.isEmergency ? "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800" : "bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-600"
 										}`}
 									>
-										<div className="flex items-center justify-between mb-2">
-											<h3 className={`font-semibold ${contact.isEmergency ? "text-red-700 dark:text-red-300" : "text-gray-900 dark:text-white"}`}>{contact.name}</h3>
+										<div className="flex items-center justify-between mb-1.5">
+											<h3 className={`font-semibold text-sm ${contact.isEmergency ? "text-red-700 dark:text-red-300" : "text-gray-900 dark:text-white"}`}>{contact.name}</h3>
 											{contact.isEmergency && (
-												<span className="px-2 py-1 text-xs font-bold text-red-700 bg-red-200 rounded-full dark:bg-red-800 dark:text-red-200">EMERGENCY</span>
+												<span className="px-1.5 py-0.5 text-[10px] font-bold text-red-700 bg-red-200 rounded-full dark:bg-red-800 dark:text-red-200">EMERGENCY</span>
 											)}
 										</div>
-										<div className="space-y-2">
+										<div className="flex flex-wrap gap-1.5">
 											{contact.numbers.map((number, numIndex) => (
-												<div
+												<a
 													key={numIndex}
-													className="flex items-center gap-2"
+													href={`tel:${number}`}
+													className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs text-gray-700 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
 												>
-													<span className="text-sm text-gray-600 dark:text-gray-300 font-mono">{number}</span>
-													<div className="flex gap-1">
-														<Button
-															size="sm"
-															variant="outline"
-															onClick={() => makeCall(number)}
-															className="h-7 px-2"
-														>
-															<Phone className="w-3 h-3" />
-														</Button>
-														<Button
-															size="sm"
-															variant="outline"
-															onClick={() => copyToClipboard(number)}
-															className="h-7 px-2"
-														>
-															{copiedNumber === number ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3" />}
-														</Button>
-														{contact.hasWhatsApp && (
-															<Button
-																size="sm"
-																variant="outline"
-																onClick={() => openWhatsApp(number)}
-																className="h-7 px-2 text-green-600 hover:text-green-700"
-															>
-																<MessageCircle className="w-3 h-3" />
-															</Button>
-														)}
-													</div>
-												</div>
+													<Phone className="w-3 h-3" />
+													<span className="font-mono">{number}</span>
+												</a>
 											))}
 										</div>
 									</motion.div>
@@ -230,11 +156,10 @@ const EmergencyContactsDrawer = () => {
 							</div>
 						</motion.div>
 
-
 						{/* Footer */}
 						<motion.div
 							variants={itemVariants}
-							className="mt-4 text-center"
+							className="mt-3 text-center"
 						>
 							<span className="text-xs text-gray-500 dark:text-gray-400">Chhatrapati Sambhajinagar City Police</span>
 						</motion.div>
