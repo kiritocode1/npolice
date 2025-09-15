@@ -245,13 +245,14 @@ const Navbar = () => {
 								</div>
 								<div className="transition-transform duration-200 group-hover:scale-105">
 									<Image
-										src="/national-emblem/MaharashtraPolice.avif"
+										src="/Mahapolice-logo.avif"
 										alt="Maharashtra Police Logo"
 										width={48}
 										height={48}
 										quality={50}
 										priority={false}
 										className="w-12 h-12 object-contain"
+										suppressHydrationWarning
 									/>
 								</div>
 								<div className="hidden sm:block">
