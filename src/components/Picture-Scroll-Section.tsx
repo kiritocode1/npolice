@@ -35,7 +35,7 @@ export default function Section() {
 					<Image
 						src="/csm-snapshots/1.webp"
 						fill
-						alt="Chatrapati Shambhaji Nagar cityscape"
+						alt="Chatrapati Shambhajinagar cityscape"
 						style={{ objectFit: "cover" }}
 						quality={75}
 						priority={false}

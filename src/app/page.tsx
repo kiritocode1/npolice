@@ -1,6 +1,7 @@
 "use cache";
 
 import CSMMap from "@/components/CSMMap";
+import EmergencyContactsDrawer from "@/components/EmergencyContactsDrawer";
 import ImportantLinks from "@/components/ImportantLinks";
 import PeopleRow from "@/components/people-row";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
@@ -10,8 +11,7 @@ import { PortalMarquee } from "@/components/PortalMarquee";
 import ExpandableCards from "@/components/ui/custom/Scrollable-gallery";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
-import { Suspense } from "react";
-
+import * as React from "react";
 const Page = async () => {
 	// Cache for 1 hour
 	cacheLife("1h");
@@ -53,7 +53,7 @@ const Page = async () => {
 				/>
 				{/* Portal Content */}
 				<div className="relative z-10 w-full flex items-end justify-center min-h-[96vh]">
-					<Suspense
+					<React.Suspense
 						fallback={
 							<div
 								className="flex items-center justify-center min-h-[96vh]"
@@ -65,7 +65,7 @@ const Page = async () => {
 						}
 					>
 						<PortalBoxResponsive />
-					</Suspense>
+					</React.Suspense>
 				</div>
 			</section>
 
@@ -84,7 +84,7 @@ const Page = async () => {
 					<p className="text-muted-foreground">Meet our dedicated leaders serving Chhatrapati Sambhaji Nagar</p>
 				</div>
 
-				<Suspense
+				<React.Suspense
 					fallback={
 						<div
 							className="flex items-center justify-center py-12"
@@ -96,7 +96,7 @@ const Page = async () => {
 					}
 				>
 					<PeopleRow />
-				</Suspense>
+				</React.Suspense>
 			</section>
 
 			{/* Services Section */}
@@ -111,7 +111,7 @@ const Page = async () => {
 				>
 					Police Services and Information
 				</h1>
-				<Suspense
+				<React.Suspense
 					fallback={
 						<div
 							className="flex items-center justify-center py-20"
@@ -123,7 +123,7 @@ const Page = async () => {
 					}
 				>
 					<PoliceBentoGrid />
-				</Suspense>
+				</React.Suspense>
 			</section>
 
 			{/* Gallery Section */}
@@ -137,7 +137,7 @@ const Page = async () => {
 				>
 					Photo Gallery
 				</h2>
-				<Suspense
+				<React.Suspense
 					fallback={
 						<div
 							className="flex items-center justify-center py-12"
@@ -149,7 +149,7 @@ const Page = async () => {
 					}
 				>
 					<PictureScrollSection />
-				</Suspense>
+				</React.Suspense>
 			</section>
 
 			{/* City Tour Section */}
@@ -166,7 +166,7 @@ const Page = async () => {
 					</h2>
 					<p className="text-muted-foreground">Discover the beauty and heritage of Chhatrapati Sambhaji Nagar</p>
 				</div>
-				<Suspense
+				<React.Suspense
 					fallback={
 						<div
 							className="flex items-center justify-center py-12"
@@ -178,7 +178,7 @@ const Page = async () => {
 					}
 				>
 					<ExpandableCards />
-				</Suspense>
+				</React.Suspense>
 			</section>
 
 			{/* Map Section */}
@@ -192,7 +192,7 @@ const Page = async () => {
 				>
 					Interactive Map of Chhatrapati Sambhaji Nagar
 				</h2>
-				<Suspense
+				<React.Suspense
 					fallback={
 						<div
 							className="flex items-center justify-center py-12"
@@ -204,9 +204,9 @@ const Page = async () => {
 					}
 				>
 					<CSMMap />
-				</Suspense>
+				</React.Suspense>
 
-				<Suspense
+				<React.Suspense
 					fallback={
 						<div className="flex items-center justify-center py-12">
 							<div className="text-lg">Loading Map...</div>
@@ -214,7 +214,7 @@ const Page = async () => {
 					}
 				>
 					<PortalMarquee speed="normal" />
-				</Suspense>
+				</React.Suspense>
 			</section>
 
 			{/* Important Links Section */}
@@ -223,7 +223,7 @@ const Page = async () => {
 				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
 			>
 				<div className="container mx-auto px-4">
-					<Suspense
+					<React.Suspense
 						fallback={
 							<div
 								className="flex items-center justify-center py-12"
@@ -235,9 +235,12 @@ const Page = async () => {
 						}
 					>
 						<ImportantLinks />
-					</Suspense>
+					</React.Suspense>
 				</div>
 			</section>
+
+			{/* Emergency Contacts Drawer */}
+			<EmergencyContactsDrawer />
 		</main>
 	);
 };

@@ -416,7 +416,7 @@ const PageAccessibilityChanger = () => {
 								<RotateCcw className="w-4 h-4" />
 								Reset All Settings
 							</Button>
-							<span className="text-xs text-gray-500">Created by Chatrapati Shambhaji Nagar Police Department</span>
+							<span className="text-xs text-gray-500">Created by Chatrapati Shambhaji Nagar City Police </span>
 						</motion.div>
 					</motion.div>
 				</DrawerContent>

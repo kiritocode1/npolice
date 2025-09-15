@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import * as React from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 type Language = "en" | "mr";
 
@@ -518,10 +519,10 @@ const translations = {
 };
 
 interface LanguageProviderProps {
-	children: any;
+	children: ReactNode;
 }
 
-export const LanguageProvider = ({ children }: LanguageProviderProps) => {
+export const LanguageProvider = ({ children }: LanguageProviderProps): React.JSX.Element => {
 	const [language, setLanguage] = useState<Language>("mr"); // Default to Marathi
 
 	useEffect(() => {
