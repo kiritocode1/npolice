@@ -23,7 +23,6 @@ const getMenuItems = (t: (key: string) => string) => [
 			{ label: t("nav.about.jurisdiction"), href: "/locations", Icon: <MapPin className="h-4 w-4" /> },
 			{ label: t("nav.about.initiatives"), href: "/initiatives", Icon: <Shield className="h-4 w-4" /> },
 			{ label: t("nav.about.gallery"), href: "/gallery", Icon: <FileText className="h-4 w-4" /> },
-			{ label: t("nav.about.history"), href: "/history", Icon: <FileText className="h-4 w-4" /> },
 			{ label: t("nav.about.stations"), href: "/stations", Icon: <Building className="h-4 w-4" /> },
 			{ label: t("nav.about.contact"), href: "/contact", Icon: <Phone className="h-4 w-4" /> },
 			{ label: t("nav.about.feedback"), href: "/feedback", Icon: <FileText className="h-4 w-4" /> },

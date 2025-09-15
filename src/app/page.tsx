@@ -1,15 +1,15 @@
 "use cache";
 
-import PortalBoxResponsive from "@/components/portal-box-responsive";
+import CSMMap from "@/components/CSMMap";
 import PeopleRow from "@/components/people-row";
 import PictureScrollSection from "@/components/Picture-Scroll-Section";
-import ExpandableCards from "@/components/ui/custom/Scrollable-gallery";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
-import CSMMap from "@/components/CSMMap";
-import { Suspense } from "react";
+import PortalBoxResponsive from "@/components/portal-box-responsive";
+import { PortalMarquee } from "@/components/PortalMarquee";
+import ExpandableCards from "@/components/ui/custom/Scrollable-gallery";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
-import { PortalMarquee } from "@/components/PortalMarquee";
+import { Suspense } from "react";
 
 const Page = async () => {
 	// Cache for 1 hour
@@ -204,7 +204,6 @@ const Page = async () => {
 				>
 					<CSMMap />
 				</Suspense>
-
 
 				<Suspense
 					fallback={
