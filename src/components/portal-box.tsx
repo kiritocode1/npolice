@@ -120,8 +120,8 @@ export default function CustomsPortalBox() {
 						transition={{ duration: 0.6, delay: 0.3 }}
 					>
 						<Image
-							src="/emblem.webp"
-							alt="Indian National Emblem"
+							src="/Mahapolice-logo.webp"
+							alt="Maharashtra Police Logo"
 							width={100}
 							height={100}
 							quality={50}

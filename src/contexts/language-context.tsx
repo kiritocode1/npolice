@@ -81,6 +81,10 @@ const translations = {
 		"btn.contact": "Contact Us",
 		"nav.emergency.call": "Call 112",
 
+		// Portal Marquee
+		"portals.title": "Police Portals",
+		"portals.description": "Access to various police service portals",
+
 		// Accessibility
 		"accessibility.skip": "Skip to main content",
 		"accessibility.screen": "Screen Reader Access",
@@ -255,6 +259,10 @@ const translations = {
 		"btn.emergency": "आणीबाणी",
 		"btn.contact": "संपर्क करा",
 		"nav.emergency.call": "112 कॉल करा",
+
+		// Portal Marquee
+		"portals.title": "पोलीस पोर्टल्स",
+		"portals.description": "विविध पोलीस सेवा पोर्टल्सचा प्रवेश",
 
 		// Accessibility
 		"accessibility.skip": "मुख्य सामग्रीवर जा",

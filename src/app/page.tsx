@@ -9,6 +9,7 @@ import CSMMap from "@/components/CSMMap";
 import { Suspense } from "react";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
+import { PortalMarquee } from "@/components/PortalMarquee";
 
 const Page = async () => {
 	// Cache for 1 hour
@@ -202,6 +203,17 @@ const Page = async () => {
 					}
 				>
 					<CSMMap />
+				</Suspense>
+
+
+				<Suspense
+					fallback={
+						<div className="flex items-center justify-center py-12">
+							<div className="text-lg">Loading Map...</div>
+						</div>
+					}
+				>
+					<PortalMarquee speed="normal" />
 				</Suspense>
 			</section>
 		</main>

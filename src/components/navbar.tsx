@@ -226,11 +226,11 @@ const Navbar = () => {
 	const menuItems = getMenuItems(t);
 
 	return (
-		<header>
+		<header className="sticky top-0 z-20">
 			<AccessibilityMenu />
 			<nav
 				data-state={menuState && "active"}
-				className="fixed left-0 w-full z-20 px-2 top-12"
+				className="w-full px-2"
 			>
 				<div className={cn("w-full px-4 transition-all duration-300 lg:px-8", isScrolled && "bg-background/80 backdrop-blur-lg border-b border-border/50")}>
 					<div className="relative flex flex-wrap items-center justify-between gap-4 lg:gap-0 py-3">
