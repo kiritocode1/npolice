@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
-import { AlertTriangle, Building, Equal, FileText, Info, MapPin, Moon, Phone, Shield, Sun, UserCheck, Users, X } from "lucide-react";
+import { AlertTriangle, Building, Equal, FileText, Info, MapPin, Moon, Phone, Shield, Sun, Users, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,53 +14,73 @@ import { DropdownMenu } from "./ui/dropdown-menu";
 
 const getMenuItems = (t: (key: string) => string) => [
 	{
-		name: t("nav.home"),
-		href: "/",
-		options: [
-			{ label: t("nav.home.dashboard"), href: "/", Icon: <Shield className="h-4 w-4" /> },
-			{ label: t("nav.home.news"), href: "/news", Icon: <FileText className="h-4 w-4" /> },
-			{ label: t("nav.home.announcements"), href: "/announcements", Icon: <AlertTriangle className="h-4 w-4" /> },
-		],
-	},
-	{
 		name: t("nav.about"),
 		href: "/about",
 		options: [
 			{ label: t("nav.about.us"), href: "/about", Icon: <Info className="h-4 w-4" /> },
-			{ label: t("nav.about.mission"), href: "/mission", Icon: <Shield className="h-4 w-4" /> },
-			{ label: t("nav.about.leadership"), href: "/leadership", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.about.senior"), href: "/senior-officers", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.about.organization"), href: "/organization", Icon: <Building className="h-4 w-4" /> },
+			{ label: t("nav.about.jurisdiction"), href: "/locations", Icon: <MapPin className="h-4 w-4" /> },
+			{ label: t("nav.about.initiatives"), href: "/initiatives", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.about.gallery"), href: "/gallery", Icon: <FileText className="h-4 w-4" /> },
 			{ label: t("nav.about.history"), href: "/history", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.about.stations"), href: "/stations", Icon: <Building className="h-4 w-4" /> },
+			{ label: t("nav.about.contact"), href: "/contact", Icon: <Phone className="h-4 w-4" /> },
+			{ label: t("nav.about.feedback"), href: "/feedback", Icon: <FileText className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: t("nav.services"),
-		href: "/services",
+		name: t("nav.special"),
+		href: "/special-units",
 		options: [
-			{ label: t("nav.services.verification"), href: "/verification", Icon: <UserCheck className="h-4 w-4" /> },
-			{ label: t("nav.services.fir"), href: "/fir", Icon: <FileText className="h-4 w-4" /> },
-			{ label: t("nav.services.traffic"), href: "/traffic", Icon: <MapPin className="h-4 w-4" /> },
-			{ label: t("nav.services.women"), href: "/women-safety", Icon: <Shield className="h-4 w-4" /> },
-			{ label: t("nav.services.community"), href: "/community", Icon: <Users className="h-4 w-4" /> },
+			{
+				label: t("nav.special.crime"),
+				href: null,
+				Icon: <Shield className="h-4 w-4" />,
+				subOptions: [
+					{ label: t("nav.special.crime.unit1"), href: "/crime-unit-1", Icon: <Shield className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.unit2"), href: "/crime-unit-2", Icon: <Shield className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.pcb"), href: "/pcb", Icon: <Building className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.antiGunda"), href: "/anti-gunda", Icon: <AlertTriangle className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.antiNarcotic"), href: "/anti-narcotic", Icon: <FileText className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.antiExtortion"), href: "/anti-extortion", Icon: <AlertTriangle className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.technical"), href: "/technical-analysis", Icon: <FileText className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.wing"), href: "/technical-wing", Icon: <Building className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.women"), href: "/women-safety", Icon: <Shield className="h-4 w-4" /> },
+					{ label: t("nav.special.crime.economic"), href: "/economic-offence", Icon: <FileText className="h-4 w-4" /> },
+				],
+			},
+			{ label: t("nav.special.control"), href: "/control-room", Icon: <Phone className="h-4 w-4" /> },
+			{ label: t("nav.special.headquarters"), href: "/headquarters", Icon: <Building className="h-4 w-4" /> },
+			{ label: t("nav.special.bomb"), href: "/bomb-squad", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.special.transport"), href: "/transport", Icon: <MapPin className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: t("nav.contact"),
-		href: "/contact",
+		name: t("nav.citizen"),
+		href: "/citizen-corner",
 		options: [
-			{ label: t("nav.contact.us"), href: "/contact", Icon: <Phone className="h-4 w-4" /> },
-			{ label: t("nav.contact.stations"), href: "/stations", Icon: <Building className="h-4 w-4" /> },
-			{ label: t("nav.contact.emergency"), href: "/emergency-contacts", Icon: <AlertTriangle className="h-4 w-4" /> },
-			{ label: t("nav.contact.feedback"), href: "/feedback", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.citizen.cyberTips"), href: "/cyber-security-tips", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.citizen.cyberAwareness"), href: "/cyber-awareness", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.citizen.recruitment"), href: "/police-recruitment", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.citizen.pressRelease"), href: "/press-release", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.citizen.rti"), href: "/rti", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.citizen.publicService"), href: "/public-service-rights", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.citizen.passport"), href: "/passport-status", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.citizen.websites"), href: "/useful-websites", Icon: <MapPin className="h-4 w-4" /> },
+			{ label: t("nav.citizen.wall"), href: "/citizen-wall", Icon: <Users className="h-4 w-4" /> },
+			{ label: t("nav.citizen.tenders"), href: "/tenders", Icon: <FileText className="h-4 w-4" /> },
 		],
 	},
 	{
-		name: t("nav.emergency"),
-		href: "/emergency",
+		name: t("nav.police"),
+		href: "/police-corner",
 		options: [
-			{ label: t("nav.emergency.call"), href: "tel:112", Icon: <Phone className="h-4 w-4" /> },
-			{ label: t("nav.emergency.women"), href: "tel:1091", Icon: <Shield className="h-4 w-4" /> },
-			{ label: t("nav.emergency.child"), href: "tel:1098", Icon: <Users className="h-4 w-4" /> },
-			{ label: t("nav.emergency.report"), href: "/report-crime", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.police.circular"), href: "/circular", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.police.welfare"), href: "/welfare-initiatives", Icon: <Shield className="h-4 w-4" /> },
+			{ label: t("nav.police.media"), href: "/media-coverage", Icon: <FileText className="h-4 w-4" /> },
+			{ label: t("nav.police.crimeReview"), href: "/crime-review", Icon: <AlertTriangle className="h-4 w-4" /> },
+			{ label: t("nav.police.goodWork"), href: "/good-work", Icon: <Users className="h-4 w-4" /> },
 		],
 	},
 ];
@@ -251,12 +271,24 @@ const Navbar = () => {
 							</button>
 						</div>
 
-						<div className="absolute inset-0 m-auto hidden size-fit lg:block">
+						<div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden size-fit lg:block ml-20">
 							<nav
 								role="navigation"
 								aria-label="Main navigation"
 							>
-								<ul className="flex gap-4 text-xs">
+								<ul className="flex gap-6 text-xs">
+									<li>
+										<Button
+											asChild
+											variant="ghost"
+											className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors duration-150 relative group"
+										>
+											<Link href="/">
+												{t("nav.home.simple")}
+												<span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
+											</Link>
+										</Button>
+									</li>
 									{menuItems.map((item, index) => (
 										<li key={index}>
 											<DropdownMenu
@@ -286,6 +318,20 @@ const Navbar = () => {
 									aria-label="Mobile navigation"
 								>
 									<ul className="space-y-2 text-sm w-full">
+										<li>
+											<Button
+												asChild
+												variant="ghost"
+												className="text-foreground hover:text-foreground/80 transition-colors duration-150 font-medium flex items-center w-full p-2 rounded-md hover:bg-muted/50"
+											>
+												<Link
+													href="/"
+													onClick={() => setMenuState(false)}
+												>
+													{t("nav.home.simple")}
+												</Link>
+											</Button>
+										</li>
 										{menuItems.map((item, index) => (
 											<li key={index}>
 												<div className="space-y-1">

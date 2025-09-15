@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import { Button } from "./ui/button";
-import { Globe } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
+import { Globe } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface LanguageSwitchProps {
 	className?: string;
@@ -24,9 +23,18 @@ const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
 			size="sm"
 			className={cn("flex items-center gap-2 text-sm hover:text-foreground transition-colors duration-150", className)}
 			aria-label={`Switch to ${language === "en" ? "Marathi" : "English"}`}
+			suppressHydrationWarning
 		>
-			<Globe className="h-4 w-4" />
-			<span className="font-medium">{language === "en" ? "EN" : "मराठी"}</span>
+			<Globe
+				className="h-4 w-4"
+				suppressHydrationWarning
+			/>
+			<span
+				className="font-medium"
+				suppressHydrationWarning
+			>
+				{language === "en" ? "English" : "मराठी"}
+			</span>
 		</Button>
 	);
 };

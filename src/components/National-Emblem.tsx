@@ -8,7 +8,10 @@ type NationalEmblemProps = {
 
 const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva Jayate" }: NationalEmblemProps): ReactElement => {
 	return (
-		<div className={className}>
+		<div
+			className={className}
+			suppressHydrationWarning
+		>
 			<Image
 				src="/national-emblem/light.webp"
 				alt={alt}
@@ -19,6 +22,7 @@ const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva J
 				quality={50}
 				priority={false}
 				sizes="160px"
+				suppressHydrationWarning
 			/>
 			<Image
 				src="/national-emblem/dark.webp"
@@ -30,6 +34,7 @@ const NationalEmblem = ({ className, alt = "Indian National Emblem , Satyameva J
 				quality={50}
 				priority={false}
 				sizes="160px"
+				suppressHydrationWarning
 			/>
 		</div>
 	);

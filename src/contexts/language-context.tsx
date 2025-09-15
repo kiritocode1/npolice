@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Language = "en" | "mr";
 
@@ -16,11 +16,12 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const translations = {
 	en: {
 		// Navigation
-		"nav.home": "Home",
-		"nav.about": "About",
-		"nav.services": "Services",
-		"nav.contact": "Contact",
-		"nav.emergency": "Emergency",
+		"nav.home": "Home Page",
+		"nav.home.simple": "Home",
+		"nav.about": "About Us",
+		"nav.special": "Special Units",
+		"nav.citizen": "Citizen Corner",
+		"nav.police": "Police Corner",
 
 		// Home dropdown
 		"nav.home.dashboard": "Dashboard",
@@ -29,32 +30,56 @@ const translations = {
 
 		// About dropdown
 		"nav.about.us": "About Us",
-		"nav.about.mission": "Our Mission",
-		"nav.about.leadership": "Leadership",
-		"nav.about.history": "History",
+		"nav.about.senior": "Senior Officer Profile",
+		"nav.about.organization": "Organizational Structure",
+		"nav.about.jurisdiction": "Jurisdiction Map",
+		"nav.about.initiatives": "Initiatives",
+		"nav.about.gallery": "Photo Gallery",
+		"nav.about.history": "History of Nashik Police",
+		"nav.about.stations": "Police Station Incharge",
+		"nav.about.contact": "Contact Us",
+		"nav.about.feedback": "Feedback",
 
-		// Services dropdown
-		"nav.services.verification": "Police Verification",
-		"nav.services.fir": "FIR Registration",
-		"nav.services.traffic": "Traffic Services",
-		"nav.services.women": "Women Safety",
-		"nav.services.community": "Community Policing",
+		// Special Units dropdown
+		"nav.special.crime": "Crime Branch",
+		"nav.special.crime.unit1": "Crime Branch Unit 1",
+		"nav.special.crime.unit2": "Crime Branch Unit 2",
+		"nav.special.crime.pcb": "Central Crime Unit (PCB)",
+		"nav.special.crime.antiGunda": "Anti-Gunda Squad",
+		"nav.special.crime.antiNarcotic": "Anti-Narcotic Cell",
+		"nav.special.crime.antiExtortion": "Anti-Extortion Cell",
+		"nav.special.crime.technical": "Technical Analysis",
+		"nav.special.crime.wing": "Technical Analysis Wing",
+		"nav.special.crime.women": "Women Safety Cell",
+		"nav.special.crime.economic": "Economic Offence Wing",
+		"nav.special.control": "Control Room",
+		"nav.special.headquarters": "Police Headquarters",
+		"nav.special.bomb": "Bomb Detection and Disposal Squad",
+		"nav.special.transport": "Motor Transport Organization",
 
-		// Contact dropdown
-		"nav.contact.us": "Contact Us",
-		"nav.contact.stations": "Police Stations",
-		"nav.contact.emergency": "Emergency Contacts",
-		"nav.contact.feedback": "Feedback",
+		// Citizen Corner dropdown
+		"nav.citizen.cyberTips": "Cyber Security Tips",
+		"nav.citizen.cyberAwareness": "Cyber Awareness",
+		"nav.citizen.recruitment": "Police Recruitment",
+		"nav.citizen.pressRelease": "Press Release",
+		"nav.citizen.rti": "Right to Information",
+		"nav.citizen.publicService": "Maharashtra Public Service Rights Act",
+		"nav.citizen.passport": "Passport Status",
+		"nav.citizen.websites": "Useful Websites",
+		"nav.citizen.wall": "Citizen Wall",
+		"nav.citizen.tenders": "Tenders",
 
-		// Emergency dropdown
-		"nav.emergency.call": "Call 112",
-		"nav.emergency.women": "Women Helpline",
-		"nav.emergency.child": "Child Helpline",
-		"nav.emergency.report": "Report Crime",
+		// Police Corner dropdown
+		"nav.police.circular": "Circular / Notification",
+		"nav.police.welfare": "Welfare Initiatives",
+		"nav.police.media": "Media Coverage",
+		"nav.police.crimeReview": "Crime Review",
+		"nav.police.goodWork": "Good Work",
 
 		// Buttons
 		"btn.emergency": "Emergency",
 		"btn.contact": "Contact Us",
+		"nav.emergency.call": "Call 112",
 
 		// Accessibility
 		"accessibility.skip": "Skip to main content",
@@ -167,10 +192,11 @@ const translations = {
 	mr: {
 		// Navigation
 		"nav.home": "मुख्यपृष्ठ",
-		"nav.about": "आमच्याबद्दल",
-		"nav.services": "सेवा",
-		"nav.contact": "संपर्क",
-		"nav.emergency": "आणीबाणी",
+		"nav.home.simple": "मुख्यपृष्ठ",
+		"nav.about": "आमच्या विषयी",
+		"nav.special": "विशेष पथके",
+		"nav.citizen": "नागरिकांकरिता",
+		"nav.police": "पोलीस विभाग",
 
 		// Home dropdown
 		"nav.home.dashboard": "डॅशबोर्ड",
@@ -178,33 +204,57 @@ const translations = {
 		"nav.home.announcements": "घोषणा",
 
 		// About dropdown
-		"nav.about.us": "आमच्याबद्दल",
-		"nav.about.mission": "आमचे ध्येय",
-		"nav.about.leadership": "नेतृत्व",
-		"nav.about.history": "इतिहास",
+		"nav.about.us": "आमच्या विषयी",
+		"nav.about.senior": "वरिष्ठ अधिकारी प्रोफाइल",
+		"nav.about.organization": "संघटनात्मक रचना",
+		"nav.about.jurisdiction": "अधिकार क्षेत्र नकाशा",
+		"nav.about.initiatives": "उपक्रम",
+		"nav.about.gallery": "छायाचित्र संग्रह",
+		"nav.about.history": "नाशिक पोलीसांचा इतिहास",
+		"nav.about.stations": "पोलीस स्टेशन प्रभारी",
+		"nav.about.contact": "आमच्याशी संपर्क साधा",
+		"nav.about.feedback": "अभिप्राय",
 
-		// Services dropdown
-		"nav.services.verification": "पोलिस सत्यापन",
-		"nav.services.fir": "FIR नोंदणी",
-		"nav.services.traffic": "वाहतूक सेवा",
-		"nav.services.women": "महिला सुरक्षा",
-		"nav.services.community": "समुदाय पोलिसिंग",
+		// Special Units dropdown
+		"nav.special.crime": "गुन्हे शाखा",
+		"nav.special.crime.unit1": "गुन्हे शाखा विविध क्रमांक १",
+		"nav.special.crime.unit2": "गुन्हे शाखा विविध क्रमांक २",
+		"nav.special.crime.pcb": "मध्यवर्ती गुन्हे शाखा",
+		"nav.special.crime.antiGunda": "गुंडाविरोधी पथक",
+		"nav.special.crime.antiNarcotic": "अंमली पदार्थ विरोधी सेल",
+		"nav.special.crime.antiExtortion": "खंडणी विरोधी पथक",
+		"nav.special.crime.technical": "तांत्रिक विश्लेषण",
+		"nav.special.crime.wing": "तांत्रिक विश्लेषण विंग",
+		"nav.special.crime.women": "महिला सुरक्षा कक्ष",
+		"nav.special.crime.economic": "आर्थिक गुन्हे शाखा",
+		"nav.special.control": "नियंत्रण कक्ष",
+		"nav.special.headquarters": "पोलीस मुख्यालय",
+		"nav.special.bomb": "बाँब शोधक व नाशक पथक",
+		"nav.special.transport": "मोटर वाहन विभाग",
 
-		// Contact dropdown
-		"nav.contact.us": "संपर्क करा",
-		"nav.contact.stations": "पोलिस स्टेशन",
-		"nav.contact.emergency": "आणीबाणी संपर्क",
-		"nav.contact.feedback": "अभिप्राय",
+		// Citizen Corner dropdown
+		"nav.citizen.cyberTips": "सायबर सुरक्षा टिप्स",
+		"nav.citizen.cyberAwareness": "सायबर जनजागृती",
+		"nav.citizen.recruitment": "पोलीस भरती",
+		"nav.citizen.pressRelease": "प्रेस प्रकाशन",
+		"nav.citizen.rti": "माहितीचा अधिकार",
+		"nav.citizen.publicService": "महाराष्ट्र लोकसेवा हक्क अधिनियम",
+		"nav.citizen.passport": "पासपोर्ट स्थिती",
+		"nav.citizen.websites": "उपयुक्त वेबसाइट",
+		"nav.citizen.wall": "सिटीझन वॉल",
+		"nav.citizen.tenders": "निविदा",
 
-		// Emergency dropdown
-		"nav.emergency.call": "112 कॉल करा",
-		"nav.emergency.women": "महिला हेल्पलाइन",
-		"nav.emergency.child": "बाल हेल्पलाइन",
-		"nav.emergency.report": "गुन्हा नोंदवा",
+		// Police Corner dropdown
+		"nav.police.circular": "परिपत्रक / अधिसूचना",
+		"nav.police.welfare": "कल्याणकारी उपक्रम",
+		"nav.police.media": "वृत्तांकन",
+		"nav.police.crimeReview": "गुन्हे आढावा",
+		"nav.police.goodWork": "उत्कृष्ट कामगिरी",
 
 		// Buttons
 		"btn.emergency": "आणीबाणी",
 		"btn.contact": "संपर्क करा",
+		"nav.emergency.call": "112 कॉल करा",
 
 		// Accessibility
 		"accessibility.skip": "मुख्य सामग्रीवर जा",

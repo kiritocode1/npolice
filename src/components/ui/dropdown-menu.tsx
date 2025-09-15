@@ -8,9 +8,10 @@ import React, { useEffect, useRef, useState } from "react";
 
 type DropdownOption = {
 	label: string;
-	href?: string;
+	href?: string | null;
 	onClick?: () => void;
 	Icon?: React.ReactNode;
+	subOptions?: DropdownOption[];
 };
 
 type DropdownMenuProps = {
@@ -115,8 +116,43 @@ const DropdownMenu = ({ options, children, className, buttonClassName, onOptionC
 										delay: index * 0.05,
 									}}
 									key={option.label}
+									className="relative group"
 								>
-									{option.href ? (
+									{option.subOptions ? (
+										<div className="relative">
+											<button className="px-3 py-2 cursor-pointer text-sm rounded-md w-full text-left flex items-center gap-x-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-150 justify-between">
+												<div className="flex items-center gap-x-2">
+													{option.Icon}
+													{option.label}
+												</div>
+												<ChevronDown className="h-3 w-3" />
+											</button>
+											<div className="absolute left-full top-0 ml-1 p-1 bg-background/95 backdrop-blur-lg rounded-lg shadow-lg border border-border/50 flex flex-col gap-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 min-w-48">
+												{option.subOptions.map((subOption, subIndex) => (
+													<div key={subOption.label}>
+														{subOption.href ? (
+															<a
+																href={subOption.href}
+																className="px-3 py-2 cursor-pointer text-sm rounded-md w-full text-left flex items-center gap-x-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
+																onClick={() => handleOptionClick(subOption)}
+															>
+																{subOption.Icon}
+																{subOption.label}
+															</a>
+														) : (
+															<button
+																onClick={() => handleOptionClick(subOption)}
+																className="px-3 py-2 cursor-pointer text-sm rounded-md w-full text-left flex items-center gap-x-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
+															>
+																{subOption.Icon}
+																{subOption.label}
+															</button>
+														)}
+													</div>
+												))}
+											</div>
+										</div>
+									) : option.href ? (
 										<a
 											href={option.href}
 											className="px-3 py-2 cursor-pointer text-sm rounded-md w-full text-left flex items-center gap-x-2 hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
