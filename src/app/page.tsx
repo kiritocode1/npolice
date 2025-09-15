@@ -239,8 +239,7 @@ const Page = async () => {
 				</div>
 			</section>
 
-			{/* Emergency Contacts Drawer */}
-			<EmergencyContactsDrawer />
+
 		</main>
 	);
 };

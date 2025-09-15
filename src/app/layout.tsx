@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -5,7 +6,10 @@ import { LanguageProvider } from "@/contexts/language-context";
 import PageAccessibilityChanger from "@/components/Page-Accessibility-Changer";
 import Navbar from "@/components/navbar";
 import PoliceFooter from "@/components/PoliceFooter";
-
+import EmergencyContactsDrawer from "@/components/EmergencyContactsDrawer";
+{
+	/** we live in a cruel cruel world */
+}
 export const metadata: Metadata = {
 	title: "Chhatrapati Sambhaji Nagar Police | Official Website",
 	description: "Official website of Chhatrapati Sambhaji Nagar Police Department. Access police services, report crimes, emergency contacts, and community safety information.",
@@ -99,6 +103,7 @@ export default function RootLayout({
 						{children}
 						<PoliceFooter />
 						<PageAccessibilityChanger />
+						<EmergencyContactsDrawer />
 					</LanguageProvider>
 				</ThemeProvider>
 			</body>
