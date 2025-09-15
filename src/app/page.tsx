@@ -8,7 +8,6 @@ import PictureScrollSection from "@/components/Picture-Scroll-Section";
 import PoliceBentoGrid from "@/components/PoliceBentoGrid";
 import PortalBoxResponsive from "@/components/portal-box-responsive";
 import { PortalMarquee } from "@/components/PortalMarquee";
-import ExpandableCards from "@/components/ui/custom/Scrollable-gallery";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 import * as React from "react";
@@ -144,7 +143,7 @@ const Page = async () => {
 				</React.Suspense>
 			</section>
 
-			{/* City Tour Section */}
+			{/* City Tour Section
 			<section
 				aria-labelledby="city-tour-heading"
 				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
@@ -171,7 +170,7 @@ const Page = async () => {
 				>
 					<ExpandableCards />
 				</React.Suspense>
-			</section>
+			</section> */}
 
 			{/* Map Section */}
 			<section

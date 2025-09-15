@@ -83,7 +83,7 @@ const translations = {
 		"nav.emergency.call": "Call 112",
 
 		// Portal Marquee
-		"portals.title": "Maharashtra Police Central Grievance Handling & Resolution Platforms",
+		"portals.title": "Citizen Grievance Redressal Portals of Central and State Governments",
 		"portals.description": "Access to various police service portals",
 
 		// Individual Portal Details
@@ -338,7 +338,7 @@ const translations = {
 		"nav.emergency.call": "112 कॉल करा",
 
 		// Portal Marquee
-		"portals.title": "महाराष्ट्र पोलीस केंद्रीय तक्रार हाताळणी आणि निराकरण प्लॅटफॉर्म",
+		"portals.title": "केंद्र व राज्य शासनाचे नागरिक तक्रार निवारण पोर्टल्स",
 		"portals.description": "विविध पोलीस सेवा पोर्टल्सचा प्रवेश",
 
 		// Individual Portal Details

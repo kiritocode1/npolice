@@ -318,7 +318,7 @@ const BentoCard = ({ item }: { item: BentoItem }) => {
 };
 
 export default function PoliceBentoGrid() {
-	const { t } = useLanguage();
+	const { t, language } = useLanguage();
 	const bentoItems: BentoItem[] = [
 		{
 			id: "latest-updates",
@@ -346,17 +346,20 @@ export default function PoliceBentoGrid() {
 			],
 		},
 		{
-			id: "sp-message",
-			title: t("bento.dgp.title"),
-			description: t("bento.dgp.description"),
+			id: "cp-message",
+			title: language === "mr" ? "पोलीस आयुक्तांचे संदेश" : "Police Commissioner's Message",
+			description: language === "mr" ? "पोलीस आयुक्तांचा नागरिकांना संदेश" : "Message from the Commissioner of Police",
 			feature: "message",
 			size: "lg",
 			className: "col-span-2 row-span-1",
 			content: {
-				text: t("bento.dgp.message"),
-				author: t("bento.dgp.author"),
-				position: t("bento.dgp.position"),
-				image: "/people/7.webp",
+				text:
+					language === "mr"
+						? "छत्रपती संभाजीनगर शहर पोलीस दल नागरिकांच्या सुरक्षितता, संरक्षण आणि कल्याणासाठी सदैव वचनबद्ध आहे. लोकाभिमुख, पारदर्शक आणि जबाबदार पोलीसिंग या तत्त्वांवर आम्ही कार्य करीत आहोत, ज्यात तंत्रज्ञानाचा वापर आणि नागरिकांचा सहभाग महत्वाचा आहे.\n\nआपले ध्येय सुरक्षित, शांततामय आणि कायद्याचे पालन करणारे शहर घडवणे, जिथे प्रत्येक नागरिक आत्मविश्वासाने आणि निर्धास्तपणे आपली स्वप्ने पूर्ण करू शकेल. मी सर्व नागरिकांना आवाहन करतो की त्यांनी पोलीस दलाला सहकार्य करावे, कायद्याचे पालन करावे आणि शहरातील शांतता व सलोखा टिकवण्यासाठी योगदान द्यावे.\n\nनागरिक आणि पोलीस यांच्यातील विश्वासाचे बंध अधिक मजबूत करून आपण एकत्रितपणे सुरक्षित छत्रपती संभाजीनगर शहर घडवूया."
+						: "It is our firm commitment at Chhatrapati Sambhajinagar City Police to ensure the safety, security, and well-being of every citizen. We believe in citizen-centric, transparent, and accountable policing where technology and community partnership play a vital role.\n\nOur goal is to build a city that is safe, peaceful, and law-abiding, where citizens feel secure and confident to pursue their aspirations. I appeal to all residents to actively cooperate with the police, follow the law, and contribute towards maintaining harmony in our city.\n\nTogether, let us strengthen the bond between citizens and police for a safer tomorrow.",
+				author: language === "mr" ? "श्री. प्रविण पवार (भा.पो.से.)" : "Shri. Pravin Pawar (I.P.S)",
+				position: language === "mr" ? "पोलीस आयुक्त, छत्रपती संभाजीनगर शहर पोलीस" : "Commissioner of Police, Chhatrapati Sambhajinagar City Police",
+				image: "/people/8.webp",
 			},
 		},
 		{

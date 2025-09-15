@@ -30,6 +30,22 @@ interface PortalMarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ speed = "normal", className, ...props }, ref) => {
 	const { t } = useLanguage();
+	const [paused, setPaused] = React.useState(false);
+	const [reducedMotion, setReducedMotion] = React.useState(false);
+
+	React.useEffect(() => {
+		if (typeof window === "undefined" || !window.matchMedia) return;
+		const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const onChange = (e: MediaQueryListEvent | MediaQueryList) => setReducedMotion("matches" in e ? e.matches : (e as MediaQueryList).matches);
+		onChange(mql);
+		// Support older browsers
+		if (mql.addEventListener) mql.addEventListener("change", onChange as (this: MediaQueryList, ev: MediaQueryListEvent) => any);
+		else mql.addListener(onChange as (this: MediaQueryList, ev: MediaQueryListEvent) => any);
+		return () => {
+			if (mql.removeEventListener) mql.removeEventListener("change", onChange as (this: MediaQueryList, ev: MediaQueryListEvent) => any);
+			else mql.removeListener(onChange as (this: MediaQueryList, ev: MediaQueryListEvent) => any);
+		};
+	}, []);
 
 	// Portal data with gradients
 	const portals: Portal[] = [
@@ -121,9 +137,8 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 			>
 				{/* Header Section */}
 				<div className="p-6 md:p-8 lg:p-10">
-					<div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 lg:gap-8 pb-6 md:pb-8 border-b">
+					<div className="pb-6 md:pb-8 border-b">
 						<h2 className="text-3xl md:text-4xl font-semibold tracking-tighter text-balance">{t("portals.title")}</h2>
-						<p className="text-muted-foreground self-start lg:justify-self-end text-balance">{t("portals.description")}</p>
 					</div>
 				</div>
 
@@ -135,9 +150,10 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 					}}
 				>
 					<div
-						className="flex w-max items-center gap-4 py-4 pr-4 hover:[animation-play-state:paused] transition-all duration-300 ease-in-out"
+						className="flex w-max items-center gap-4 py-4 pr-4 transition-all duration-300 ease-in-out"
 						style={{
-							animation: `marquee ${animationDuration} linear infinite`,
+							animation: reducedMotion ? "none" : `marquee ${animationDuration} linear infinite`,
+							animationPlayState: paused || reducedMotion ? "paused" : "running",
 						}}
 					>
 						{/* Render portals twice to create a seamless loop */}
@@ -148,6 +164,10 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 								target="_blank"
 								rel="noopener noreferrer"
 								className="group relative w-64 h-48 shrink-0 flex flex-col items-center justify-center rounded-lg bg-secondary/70 overflow-hidden hover:bg-secondary/90 transition-all duration-300"
+								onMouseEnter={() => setPaused(true)}
+								onMouseLeave={() => setPaused(false)}
+								onFocus={() => setPaused(true)}
+								onBlur={() => setPaused(false)}
 							>
 								{/* Gradient background revealed on hover */}
 								<div
@@ -174,7 +194,7 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 								<h3 className="relative text-sm font-semibold text-center mb-2 px-2 line-clamp-2">{portal.title}</h3>
 
 								{/* Portal Description */}
-								<p className="relative text-xs text-muted-foreground text-center px-2 line-clamp-3">{portal.description}</p>
+								<p className="relative text-xs text-muted-foreground text-center px-2 line-clamp-3 group-hover:text-white dark:group-hover:text-white">{portal.description}</p>
 							</ExtendedLink>
 						))}
 					</div>

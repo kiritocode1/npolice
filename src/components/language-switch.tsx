@@ -33,7 +33,7 @@ const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
 				className="font-medium"
 				suppressHydrationWarning
 			>
-				{language === "en" ? "English" : "मराठी"}
+				{language === "en" ? "मराठी" : "English"}
 			</span>
 		</Button>
 	);

@@ -38,10 +38,10 @@ export default function CustomsPortalBox() {
 	const { t } = useLanguage();
 
 	return (
-		<section className="w-full px-4 pb-20 pt-20">
+		<section className="w-full px-4 pb-12 md:pb-10 lg:pb-6 pt-10 md:pt-14 lg:pt-6 xl:pt-4 lg:-mt-8 xl:-mt-12 lg:min-h-[88vh] -translate-y-20">
 			<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl  ring-1 ring-black/5">
 				{/* Top (hero) */}
-				<div className="px-6 py-8 text-center md:px-10 md:py-12">
+				<div className="px-6 pt-8 pb-4 text-center md:px-10 md:pt-10 md:pb-6">
 					<div className="mx-auto inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
 						<span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-700">
 							<StarIcon />
@@ -53,13 +53,13 @@ export default function CustomsPortalBox() {
 
 					<p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-neutral-600 md:text-base">{t("portal.description")}</p>
 
-					<div className="mt-8 max-w-2xl mx-auto">
+					<div className="mt-3 max-w-2xl mx-auto">
 						<LazySearchBar />
 					</div>
 				</div>
 
 				{/* Cards row - Sunrise Layout */}
-				<div className="flex items-end justify-center gap-8 px-4 pb-8 md:px-6 h-[500px] w-full max-w-full">
+				<div className="flex items-end justify-center gap-6 md:gap-6 lg:gap-5 px-4 pb-4 md:pb-4 lg:pb-2 md:px-6 h-[440px] md:h-[460px] lg:h-[380px] xl:h-[360px] w-full max-w-full">
 					{/* Card 1: Latest News & Updates - Tallest (leftmost) */}
 					<motion.div
 						className="relative rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm flex-1 max-w-xs h-96 flex flex-col justify-between dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden group cursor-pointer"
@@ -120,7 +120,7 @@ export default function CustomsPortalBox() {
 						transition={{ duration: 0.6, delay: 0.3 }}
 					>
 						<Image
-							src="/Mahapolice-logo.webp"
+							src="/national-emblem/Maharashtrapolice.avif"
 							alt="Maharashtra Police Logo"
 							width={100}
 							height={100}
