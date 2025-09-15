@@ -82,8 +82,20 @@ const translations = {
 		"nav.emergency.call": "Call 112",
 
 		// Portal Marquee
-		"portals.title": "Police Portals",
+		"portals.title": "Maharashtra Police Central Grievance Handling & Resolution Platforms",
 		"portals.description": "Access to various police service portals",
+
+		// Individual Portal Details
+		"portals.maharashtra.title": "Maharashtra Police Portal",
+		"portals.maharashtra.description": "Official portal for Maharashtra Police services, complaints, and information",
+		"portals.cybercrime.title": "Cyber Crime Portal",
+		"portals.cybercrime.description": "Report and track cyber crimes, online fraud, and digital security issues",
+		"portals.grp.title": "Grievance Redressal",
+		"portals.grp.description": "Grievance redressal, crime reporting, and passenger safety services",
+		"portals.pg.title": "Police Grievance Portal",
+		"portals.pg.description": "File complaints, track status, and resolve police-related grievances",
+		"portals.aaple.title": "Aaple Sarkar Portal",
+		"portals.aaple.description": "Maharashtra government services and citizen welfare programs",
 
 		// Accessibility
 		"accessibility.skip": "Skip to main content",
@@ -261,8 +273,20 @@ const translations = {
 		"nav.emergency.call": "112 कॉल करा",
 
 		// Portal Marquee
-		"portals.title": "पोलीस पोर्टल्स",
+		"portals.title": "महाराष्ट्र पोलीस केंद्रीय तक्रार हाताळणी आणि निराकरण प्लॅटफॉर्म",
 		"portals.description": "विविध पोलीस सेवा पोर्टल्सचा प्रवेश",
+
+		// Individual Portal Details
+		"portals.maharashtra.title": "महाराष्ट्र पोलीस पोर्टल",
+		"portals.maharashtra.description": "महाराष्ट्र पोलीस सेवा, तक्रारी आणि माहितीसाठी अधिकृत पोर्टल",
+		"portals.cybercrime.title": "सायबर गुन्हे पोर्टल",
+		"portals.cybercrime.description": "सायबर गुन्हे, ऑनलाइन फसवणूक आणि डिजिटल सुरक्षा समस्या नोंदवा",
+		"portals.grp.title": "तक्रार निवारण",
+		"portals.grp.description": "तक्रार निवारण, गुन्हे नोंदवणी आणि प्रवाशांची सुरक्षा सेवा",
+		"portals.pg.title": "पोलीस तक्रार पोर्टल",
+		"portals.pg.description": "तक्रारी नोंदवा, स्थिती ट्रॅक करा आणि पोलीस संबंधित तक्रारी सोडवा",
+		"portals.aaple.title": "आपले सरकार पोर्टल",
+		"portals.aaple.description": "महाराष्ट्र सरकारी सेवा आणि नागरिक कल्याण कार्यक्रम",
 
 		// Accessibility
 		"accessibility.skip": "मुख्य सामग्रीवर जा",

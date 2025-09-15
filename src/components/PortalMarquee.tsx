@@ -8,6 +8,9 @@ import React from "react";
 interface Portal {
 	src: string;
 	alt: string;
+	title: string;
+	description: string;
+	link: string;
 	gradient: {
 		from: string;
 		via: string;
@@ -32,6 +35,9 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 		{
 			src: "/portals/maharashtrapolice.webp",
 			alt: "Maharashtra Police Portal",
+			title: t("portals.maharashtra.title"),
+			description: t("portals.maharashtra.description"),
+			link: "https://mahapolice.gov.in",
 			gradient: {
 				from: "#1e40af",
 				via: "#3b82f6",
@@ -41,6 +47,9 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 		{
 			src: "/portals/cybercrime.webp",
 			alt: "Cyber Crime Portal",
+			title: t("portals.cybercrime.title"),
+			description: t("portals.cybercrime.description"),
+			link: "https://cybercrime.gov.in",
 			gradient: {
 				from: "#dc2626",
 				via: "#ef4444",
@@ -50,6 +59,9 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 		{
 			src: "/portals/grp.webp",
 			alt: "GRP Portal",
+			title: t("portals.grp.title"),
+			description: t("portals.grp.description"),
+			link: "https://grp.mahapolice.gov.in",
 			gradient: {
 				from: "#059669",
 				via: "#10b981",
@@ -59,6 +71,9 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 		{
 			src: "/portals/pgportal.webp",
 			alt: "PG Portal",
+			title: t("portals.pg.title"),
+			description: t("portals.pg.description"),
+			link: "https://pg.mahapolice.gov.in",
 			gradient: {
 				from: "#7c3aed",
 				via: "#8b5cf6",
@@ -68,6 +83,9 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 		{
 			src: "/portals/aaplesarkar.webp",
 			alt: "Aaple Sarkar Portal",
+			title: t("portals.aaple.title"),
+			description: t("portals.aaple.description"),
+			link: "https://aaplesarkar.mahaonline.gov.in",
 			gradient: {
 				from: "#ea580c",
 				via: "#f97316",
@@ -123,9 +141,12 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 					>
 						{/* Render portals twice to create a seamless loop */}
 						{[...portals, ...portals].map((portal, index) => (
-							<div
+							<a
 								key={index}
-								className="group relative h-24 w-40 shrink-0 flex items-center justify-center rounded-lg bg-secondary/70 overflow-hidden"
+								href={portal.link}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="group relative w-64 h-48 shrink-0 flex flex-col items-center justify-center rounded-lg bg-secondary/70 overflow-hidden hover:bg-secondary/90 transition-all duration-300"
 							>
 								{/* Gradient background revealed on hover */}
 								<div
@@ -138,13 +159,22 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 									}
 									className="absolute inset-0 scale-150 opacity-0 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-100 bg-gradient-to-br from-[var(--from)] via-[var(--via)] to-[var(--to)]"
 								/>
+
 								{/* Portal Image */}
-								<img
-									src={portal.src}
-									alt={portal.alt}
-									className="relative h-3/4 w-auto object-contain"
-								/>
-							</div>
+								<div className="relative h-16 w-16 mb-3 flex items-center justify-center">
+									<img
+										src={portal.src}
+										alt={portal.alt}
+										className="h-full w-auto object-contain"
+									/>
+								</div>
+
+								{/* Portal Title */}
+								<h3 className="relative text-sm font-semibold text-center mb-2 px-2 line-clamp-2">{portal.title}</h3>
+
+								{/* Portal Description */}
+								<p className="relative text-xs text-muted-foreground text-center px-2 line-clamp-3">{portal.description}</p>
+							</a>
 						))}
 					</div>
 				</div>
