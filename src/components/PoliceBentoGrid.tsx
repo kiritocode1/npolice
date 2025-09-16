@@ -68,8 +68,8 @@ const NewsFeature = ({ news }: { news: Array<{ title: string; date: string; cont
 const MessageFeature = ({ message }: { message: { text: string; author: string; position: string; image: string } }) => {
 	return (
 		<div className="mt-3 relative">
-			<div className="flex items-start gap-5 md:gap-6">
-				<div className="relative w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden flex-shrink-0">
+			<div className="flex items-start gap-5 md:gap-6 flex-col md:flex-row">
+				<div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden flex-shrink-0 mx-auto md:mx-0">
 					<Image
 						src={message.image}
 						alt={message.author}
@@ -78,16 +78,16 @@ const MessageFeature = ({ message }: { message: { text: string; author: string; 
 						className="object-cover "
 						quality={75}
 						priority={false}
-						sizes="(max-width: 768px) 80px, 112px"
+						sizes="(max-width: 768px) 96px, 112px"
 					/>
 				</div>
 				<div className="flex-1 relative">
 					<div className="text-6xl text-orange-500/20 absolute -top-1 -left-1">&ldquo;</div>
-					<p className="text-sm text-neutral-700 dark:text-neutral-300 italic mb-4 relative z-10">{message.text}</p>
+					<p className="text-sm md:text-base leading-relaxed text-neutral-700 dark:text-neutral-300 italic mb-4 relative z-10">{message.text}</p>
 					<div className="text-6xl text-orange-500/20 absolute -bottom-1 -right-1">&rdquo;</div>
 				</div>
 			</div>
-			<div className="mt-4 text-right">
+			<div className="mt-4 text-center md:text-right">
 				<div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{message.author}</div>
 				<div className="text-xs text-neutral-600 dark:text-neutral-400">{message.position}</div>
 			</div>

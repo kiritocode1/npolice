@@ -68,14 +68,9 @@ export default function CustomsPortalBoxMobile() {
 				<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl ring-1 ring-black/5">
 					{/* Top (hero) */}
 					<div className="px-6 py-8 text-center md:px-10 md:py-12">
-						<div className="mx-auto inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
-							<span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-700">
-								<StarIcon />
-							</span>
-							<span>{t("portal.welcome")}</span>
-						</div>
+
 						<h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">{t("portal.title")}</h1>
-						<p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">{t("portal.description")}</p>
+
 						<div className="mt-8 max-w-2xl mx-auto px-4">
 							<LazySearchBar />
 						</div>
