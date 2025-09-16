@@ -138,7 +138,7 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 				{/* Header Section */}
 				<div className="p-6 md:p-8 lg:p-10">
 					<div className="pb-6 md:pb-8 border-b">
-						<h2 className="text-3xl md:text-4xl font-semibold tracking-tighter text-balance">{t("portals.title")}</h2>
+						<h2 className="text-3xl md:text-4xl font-semibold tracking-tighter text-balance text-center">{t("portals.title")}</h2>
 					</div>
 				</div>
 
@@ -191,7 +191,7 @@ const PortalMarquee = React.forwardRef<HTMLDivElement, PortalMarqueeProps>(({ sp
 								</div>
 
 								{/* Portal Title */}
-								<h3 className="relative text-sm font-semibold text-center mb-2 px-2 line-clamp-2">{portal.title}</h3>
+								<h3 className="relative text-sm font-semibold text-center mb-2 px-2 line-clamp-2 group-hover:text-white dark:group-hover:text-white">{portal.title}</h3>
 
 								{/* Portal Description */}
 								<p className="relative text-xs text-muted-foreground text-center px-2 line-clamp-3 group-hover:text-white dark:group-hover:text-white">{portal.description}</p>

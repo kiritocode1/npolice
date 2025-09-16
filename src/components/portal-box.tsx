@@ -51,7 +51,7 @@ export default function CustomsPortalBox() {
 
 					<h1 className="text-pretty mx-auto mt-4 max-w-3xl text-3xl font-semibold leading-tight text-neutral-900 md:text-5xl dark:text-white">{t("portal.title")}</h1>
 
-					<p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-neutral-600 md:text-base">{t("portal.description")}</p>
+
 
 					<div className="mt-3 max-w-2xl mx-auto">
 						<LazySearchBar />

@@ -158,33 +158,8 @@ const AccessibilityMenu = () => {
 			>
 				{t("accessibility.screen")}
 			</ExtendedLink>
-			<ExtendedLink
-				href="/sitemap.xml"
-				className="hover:underline text-sm"
-			>
-				{t("accessibility.sitemap")}
-			</ExtendedLink>
-			<span className="text-muted-foreground">|</span>
-			<ExtendedLink
-				href="/disclaimer"
-				className="hover:underline text-sm"
-			>
-				{t("accessibility.disclaimer")}
-			</ExtendedLink>
-			<span className="text-muted-foreground">|</span>
-			<ExtendedLink
-				href="/terms"
-				className="hover:underline text-sm"
-			>
-				{t("accessibility.terms")}
-			</ExtendedLink>
-			<span className="text-muted-foreground">|</span>
-			<ExtendedLink
-				href="/privacy"
-				className="hover:underline text-sm"
-			>
-				{t("accessibility.privacy")}
-			</ExtendedLink>
+
+
 			<span className="text-muted-foreground">|</span>
 			<LanguageSwitch />
 			<div className="flex -space-x-px">
@@ -246,8 +221,10 @@ const Navbar = () => {
 	const menuItems = getMenuItems(t);
 
 	return (
+		<>
+		<AccessibilityMenu />
 		<header className="sticky top-0 z-20">
-			<AccessibilityMenu />
+			
 			<nav
 				data-state={menuState && "active"}
 				className="w-full px-2"
@@ -522,7 +499,8 @@ const Navbar = () => {
 					</div>
 				</div>
 			</nav>
-		</header>
+			</header>
+			</>
 	);
 };
 

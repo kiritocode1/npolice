@@ -258,18 +258,7 @@ const PoliceFooter = () => {
 				<div className="flex flex-row items-center justify-center gap-1 text-slate-600 dark:text-slate-400">
 					<span>©</span>
 					<span>{new Date().getFullYear()}</span>
-					<span>{t("footer.copyright")}</span>
-					<Heart className="text-red-600 mx-1 h-4 w-4 animate-pulse" />
-					<span>{t("footer.for")}</span>
-					<span className="hover:text-orange-500 dark:hover:text-orange-500 cursor-pointer text-black dark:text-white">
-						<ExtendedLink
-							aria-label="Maharashtra"
-							className="font-bold"
-							href="/"
-						>
-							{t("footer.maharashtra")}
-						</ExtendedLink>
-					</span>
+
 					-
 					<span className="hover:text-orange-500 dark:hover:text-orange-500 cursor-pointer text-slate-600 dark:text-slate-400">
 						<ExtendedLink

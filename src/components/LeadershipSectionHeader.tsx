@@ -12,7 +12,6 @@ const LeadershipSectionHeader = () => {
 			>
 				{t("leadership.title")}
 			</h2>
-			<p className="text-muted-foreground">{t("leadership.subtitle")}</p>
 		</div>
 	);
 };

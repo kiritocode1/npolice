@@ -144,7 +144,7 @@ const ImportantLinks = () => {
 	const renderLinkRow = (linkGroup: LinkItem[], rowIndex: number) => (
 		<div
 			key={rowIndex}
-			className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2"
+			className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-content-center "
 		>
 			{linkGroup.map((link, index) => (
 				<ExtendedLink
@@ -153,9 +153,9 @@ const ImportantLinks = () => {
 					target="_blank"
 					rel="noopener noreferrer"
 					aria-label={link.ariaLabel}
-					className="flex items-center  rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+					className="px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors "
 				>
-					<div className="text-sm font-medium text-gray-700 dark:text-gray-300">{link.label}</div>
+					<div className="text-sm font-medium text-gray-700 dark:text-gray-300 text-start">{link.label}</div>
 				</ExtendedLink>
 			))}
 		</div>
