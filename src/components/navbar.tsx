@@ -265,7 +265,7 @@ const Navbar = () => {
 								</div>
 								<div className="transition-transform duration-200 group-hover:scale-105">
 									<Image
-										src="/national-emblem/Maharashtrapolice.avif"
+										src="/national-emblem/MaharashtraPolice.avif"
 										alt="Maharashtra Police Logo"
 										width={48}
 										height={48}
