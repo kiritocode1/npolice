@@ -156,14 +156,14 @@ function textSearch(query: string, searchData: SearchItem[]): SearchItem[] {
 }
 
 // Semantic search function (now using server-side API)
-export async function semanticSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
+export async function semanticSearch(query: string, searchData: SearchItem[], language: string = "en"): Promise<SearchItem[]> {
 	try {
 		const response = await fetch("/api/semantic-search", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ query }),
+			body: JSON.stringify({ query, language }),
 		});
 
 		if (!response.ok) {
@@ -190,7 +190,7 @@ export async function semanticSearch(query: string, searchData: SearchItem[]): P
 }
 
 // Hybrid search combining semantic and text search
-export async function hybridSearch(query: string, searchData: SearchItem[]): Promise<SearchItem[]> {
+export async function hybridSearch(query: string, searchData: SearchItem[], language: string = "en"): Promise<SearchItem[]> {
 	// First try text search
 	const textResults = textSearch(query, searchData);
 
@@ -203,7 +203,7 @@ export async function hybridSearch(query: string, searchData: SearchItem[]): Pro
 	// If text search has few results, try semantic search as fallback
 	console.log("🔍 Text search returned few results, trying semantic search...");
 	try {
-		const semanticResults = await semanticSearch(query, searchData);
+		const semanticResults = await semanticSearch(query, searchData, language);
 
 		// If semantic search has results, combine them
 		if (semanticResults.length > 0) {

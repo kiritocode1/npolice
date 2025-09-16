@@ -90,7 +90,7 @@ export default function CustomsPortalBoxMobile() {
 							transition={{ duration: 0.6, delay: 0.1 }}
 						>
 							<Image
-								src="/national-emblem/Maharashtrapolice.avif"
+								src="/national-emblem/MaharashtraPolice.avif"
 								alt="Indian National Emblem"
 								width={80}
 								height={80}

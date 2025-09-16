@@ -93,8 +93,11 @@ const UniversalSearchBar = () => {
 		}
 	}, [mounted, textareaRef]);
 
-	// Optimized search data with memoization
-	const searchData = useMemo(() => getSearchData(t), [t]);
+	// Optimized search data with memoization - only generate when mounted
+	const searchData = useMemo(() => {
+		if (!mounted) return [];
+		return getSearchData(t);
+	}, [t, language, mounted]);
 
 	// Initialize speech recognition
 	useEffect(() => {
@@ -203,7 +206,7 @@ const UniversalSearchBar = () => {
 				// Only run semantic search in browser environment
 				const filteredResults =
 					typeof window !== "undefined"
-						? await hybridSearch(searchQuery, searchData)
+						? await hybridSearch(searchQuery, searchData, language)
 						: searchData
 								.filter((item: SearchItem) => {
 									const searchTerm = searchQuery.toLowerCase();
@@ -216,6 +219,10 @@ const UniversalSearchBar = () => {
 								})
 								.slice(0, 10);
 
+				console.log(
+					"Search results before setting:",
+					filteredResults.slice(0, 3).map((item) => ({ id: item.id, title: item.title })),
+				);
 				setResults(filteredResults);
 				setSelectedIndex(0);
 			} catch (error) {
@@ -232,6 +239,10 @@ const UniversalSearchBar = () => {
 						);
 					})
 					.slice(0, 10);
+				console.log(
+					"Fallback search results:",
+					fallbackResults.slice(0, 3).map((item) => ({ id: item.id, title: item.title })),
+				);
 				setResults(fallbackResults);
 				setSelectedIndex(0);
 			} finally {
@@ -416,29 +427,32 @@ const UniversalSearchBar = () => {
 						<div className="p-4 text-center text-muted-foreground">{language === "mr" ? "कोणतेही परिणाम सापडले नाहीत" : "No results found"}</div>
 					) : (
 						<div className="py-2">
-							{results.map((item, index) => (
-								<ExtendedLink
-									key={item.id}
-									href={item.href}
-									data-index={index}
-									className={cn("flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-muted/50 transition-colors", index === selectedIndex && "bg-muted/50")}
-									onClick={() => {
-										setIsOpen(false);
-										setQuery("");
-										setResults([]);
-									}}
-								>
-									<div className="flex-shrink-0 text-muted-foreground">{item.icon}</div>
-									<div className="flex-1 min-w-0">
-										<div className="font-medium text-foreground truncate text-sm sm:text-base">{item.title}</div>
-										<div className="text-xs sm:text-sm text-muted-foreground truncate">{item.description}</div>
-										<div className="text-xs text-muted-foreground/70 mt-1">{item.category}</div>
-									</div>
-									<div className="flex-shrink-0 text-muted-foreground">
-										<ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
-									</div>
-								</ExtendedLink>
-							))}
+							{results.map((item, index) => {
+								console.log("Rendering search result:", { id: item.id, title: item.title, index });
+								return (
+									<ExtendedLink
+										key={item.id}
+										href={item.href}
+										data-index={index}
+										className={cn("flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-muted/50 transition-colors", index === selectedIndex && "bg-muted/50")}
+										onClick={() => {
+											setIsOpen(false);
+											setQuery("");
+											setResults([]);
+										}}
+									>
+										<div className="flex-shrink-0 text-muted-foreground">{item.icon}</div>
+										<div className="flex-1 min-w-0">
+											<div className="font-medium text-foreground truncate text-sm sm:text-base">{item.title}</div>
+											<div className="text-xs sm:text-sm text-muted-foreground truncate">{item.description}</div>
+											<div className="text-xs text-muted-foreground/70 mt-1">{item.category}</div>
+										</div>
+										<div className="flex-shrink-0 text-muted-foreground">
+											<ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+										</div>
+									</ExtendedLink>
+								);
+							})}
 						</div>
 					)}
 				</div>

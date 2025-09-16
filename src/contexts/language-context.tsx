@@ -531,7 +531,7 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps): React.JSX.Element => {
-	const [language, setLanguage] = useState<Language>("mr"); // Default to Marathi
+	const [language, setLanguage] = useState<Language>("en"); // Default to English
 
 	useEffect(() => {
 		// Load saved language preference
