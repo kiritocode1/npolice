@@ -144,14 +144,14 @@ const translations = {
 		// Portal Emblem
 		"portal.emblem.national": "National",
 		"portal.emblem.emblem": "Emblem",
-		"portal.emblem.city": "Chatrapati\nSambhajinagar",
+		"portal.emblem.city": "Chatrapati\nSambhajinagar City Police",
 
 		// Leadership Team
 		"leadership.title": "Our Leadership",
 		"leadership.subtitle": "Meet our dedicated  leadership",
 
 		// Picture Scroll Section
-		"picture.title": "Chatrapati Sambhajinagar",
+		"picture.title": "Chatrapati Sambhajinagar City Police",
 		"picture.subtitle": "A city of heritage, culture, and modern development",
 		"picture.description": "Welcome to the heart of Maharashtra, where tradition meets progress and every citizen is valued.",
 
@@ -399,7 +399,7 @@ const translations = {
 		// Portal Emblem
 		"portal.emblem.national": "राष्ट्रीय",
 		"portal.emblem.emblem": "चिन्ह",
-		"portal.emblem.city": "छत्रपती\nसंभाजीनगर",
+		"portal.emblem.city": "छत्रपती\nसंभाजीनगर शहेेर पोलीस",
 
 		// Leadership Team
 		"leadership.title": "आमचे नेतृत्व",
