@@ -39,15 +39,10 @@ export default function CustomsPortalBox() {
 
 	return (
 		<section className="w-full px-4 pb-12 md:pb-10 lg:pb-6 pt-10 md:pt-14 lg:pt-6 xl:pt-4 lg:-mt-8 xl:-mt-12 lg:min-h-[88vh] -translate-y-20">
-			<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl  ring-1 ring-black/5">
+			<div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl ">
 				{/* Top (hero) */}
 				<div className="px-6 pt-8 pb-4 text-center md:px-10 md:pt-10 md:pb-6">
-					<div className="mx-auto inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
-						<span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-700">
-							<StarIcon />
-						</span>
-						<span>{t("portal.welcome")}</span>
-					</div>
+	
 
 					<h1 className="text-pretty mx-auto mt-4 max-w-3xl text-3xl font-semibold leading-tight text-neutral-900 md:text-5xl dark:text-white">{t("portal.title")}</h1>
 
