@@ -73,48 +73,52 @@ const Page = async () => {
 				aria-labelledby="leadership-heading"
 				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
 			>
-				<LeadershipSectionHeader />
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<LeadershipSectionHeader />
 
-				<React.Suspense
-					fallback={
-						<div
-							className="flex items-center justify-center py-12"
-							aria-live="polite"
-							aria-label="Loading content"
-						>
-							<div className="text-lg">Loading Team...</div>
-						</div>
-					}
-				>
-					<PeopleRow />
-				</React.Suspense>
+					<React.Suspense
+						fallback={
+							<div
+								className="flex items-center justify-center py-12"
+								aria-live="polite"
+								aria-label="Loading content"
+							>
+								<div className="text-lg">Loading Team...</div>
+							</div>
+						}
+					>
+						<PeopleRow />
+					</React.Suspense>
+				</div>
 			</section>
 
 			{/* Services Section */}
 			<section
 				aria-labelledby="services-heading"
-				className="w-full min-h-full mb-40"
+				className="w-full py-12"
 				id="main-content"
 			>
-				<h1
-					id="services-heading"
-					className="sr-only"
-				>
-					Police Services and Information
-				</h1>
-				<React.Suspense
-					fallback={
-						<div
-							className="flex items-center justify-center py-20"
-							aria-live="polite"
-							aria-label="Loading content"
-						>
-							<div className="text-lg">Loading Services...</div>
-						</div>
-					}
-				>
-					<PoliceBentoGrid />
-				</React.Suspense>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<h1
+						id="services-heading"
+						className="sr-only"
+					>
+						Police Services and Information
+					</h1>
+					<React.Suspense
+						fallback={
+							<div
+								className="flex items-center justify-center py-20"
+								aria-live="polite"
+								aria-label="Loading content"
+							>
+								<div className="text-lg">Loading Services...</div>
+							</div>
+						}
+					>
+						<PoliceBentoGrid />
+					</React.Suspense>
+				</div>
 			</section>
 
 			{/* Gallery Section */}
@@ -175,37 +179,39 @@ const Page = async () => {
 			{/* Map Section */}
 			<section
 				aria-labelledby="map-heading"
-				className="w-full"
+				className="w-full py-12"
 			>
-				<h2
-					id="map-heading"
-					className="sr-only"
-				>
-					Interactive Map of Chhatrapati Sambhaji Nagar
-				</h2>
-				<React.Suspense
-					fallback={
-						<div
-							className="flex items-center justify-center py-12"
-							aria-live="polite"
-							aria-label="Loading content"
-						>
-							<div className="text-lg">Loading Map...</div>
-						</div>
-					}
-				>
-					<CSMMap />
-				</React.Suspense>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<h2
+						id="map-heading"
+						className="sr-only"
+					>
+						Interactive Map of Chhatrapati Sambhaji Nagar
+					</h2>
+					<React.Suspense
+						fallback={
+							<div
+								className="flex items-center justify-center py-12"
+								aria-live="polite"
+								aria-label="Loading content"
+							>
+								<div className="text-lg">Loading Map...</div>
+							</div>
+						}
+					>
+						<CSMMap />
+					</React.Suspense>
 
-				<React.Suspense
-					fallback={
-						<div className="flex items-center justify-center py-12">
-							<div className="text-lg">Loading Map...</div>
-						</div>
-					}
-				>
-					<PortalMarquee speed="normal" />
-				</React.Suspense>
+					<React.Suspense
+						fallback={
+							<div className="flex items-center justify-center py-12">
+								<div className="text-lg">Loading Map...</div>
+							</div>
+						}
+					>
+						<PortalMarquee speed="normal" />
+					</React.Suspense>
+				</div>
 			</section>
 
 			{/* Important Links Section */}
@@ -213,7 +219,7 @@ const Page = async () => {
 				aria-labelledby="important-links-heading"
 				className="w-full py-12 bg-muted/30 dark:bg-muted/10"
 			>
-				<div className="container mx-auto px-4">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<React.Suspense
 						fallback={
 							<div
