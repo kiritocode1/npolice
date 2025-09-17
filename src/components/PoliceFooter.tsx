@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/contexts/language-context";
-import { Facebook, Globe, Heart, Instagram, Mail, Shield, Twitter, Youtube } from "lucide-react";
+import { Facebook, Globe, Instagram, Mail, Shield, Twitter, Youtube } from "lucide-react";
 import { useEffect, useState } from "react";
 import ExtendedLink from "./ExtendedLink";
 
@@ -208,8 +208,8 @@ const PoliceFooter = () => {
 						/>
 					</ExtendedLink>
 					<ExtendedLink
-						aria-label="Twitter"
-						href="https://x.com/maharashtrapolice"
+						aria-label="Twitter (X) "
+						href="https://x.com/csncitypolice"
 						rel="noreferrer"
 						target="_blank"
 						className={Underline}
@@ -218,7 +218,7 @@ const PoliceFooter = () => {
 					</ExtendedLink>
 					<ExtendedLink
 						aria-label="Instagram"
-						href="https://www.instagram.com/maharashtrapolice/"
+						href="https://www.instagram.com/csncitypolice"
 						rel="noreferrer"
 						target="_blank"
 						className={Underline}
@@ -227,7 +227,7 @@ const PoliceFooter = () => {
 					</ExtendedLink>
 					<ExtendedLink
 						aria-label="Facebook"
-						href="https://www.facebook.com/maharashtrapolice"
+						href="https://www.facebook.com/aurangabadpolice"
 						rel="noreferrer"
 						target="_blank"
 						className={Underline}
@@ -236,7 +236,7 @@ const PoliceFooter = () => {
 					</ExtendedLink>
 					<ExtendedLink
 						aria-label="YouTube"
-						href="https://www.youtube.com/@maharashtrapolice"
+						href="https://www.youtube.com/@cpcsncity"
 						rel="noreferrer"
 						target="_blank"
 						className={Underline}
@@ -257,9 +257,7 @@ const PoliceFooter = () => {
 			<div className="mx-auto mb-10 mt-10 flex flex-col justify-between text-center text-xs md:max-w-7xl">
 				<div className="flex flex-row items-center justify-center gap-1 text-slate-600 dark:text-slate-400">
 					<span>©</span>
-					<span>{new Date().getFullYear()}</span>
-
-					-
+					<span>{new Date().getFullYear()}</span>-
 					<span className="hover:text-orange-500 dark:hover:text-orange-500 cursor-pointer text-slate-600 dark:text-slate-400">
 						<ExtendedLink
 							aria-label="Police Department"
