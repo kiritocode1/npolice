@@ -124,27 +124,29 @@ const Page = async () => {
 			{/* Gallery Section */}
 			<section
 				aria-labelledby="gallery-heading"
-				className="w-full"
+				className="w-full py-12"
 			>
-				<h2
-					id="gallery-heading"
-					className="sr-only"
-				>
-					Photo Gallery
-				</h2>
-				<React.Suspense
-					fallback={
-						<div
-							className="flex items-center justify-center py-12"
-							aria-live="polite"
-							aria-label="Loading content"
-						>
-							<div className="text-lg">Loading Gallery...</div>
-						</div>
-					}
-				>
-					<PictureScrollSection />
-				</React.Suspense>
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<h2
+						id="gallery-heading"
+						className="sr-only"
+					>
+						Photo Gallery
+					</h2>
+					<React.Suspense
+						fallback={
+							<div
+								className="flex items-center justify-center py-12"
+								aria-live="polite"
+								aria-label="Loading content"
+							>
+								<div className="text-lg">Loading Gallery...</div>
+							</div>
+						}
+					>
+						<PictureScrollSection />
+					</React.Suspense>
+				</div>
 			</section>
 
 			{/* City Tour Section
